@@ -90,6 +90,15 @@ GIT
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
 
+GIT
+  remote: https://github.com/seuros/capistrano-puma.git
+  revision: 87bfd747bd43a19b5d214e0272b76fb723cf1f5f
+  specs:
+    capistrano3-puma (4.0.0)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -97,6 +106,8 @@ GEM
       activerecord (>= 5.0, < 6.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.0)
     aws-eventstream (1.1.0)
     aws-partitions (1.296.0)
@@ -121,6 +132,19 @@ GEM
     builder (3.2.4)
     byebug (11.1.1)
     cancancan (3.1.0)
+    capistrano (3.13.0)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.6.0)
+      capistrano (~> 3.1)
+    capistrano-rails (1.4.0)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     carrierwave (2.1.0)
       activemodel (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -264,6 +288,9 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     naught (1.1.0)
+    net-scp (2.0.0)
+      net-ssh (>= 2.6.5, < 6.0.0)
+    net-ssh (5.2.0)
     netrc (0.11.0)
     nio4r (2.5.2)
     nokogiri (1.10.9)
@@ -428,6 +455,9 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sshkit (1.21.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     textacular (5.2.0)
       activerecord (>= 5.0, < 6.1)
     thor (0.20.3)
@@ -474,6 +504,11 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   cancancan
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rvm
+  capistrano3-puma!
   carrierwave
   carrierwave-aws
   carrierwave-base64

@@ -51,6 +51,11 @@ end
 
 gem 'acts-as-taggable-on'
 gem 'cancancan'
+gem 'capistrano'
+gem 'capistrano-rails'
+gem 'capistrano-rvm'
+gem 'capistrano-bundler'
+gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'carrierwave-base64'
