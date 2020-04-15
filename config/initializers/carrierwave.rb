@@ -7,7 +7,7 @@ CarrierWave.configure do |config|
       stub_responses:    Rails.env.test?
     }
     config.aws_acl    = :public_read
-    config.asset_host = 
+    # config.asset_host = 
     config.aws_bucket  = "pixelache#{Rails.env.test? ? '' : '-' + Rails.env.to_s}"
     config.aws_attributes = -> { {
       expires: 1.week.from_now.httpdate,
