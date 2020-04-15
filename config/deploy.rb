@@ -5,8 +5,8 @@ set :application, "pixelapi"
 set :repo_url, "git://github.com/pixelache/pixelapi.git"
 set :rvm_ruby_version, '2.7.1'
 set :keep_releases, 3
-set :linked_files, %w{config/database.yml config/credentials/production.yml.enc config/credentials/production.key}
-set :linked_dirs, %w{public/system tmp public/uploads public/images public/assets log}
+set :linked_files, %w{config/database.yml }
+set :linked_dirs, %w{public/system tmp config/credentials public/uploads public/images public/assets log}
 
 set :assets_roles, [:web, :app]       
  

@@ -1,10 +1,11 @@
-# # frozen_string_literal: true
+# frozen_string_literal: true
 
-# module Api::V1
+module Api::V1
 
-#   class PagesController < ApiController
-#     respond_to :json
-    
+  class PagesController < ApiController
+    respond_to :json
+  end
+end
 #     def show
 #       if params[:id] =~ /\//
 #         p = params[:id].split(/\//).last

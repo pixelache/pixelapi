@@ -24,7 +24,7 @@ class Event < ActiveRecord::Base
   has_paper_trail
   mount_uploader :image, ImageUploader
   resourcify
-  has_event_calendar
+  # has_event_calendar
   include Feedable
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
   accepts_nested_attributes_for :photos, :reject_if => proc {|x| x['filename'].blank? }, :allow_destroy => true
