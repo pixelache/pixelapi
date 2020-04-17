@@ -2,7 +2,7 @@ I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 I18n.default_locale = :en
 I18n.available_locales = [:en,  :fi, :sv, :ru]
 I18n.fallbacks[:en] = [:en,  :fi, :sv, :ru]
-I18n.fallbacks[:fi] = [:fi,  :sv, :en, :ru]
+I18n.fallbacks[:fi] = [:fi,  :en,  :sv, :ru]
 I18n.fallbacks[:sv] = [:sv, :en, :fi, :ru]
 I18n.fallbacks[:ru] = [:ru, :en, :sv, :fi]
 
