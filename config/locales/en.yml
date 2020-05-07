@@ -30,4 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  api:
+    errors:
+      error_404: '404 Not found'
+      opencall:
+        deadline_passed: 'This open call deadline has passed.'
+        answer:
+          missing_attachment: 'You must include an attachment for this question.'
+          missing_answer: 'You must answer this question.'

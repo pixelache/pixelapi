@@ -1,0 +1,719 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Pixelache API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/v1/festivals/{festival_id}/posts": {
+      "parameters": [
+        {
+          "name": "festival_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "number"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Retrieve all posts for a festival",
+        "description": "Returns all published posts belonging to a festival.",
+        "tags": [
+          "Posts",
+          "Festivals"
+        ],
+        "responses": {
+          "200": {
+            "description": "Festival posts retrieved",
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "id": "4",
+                    "type": "post",
+                    "attributes": {
+                      "slug": "a-many-splendoured-thing",
+                      "published": true,
+                      "published_at": "2019-10-28T00:00:00.000Z",
+                      "image": {
+                        "url": "/assets/transparent.gif",
+                        "wide": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "twelvehundred": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "standard": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "logo": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "box": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "thumb": {
+                          "url": "/assets/transparent.gif"
+                        }
+                      },
+                      "excerpt": null,
+                      "image_width": null,
+                      "image_height": null,
+                      "registration_required": null,
+                      "title": "A Many-Splendoured Thing",
+                      "body": "[\"Autem impedit dolor. Laudantium illum voluptatem. Temporibus et ad.\", \"Fugit et officia. Nisi rerum voluptas. Maiores quis recusandae.\", \"Quisquam tempore amet. Minus reprehenderit consequatur. Repellat eum quaerat.\"]",
+                      "next_post_by_festival": null,
+                      "previous_post_by_festival": {
+                        "id": 2,
+                        "slug": "blood-s-a-rover",
+                        "subsite_id": 2,
+                        "published": true,
+                        "creator_id": 2,
+                        "last_modified_id": null,
+                        "published_at": "2018-08-26T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.461Z",
+                        "updated_at": "2020-05-07T08:56:31.461Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "Blood's a Rover",
+                        "body": "[\"Vel sequi dignissimos. Maxime quia aut. Itaque tempora consequatur.\", \"Et sit aperiam. Ut possimus illo. Molestias excepturi architecto.\", \"Voluptas consectetur libero. Recusandae consequatur sed. Fugiat inventore molestias.\"]",
+                        "excerpt": null
+                      },
+                      "creator": "Hanna Simonis"
+                    }
+                  },
+                  {
+                    "id": "2",
+                    "type": "post",
+                    "attributes": {
+                      "slug": "blood-s-a-rover",
+                      "published": true,
+                      "published_at": "2018-08-26T00:00:00.000Z",
+                      "image": {
+                        "url": "/assets/transparent.gif",
+                        "wide": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "twelvehundred": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "standard": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "logo": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "box": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "thumb": {
+                          "url": "/assets/transparent.gif"
+                        }
+                      },
+                      "excerpt": null,
+                      "image_width": null,
+                      "image_height": null,
+                      "registration_required": null,
+                      "title": "Blood's a Rover",
+                      "body": "[\"Vel sequi dignissimos. Maxime quia aut. Itaque tempora consequatur.\", \"Et sit aperiam. Ut possimus illo. Molestias excepturi architecto.\", \"Voluptas consectetur libero. Recusandae consequatur sed. Fugiat inventore molestias.\"]",
+                      "next_post_by_festival": {
+                        "id": 4,
+                        "slug": "a-many-splendoured-thing",
+                        "subsite_id": 4,
+                        "published": true,
+                        "creator_id": 4,
+                        "last_modified_id": null,
+                        "published_at": "2019-10-28T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.782Z",
+                        "updated_at": "2020-05-07T08:56:31.782Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "A Many-Splendoured Thing",
+                        "body": "[\"Autem impedit dolor. Laudantium illum voluptatem. Temporibus et ad.\", \"Fugit et officia. Nisi rerum voluptas. Maiores quis recusandae.\", \"Quisquam tempore amet. Minus reprehenderit consequatur. Repellat eum quaerat.\"]",
+                        "excerpt": null
+                      },
+                      "previous_post_by_festival": {
+                        "id": 1,
+                        "slug": "that-good-night",
+                        "subsite_id": 1,
+                        "published": true,
+                        "creator_id": 1,
+                        "last_modified_id": null,
+                        "published_at": "2017-05-27T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.291Z",
+                        "updated_at": "2020-05-07T08:56:31.291Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "That Good Night",
+                        "body": "[\"Assumenda quas rerum. Est sit temporibus. Sed autem iusto.\", \"Consectetur cupiditate adipisci. Consequuntur ut est. Voluptatem quo fugiat.\", \"Aut totam distinctio. Cumque et officia. Ipsa aspernatur non.\"]",
+                        "excerpt": null
+                      },
+                      "creator": "Thomasina Wiegand"
+                    }
+                  },
+                  {
+                    "id": "1",
+                    "type": "post",
+                    "attributes": {
+                      "slug": "that-good-night",
+                      "published": true,
+                      "published_at": "2017-05-27T00:00:00.000Z",
+                      "image": {
+                        "url": "/assets/transparent.gif",
+                        "wide": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "twelvehundred": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "standard": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "logo": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "box": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "thumb": {
+                          "url": "/assets/transparent.gif"
+                        }
+                      },
+                      "excerpt": null,
+                      "image_width": null,
+                      "image_height": null,
+                      "registration_required": null,
+                      "title": "That Good Night",
+                      "body": "[\"Assumenda quas rerum. Est sit temporibus. Sed autem iusto.\", \"Consectetur cupiditate adipisci. Consequuntur ut est. Voluptatem quo fugiat.\", \"Aut totam distinctio. Cumque et officia. Ipsa aspernatur non.\"]",
+                      "next_post_by_festival": {
+                        "id": 2,
+                        "slug": "blood-s-a-rover",
+                        "subsite_id": 2,
+                        "published": true,
+                        "creator_id": 2,
+                        "last_modified_id": null,
+                        "published_at": "2018-08-26T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.461Z",
+                        "updated_at": "2020-05-07T08:56:31.461Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "Blood's a Rover",
+                        "body": "[\"Vel sequi dignissimos. Maxime quia aut. Itaque tempora consequatur.\", \"Et sit aperiam. Ut possimus illo. Molestias excepturi architecto.\", \"Voluptas consectetur libero. Recusandae consequatur sed. Fugiat inventore molestias.\"]",
+                        "excerpt": null
+                      },
+                      "previous_post_by_festival": {
+                        "id": 3,
+                        "slug": "rosemary-sutcliff",
+                        "subsite_id": 3,
+                        "published": true,
+                        "creator_id": 3,
+                        "last_modified_id": null,
+                        "published_at": "2012-03-30T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.641Z",
+                        "updated_at": "2020-05-07T08:56:31.641Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "Rosemary Sutcliff",
+                        "body": "[\"Sunt nihil repudiandae. Aperiam doloribus vel. Sed consequatur praesentium.\", \"In enim illum. Eius qui voluptatem. Qui ipsa ut.\", \"Dolor quae voluptas. Consequatur mollitia et. Eos quos et.\"]",
+                        "excerpt": null
+                      },
+                      "creator": "Foster Blanda"
+                    }
+                  },
+                  {
+                    "id": "3",
+                    "type": "post",
+                    "attributes": {
+                      "slug": "rosemary-sutcliff",
+                      "published": true,
+                      "published_at": "2012-03-30T00:00:00.000Z",
+                      "image": {
+                        "url": "/assets/transparent.gif",
+                        "wide": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "twelvehundred": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "standard": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "logo": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "box": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "thumb": {
+                          "url": "/assets/transparent.gif"
+                        }
+                      },
+                      "excerpt": null,
+                      "image_width": null,
+                      "image_height": null,
+                      "registration_required": null,
+                      "title": "Rosemary Sutcliff",
+                      "body": "[\"Sunt nihil repudiandae. Aperiam doloribus vel. Sed consequatur praesentium.\", \"In enim illum. Eius qui voluptatem. Qui ipsa ut.\", \"Dolor quae voluptas. Consequatur mollitia et. Eos quos et.\"]",
+                      "next_post_by_festival": {
+                        "id": 1,
+                        "slug": "that-good-night",
+                        "subsite_id": 1,
+                        "published": true,
+                        "creator_id": 1,
+                        "last_modified_id": null,
+                        "published_at": "2017-05-27T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.291Z",
+                        "updated_at": "2020-05-07T08:56:31.291Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "That Good Night",
+                        "body": "[\"Assumenda quas rerum. Est sit temporibus. Sed autem iusto.\", \"Consectetur cupiditate adipisci. Consequuntur ut est. Voluptatem quo fugiat.\", \"Aut totam distinctio. Cumque et officia. Ipsa aspernatur non.\"]",
+                        "excerpt": null
+                      },
+                      "previous_post_by_festival": {
+                        "id": 5,
+                        "slug": "the-painted-veil",
+                        "subsite_id": 5,
+                        "published": true,
+                        "creator_id": 5,
+                        "last_modified_id": null,
+                        "published_at": "2011-07-27T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.923Z",
+                        "updated_at": "2020-05-07T08:56:31.923Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "The Painted Veil",
+                        "body": "[\"Occaecati consectetur illo. Non dolorem mollitia. Ducimus reiciendis asperiores.\", \"Nesciunt rem eaque. Nostrum consequatur quo. Molestiae sed enim.\", \"Molestiae delectus sint. Quia ut provident. Quaerat voluptate velit.\"]",
+                        "excerpt": null
+                      },
+                      "creator": "Leigh Nienow"
+                    }
+                  },
+                  {
+                    "id": "5",
+                    "type": "post",
+                    "attributes": {
+                      "slug": "the-painted-veil",
+                      "published": true,
+                      "published_at": "2011-07-27T00:00:00.000Z",
+                      "image": {
+                        "url": "/assets/transparent.gif",
+                        "wide": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "twelvehundred": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "standard": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "logo": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "box": {
+                          "url": "/assets/transparent.gif"
+                        },
+                        "thumb": {
+                          "url": "/assets/transparent.gif"
+                        }
+                      },
+                      "excerpt": null,
+                      "image_width": null,
+                      "image_height": null,
+                      "registration_required": null,
+                      "title": "The Painted Veil",
+                      "body": "[\"Occaecati consectetur illo. Non dolorem mollitia. Ducimus reiciendis asperiores.\", \"Nesciunt rem eaque. Nostrum consequatur quo. Molestiae sed enim.\", \"Molestiae delectus sint. Quia ut provident. Quaerat voluptate velit.\"]",
+                      "next_post_by_festival": {
+                        "id": 3,
+                        "slug": "rosemary-sutcliff",
+                        "subsite_id": 3,
+                        "published": true,
+                        "creator_id": 3,
+                        "last_modified_id": null,
+                        "published_at": "2012-03-30T00:00:00.000Z",
+                        "wordpress_id": null,
+                        "image": {
+                          "url": "/assets/transparent.gif",
+                          "wide": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "twelvehundred": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "standard": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "logo": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "box": {
+                            "url": "/assets/transparent.gif"
+                          },
+                          "thumb": {
+                            "url": "/assets/transparent.gif"
+                          }
+                        },
+                        "image_width": null,
+                        "image_height": null,
+                        "image_content_type": null,
+                        "image_size": null,
+                        "created_at": "2020-05-07T08:56:31.641Z",
+                        "updated_at": "2020-05-07T08:56:31.641Z",
+                        "wordpress_author": null,
+                        "wordpress_scope": null,
+                        "event_id": null,
+                        "project_id": null,
+                        "festival_id": 1,
+                        "external": false,
+                        "eventr_id": null,
+                        "residency_id": null,
+                        "registration_required": null,
+                        "email_registrations_to": null,
+                        "question_description": null,
+                        "question_creators": null,
+                        "question_motivation": null,
+                        "email_template": null,
+                        "max_attendees": null,
+                        "tag_list": [
+
+                        ],
+                        "title": "Rosemary Sutcliff",
+                        "body": "[\"Sunt nihil repudiandae. Aperiam doloribus vel. Sed consequatur praesentium.\", \"In enim illum. Eius qui voluptatem. Qui ipsa ut.\", \"Dolor quae voluptas. Consequatur mollitia et. Eos quos et.\"]",
+                        "excerpt": null
+                      },
+                      "previous_post_by_festival": null,
+                      "creator": "Aleta O'Kon"
+                    }
+                  }
+                ]
+              }
+            },
+            "content": {
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "detail": "Couldn't find Festival with 'id'=324",
+                    "title": "404 Not found",
+                    "status": 404
+                  }
+                ]
+              }
+            },
+            "content": {
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{defaultHost}",
+      "variables": {
+        "defaultHost": {
+          "default": "api.pixelache.ac"
+        }
+      }
+    }
+  ]
+}

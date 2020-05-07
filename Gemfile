@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', github: 'rails/rails', branch: '6-0-stable'
+gem 'rails', '6.0.3' #github: 'rails/rails', branch: '6-0-stable'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.3.3'
@@ -91,7 +91,7 @@ gem 'redis'
 gem 'rest-client'
 gem 'rolify'
 gem 'rollbar'
-gem 'rswag'
+gem 'rswag', '2.3.1' #github: 'pedrocarmona/rswag', branch: :master #'2.3.1'
 gem 'rspec-core'
 gem 'rubocop-rspec'
 gem 'rubocop-performance'

@@ -10,9 +10,9 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # storage :file
   storage :aws
 
-  def default_url
-    '/assets/transparent.gif'
-  end
+  # def default_url
+  #   '/assets/transparent.gif'
+  # end
   
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

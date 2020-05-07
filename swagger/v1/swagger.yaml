@@ -1,0 +1,595 @@
+---
+openapi: 3.0.1
+info:
+  title: Pixelache API V1
+  version: v1
+paths:
+  "/v1/festivals/{festival_id}/posts":
+    parameters:
+    - name: festival_id
+      in: path
+      required: true
+      schema:
+        type: number
+    get:
+      summary: Retrieve all posts for a festival
+      description: Returns all published posts belonging to a festival.
+      tags:
+      - Posts
+      - Festivals
+      responses:
+        '200':
+          description: Festival posts retrieved
+          content:
+            application/json:
+              example:
+                data:
+                - id: '5'
+                  type: post
+                  attributes:
+                    slug: to-your-scattered-bodies-go
+                    published: true
+                    published_at: '2018-05-23T00:00:00.000Z'
+                    image:
+                      url: "/assets/transparent.gif"
+                      wide:
+                        url: "/assets/transparent.gif"
+                      twelvehundred:
+                        url: "/assets/transparent.gif"
+                      standard:
+                        url: "/assets/transparent.gif"
+                      logo:
+                        url: "/assets/transparent.gif"
+                      box:
+                        url: "/assets/transparent.gif"
+                      thumb:
+                        url: "/assets/transparent.gif"
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: To Your Scattered Bodies Go
+                    body: '["Incidunt nulla culpa. Ad magni expedita. Optio est et.",
+                      "Voluptatem non et. Facere et delectus. Quae illum molestiae.",
+                      "Nihil reprehenderit fugiat. Et libero et. Nemo soluta ullam."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival:
+                      id: 1
+                      slug: after-many-a-summer-dies-the-swan
+                      subsite_id: 1
+                      published: true
+                      creator_id: 1
+                      last_modified_id: 
+                      published_at: '2016-08-07T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:01.928Z'
+                      updated_at: '2020-05-07T09:12:01.928Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: After Many a Summer Dies the Swan
+                      body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
+                        "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
+                        "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                      excerpt: 
+                    creator: Joel Cassin
+                - id: '1'
+                  type: post
+                  attributes:
+                    slug: after-many-a-summer-dies-the-swan
+                    published: true
+                    published_at: '2016-08-07T00:00:00.000Z'
+                    image:
+                      url: "/assets/transparent.gif"
+                      wide:
+                        url: "/assets/transparent.gif"
+                      twelvehundred:
+                        url: "/assets/transparent.gif"
+                      standard:
+                        url: "/assets/transparent.gif"
+                      logo:
+                        url: "/assets/transparent.gif"
+                      box:
+                        url: "/assets/transparent.gif"
+                      thumb:
+                        url: "/assets/transparent.gif"
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: After Many a Summer Dies the Swan
+                    body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
+                      "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
+                      "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                    next_post_by_festival:
+                      id: 5
+                      slug: to-your-scattered-bodies-go
+                      subsite_id: 5
+                      published: true
+                      creator_id: 5
+                      last_modified_id: 
+                      published_at: '2018-05-23T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.557Z'
+                      updated_at: '2020-05-07T09:12:02.557Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: To Your Scattered Bodies Go
+                      body: '["Incidunt nulla culpa. Ad magni expedita. Optio est
+                        et.", "Voluptatem non et. Facere et delectus. Quae illum molestiae.",
+                        "Nihil reprehenderit fugiat. Et libero et. Nemo soluta ullam."]'
+                      excerpt: 
+                    previous_post_by_festival:
+                      id: 3
+                      slug: the-moving-toyshop
+                      subsite_id: 3
+                      published: true
+                      creator_id: 3
+                      last_modified_id: 
+                      published_at: '2014-03-10T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.230Z'
+                      updated_at: '2020-05-07T09:12:02.230Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: The Moving Toyshop
+                      body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
+                        at eum.", "Expedita aut error. Consequatur voluptatibus hic.
+                        Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
+                        Rerum ut consectetur."]'
+                      excerpt: 
+                    creator: Wilfred Prohaska
+                - id: '3'
+                  type: post
+                  attributes:
+                    slug: the-moving-toyshop
+                    published: true
+                    published_at: '2014-03-10T00:00:00.000Z'
+                    image:
+                      url: "/assets/transparent.gif"
+                      wide:
+                        url: "/assets/transparent.gif"
+                      twelvehundred:
+                        url: "/assets/transparent.gif"
+                      standard:
+                        url: "/assets/transparent.gif"
+                      logo:
+                        url: "/assets/transparent.gif"
+                      box:
+                        url: "/assets/transparent.gif"
+                      thumb:
+                        url: "/assets/transparent.gif"
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The Moving Toyshop
+                    body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
+                      at eum.", "Expedita aut error. Consequatur voluptatibus hic.
+                      Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
+                      Rerum ut consectetur."]'
+                    next_post_by_festival:
+                      id: 1
+                      slug: after-many-a-summer-dies-the-swan
+                      subsite_id: 1
+                      published: true
+                      creator_id: 1
+                      last_modified_id: 
+                      published_at: '2016-08-07T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:01.928Z'
+                      updated_at: '2020-05-07T09:12:01.928Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: After Many a Summer Dies the Swan
+                      body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
+                        "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
+                        "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                      excerpt: 
+                    previous_post_by_festival:
+                      id: 4
+                      slug: by-grand-central-station-i-sat-down-and-wept
+                      subsite_id: 4
+                      published: true
+                      creator_id: 4
+                      last_modified_id: 
+                      published_at: '2012-01-16T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.388Z'
+                      updated_at: '2020-05-07T09:12:02.388Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: By Grand Central Station I Sat Down and Wept
+                      body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
+                        ex officia.", "Quibusdam enim adipisci. Voluptatum facilis
+                        tenetur. Minima ipsam enim.", "Non amet nostrum. Qui magni
+                        reiciendis. Excepturi voluptas quia."]'
+                      excerpt: 
+                    creator: Milford Marquardt
+                - id: '4'
+                  type: post
+                  attributes:
+                    slug: by-grand-central-station-i-sat-down-and-wept
+                    published: true
+                    published_at: '2012-01-16T00:00:00.000Z'
+                    image:
+                      url: "/assets/transparent.gif"
+                      wide:
+                        url: "/assets/transparent.gif"
+                      twelvehundred:
+                        url: "/assets/transparent.gif"
+                      standard:
+                        url: "/assets/transparent.gif"
+                      logo:
+                        url: "/assets/transparent.gif"
+                      box:
+                        url: "/assets/transparent.gif"
+                      thumb:
+                        url: "/assets/transparent.gif"
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: By Grand Central Station I Sat Down and Wept
+                    body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
+                      ex officia.", "Quibusdam enim adipisci. Voluptatum facilis tenetur.
+                      Minima ipsam enim.", "Non amet nostrum. Qui magni reiciendis.
+                      Excepturi voluptas quia."]'
+                    next_post_by_festival:
+                      id: 3
+                      slug: the-moving-toyshop
+                      subsite_id: 3
+                      published: true
+                      creator_id: 3
+                      last_modified_id: 
+                      published_at: '2014-03-10T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.230Z'
+                      updated_at: '2020-05-07T09:12:02.230Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: The Moving Toyshop
+                      body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
+                        at eum.", "Expedita aut error. Consequatur voluptatibus hic.
+                        Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
+                        Rerum ut consectetur."]'
+                      excerpt: 
+                    previous_post_by_festival:
+                      id: 2
+                      slug: mr-standfast
+                      subsite_id: 2
+                      published: true
+                      creator_id: 2
+                      last_modified_id: 
+                      published_at: '2010-06-23T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.092Z'
+                      updated_at: '2020-05-07T09:12:02.092Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: Mr Standfast
+                      body: '["Aliquid et non. Maiores et corrupti. Ullam nostrum
+                        eius.", "Enim praesentium vero. Dolorem architecto voluptatibus.
+                        Aut earum alias.", "Cupiditate laboriosam tempora. Ex odio
+                        tenetur. Atque tempora dolor."]'
+                      excerpt: 
+                    creator: Riley Trantow
+                - id: '2'
+                  type: post
+                  attributes:
+                    slug: mr-standfast
+                    published: true
+                    published_at: '2010-06-23T00:00:00.000Z'
+                    image:
+                      url: "/assets/transparent.gif"
+                      wide:
+                        url: "/assets/transparent.gif"
+                      twelvehundred:
+                        url: "/assets/transparent.gif"
+                      standard:
+                        url: "/assets/transparent.gif"
+                      logo:
+                        url: "/assets/transparent.gif"
+                      box:
+                        url: "/assets/transparent.gif"
+                      thumb:
+                        url: "/assets/transparent.gif"
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Mr Standfast
+                    body: '["Aliquid et non. Maiores et corrupti. Ullam nostrum eius.",
+                      "Enim praesentium vero. Dolorem architecto voluptatibus. Aut
+                      earum alias.", "Cupiditate laboriosam tempora. Ex odio tenetur.
+                      Atque tempora dolor."]'
+                    next_post_by_festival:
+                      id: 4
+                      slug: by-grand-central-station-i-sat-down-and-wept
+                      subsite_id: 4
+                      published: true
+                      creator_id: 4
+                      last_modified_id: 
+                      published_at: '2012-01-16T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: "/assets/transparent.gif"
+                        wide:
+                          url: "/assets/transparent.gif"
+                        twelvehundred:
+                          url: "/assets/transparent.gif"
+                        standard:
+                          url: "/assets/transparent.gif"
+                        logo:
+                          url: "/assets/transparent.gif"
+                        box:
+                          url: "/assets/transparent.gif"
+                        thumb:
+                          url: "/assets/transparent.gif"
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-07T09:12:02.388Z'
+                      updated_at: '2020-05-07T09:12:02.388Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: By Grand Central Station I Sat Down and Wept
+                      body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
+                        ex officia.", "Quibusdam enim adipisci. Voluptatum facilis
+                        tenetur. Minima ipsam enim.", "Non amet nostrum. Qui magni
+                        reiciendis. Excepturi voluptas quia."]'
+                      excerpt: 
+                    previous_post_by_festival: 
+                    creator: Daniell Friesen
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Festival with 'id'=324
+                  title: 404 Not found
+                  status: 404
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: api.pixelache.ac

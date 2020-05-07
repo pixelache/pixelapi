@@ -33,6 +33,12 @@ module Api::V1
       end
     end
 
+    def index
+      @festivals = Festival.published
+      render json: FestivalSerializer.new(@festivals).serialized_json, status: 200 
+    end
+    
+
     def show
       @festival = Festival.friendly.find(params[:id])
       render json: FestivalSerializer.new(@festival).serialized_json, status: 200 

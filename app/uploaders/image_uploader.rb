@@ -6,9 +6,9 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # storage :aws
 
-  def default_url
-    '/assets/transparent.gif'
-  end
+  # def default_url
+  #   '/assets/transparent.gif'
+  # end
   
   def store_dir
     "images/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"

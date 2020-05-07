@@ -5,7 +5,7 @@ FactoryBot.define do
     name { Faker::Name.first_name + ' ' +  Faker::Name.last_name }
     email { Faker::Internet.email }
     password { 'test_password' }
-    username { Faker::Internet.username(specifier: 5..8) }
+    username { Faker::Internet.username(specifier: 5..18) }
     website { Faker::Internet.url }
     bio { Faker::Quote.most_interesting_man_in_the_world }
     trait :twitter do

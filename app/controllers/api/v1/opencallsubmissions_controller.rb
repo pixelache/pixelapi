@@ -7,11 +7,12 @@ module Api::V1
 
     def create
       @opencall = Opencall.friendly.find(params[:opencall_id])
-      @opencallsubmission = Opencallsubmission.new(opencallsubmission_params)
+      @opencallsubmission = Opencallsubmission.new(opencallsubmission_params.merge(opencall: @opencall))
       if @opencallsubmission.save
-        head :no_content
+        # head :no_content
+        render json: OpencallsubmissionSerializer.new(@opencallsubmission, include: [:opencallanswers]).serialized_json, status: 201
       else
-        logger.error @opencallsubmission.errors
+        respond_with_errors(@opencallsubmission)
       end
     end
 
