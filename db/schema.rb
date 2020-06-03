@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_091842) do
+ActiveRecord::Schema.define(version: 2020_05_11_092246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -985,8 +985,6 @@ ActiveRecord::Schema.define(version: 2020_04_11_091842) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "email", limit: 255, default: "", null: false
-    t.string "provider", limit: 255
-    t.string "uid", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "encrypted_password", limit: 255, default: "", null: false
@@ -1005,8 +1003,17 @@ ActiveRecord::Schema.define(version: 2020_04_11_091842) do
     t.text "bio"
     t.string "twitter_name"
     t.text "feed_urls"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.text "tokens"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|

@@ -2,9 +2,11 @@
 
 Devise.setup do |config|
   require 'devise/orm/active_record'  
-  config.mailer_sender = 'info@trenox.fi'
-  config.authentication_keys = [:login]
-  config.case_insensitive_keys = [:login]
+  config.mailer_sender = 'office@pixelache.ac'
+  # config.authentication_keys = [:login]
+  # config.case_insensitive_keys = [:login]
+  config.navigational_formats = [:json]
+
 end
 
 DeviseTokenAuth.setup do |config|
@@ -12,12 +14,13 @@ DeviseTokenAuth.setup do |config|
   # client is responsible for keeping track of the changing tokens. Change
   # this to false to prevent the Authorization header from changing after
   # each request.
-  config.default_confirm_success_url = Rails.env.development? ? 'http://localhost:3001/confirmed' : (Rails.env.staging? ? 'https://admin.staging.trenoxtechnologies.fi/confirmed' : 'https://admin.trenox.fi')
+
+  config.default_confirm_success_url = Rails.env.development? ? 'http://localhost:3001/confirmed' :  'https://pixelache.ac'
   # By default, users will need to re-authenticate after 2 weeks. This setting
   # determines how long tokens will remain valid after they are issued.
   config.token_lifespan = 1.week
   config.change_headers_on_each_request = true
-  config.default_password_reset_url = Rails.env.development? ? 'http://localhost:3001/#/new_password' : (Rails.env.staging? ? 'https://admin.staging.trenoxtechnologies.fi/#/new_password' : 'https://admin.trenox.fi/#/new_password')
+  config.default_password_reset_url = Rails.env.development? ? 'http://localhost:3001/#/new_password' :  'https://pixlache.ac/#/new_password'
   # Sets the max number of concurrent devices per user, which is 10 by default.
   # After this limit is reached, the oldest tokens will be removed.
   # config.max_number_of_devices = 10

@@ -21,6 +21,10 @@ RSpec.describe 'Open Calls API' do
       tags 'Open Calls'
       produces 'application/json'
       consumes 'application/json'
+      
+      after do |example|
+        example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+      end
 
       response 201, 'Open call submission successfully submitted' do
         run_test! do |response|
@@ -51,6 +55,10 @@ RSpec.describe 'Open Calls API' do
       tags 'Open Calls'
       produces 'application/json'
       consumes 'application/json'
+      
+      after do |example|
+        example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+      end
 
       response 200, 'Open call retrieved' do
         run_test! 

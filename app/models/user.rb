@@ -1,22 +1,25 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
+  devise :rememberable, :trackable, :validatable, :database_authenticatable, :registerable, :recoverable, :confirmable
+  include DeviseTokenAuth::Concerns::User
+  rolify
+  extend FriendlyId
+  friendly_id :name, :use => [:slugged, :finders]
+  mount_uploader :avatar, AvatarUploader
+
   #  associations
   has_many :authentications, :dependent => :destroy
   has_many :memberships
   has_many :posts, foreign_key: "creator_id"
   has_many :feedcaches
 
-  devise :rememberable, :trackable, :validatable,
-  :database_authenticatable, :registerable, :recoverable
-  rolify
-  extend FriendlyId
-  friendly_id :name, :use => [:slugged, :finders]
   accepts_nested_attributes_for :authentications, :reject_if => proc { |attr| attr['username'].blank? }
-  mount_uploader :avatar, AvatarUploader
 
   # validations
   validates :name, presence: true
   validates :username, presence: true, uniqueness: true
-
+  before_validation do
+    self.uid = email if uid.blank?
+  end
   #  scopes
 
 
@@ -70,4 +73,9 @@ class User < ActiveRecord::Base
   def password_required?
     false
   end
+
+  def email_required?
+    true
+  end
+
 end

@@ -3,7 +3,23 @@
 module Api::V1
 
   class PostsController < ApiController
+    before_action :authenticate_user!, only: %i[create update destroy]
     respond_to :json
+    
+    def create
+      @post = Post.new(post_params)
+      @post.subsite = @site if @post.subsite_id.nil? 
+      if can? :create, @post
+        @post.creator = current_user
+        if @post.save
+          render json: PostSerializer.new(@post).serialized_json, status: 201
+        else
+          respond_with_errors(@post)
+        end
+      else
+        render_403(:create, @post)
+      end
+    end
 
     def index
       if params[:festival_id]
@@ -34,6 +50,7 @@ module Api::V1
             end
           end
         end
+        render json: PostSerializer.new(@posts).serialized_json, status: 200 
       end
     end
 
@@ -67,5 +84,19 @@ module Api::V1
       end
     end
 
+    protected
+
+    def post_params
+      params.require(:post).permit(:published, :subsite_id,
+         :published_at, :image, :event_id, :residency_id, :project_id,
+        #  :registration_required, :email_registrations_to, :question_description,
+        #  :question_creators, :question_motivation, :email_template, :max_attendees,
+        :festival_id, :add_to_newsfeed, :tag_list, post_category_ids: [],
+          translations_attributes: [:id, :locale, :title, :body, :excerpt],
+           photos_attributes: [:id, :filename, :title, :credit, :_destroy],
+           festivaltheme_ids: [],
+            attachments_attributes: [:id, :documenttype_id, :attachedfile,
+              :_destroy, :year_of_publication,  :title, :description, :public])
+    end
   end
 end

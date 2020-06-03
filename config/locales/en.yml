@@ -32,6 +32,7 @@
 en:
   api:
     errors:
+      error_403: 'You are not authorised to do this'
       error_404: '404 Not found'
       opencall:
         deadline_passed: 'This open call deadline has passed.'

@@ -15,6 +15,10 @@ Rails.application.routes.draw do
         resources :opencallsubmissions
       end
       resources :pages
+      resources :posts
+      resources :projects do
+        resources :posts
+      end
     end
   end
   root to: 'api/v1/api#home'

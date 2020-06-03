@@ -3,7 +3,946 @@ openapi: 3.0.1
 info:
   title: Pixelache API V1
   version: v1
+components:
+  securitySchemes:
+    client:
+      in: header
+      name: client
+      type: apiKey
+    uid:
+      in: header
+      type: apiKey
+      name: uid
+    Access-Token:
+      in: header
+      type: apiKey
+      name: Access-Token
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        errors:
+          "$ref": "#/components/schemas/errors_map"
+    errors_map:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+    attachments_attributes:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          documenttype_id:
+            type: integer
+          attachedfile:
+            type: string
+            format: byte
+          _destroy:
+            type: boolean
+          year_of_publication:
+            type: integer
+          title:
+            type: string
+          description:
+            type: string
+          public:
+            type: boolean
+    photos_attributes:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          filename:
+            type: string
+            format: byte
+          title:
+            type: string
+          credit:
+            type: string
+          _destroy:
+            type: boolean
+    videos_attributes:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          in_url:
+            type: string
+          _destroy:
+            type: boolean
+    project:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        parent_id:
+          type: integer
+        website:
+          type: string
+        evolvedfrom_id:
+          type: integer
+        hidden:
+          type: boolean
+        project_bg_colour:
+          type: string
+        project_text_colour:
+          type: string
+        project_link_colour:
+          type: string
+        redirect_to:
+          type: string
+        background:
+          type: string
+          format: byte
+        evolution_year:
+          type: string
+        active:
+          type: boolean
+        remove_background:
+          type: boolean
+        translations_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              description:
+                type: string
+              short_description:
+                type: string
+              locale:
+                type: string
+                required: true
+        photos_attributes:
+          "$ref": "#/components/schemeas/photos_attributes"
+        attachments_attributes:
+          "$ref": "#/components/schemas/attachments_attributes"
+        videos_attributes:
+          "$ref": "#/components/schemas/videos_attributes"
+    post:
+      type: object
+      properties:
+        id:
+          type: integer
+        published:
+          type: boolean
+        published_at:
+          type: string
+        subsite_id:
+          type: integer
+        project_id:
+          type: integer
+        festival_id:
+          type: integer
+        event_id:
+          type: integer
+        residency_id:
+          type: integer
+        post_category_ids:
+          type: array
+          items:
+            type: integer
+        image:
+          type: string
+          format: byte
+        translations_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              locale:
+                type: string
+                length: 2
+                required: true
+              title:
+                type: string
+                required: true
+              body:
+                type: string
+                required: true
+              excerpt:
+                type: string
+        attachments_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              documenttype_id:
+                type: integer
+              attachedfile:
+                type: string
+                format: byte
+              _destroy:
+                type: boolean
+              year_of_publication:
+                type: integer
+              title:
+                type: string
+              description:
+                type: string
+              public:
+                type: boolean
+        photos_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              filename:
+                type: string
+                format: byte
+              title:
+                type: string
+              credit:
+                type: string
+              _destroy:
+                type: boolean
 paths:
+  "/v1/festivals":
+    get:
+      summary: Retrieve all published festivals
+      description: Returns an array of all published festivals in the database
+      tags:
+      - Festivals
+      responses:
+        '200':
+          description: Festivals returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '1'
+                  type: festival
+                  attributes:
+                    overview_text: '["Nobis ratione qui. Quia accusantium et. Ad laudantium
+                      officiis.", "Odit quas non. Eligendi similique omnis. Quas omnis
+                      corporis.", "Quia quidem voluptate. Ipsum occaecati autem. Perferendis
+                      sed voluptatibus.", "Corrupti rem atque. Aut delectus dolor.
+                      Dolor enim ex."]'
+                    name: African Cup of Nations
+                    website: http://pixelache.ac/augusta
+                    start_at: '2012-04-03'
+                    end_at: '2012-04-10'
+                    slug: african-cup-of-nations
+                    subtitle: '["Ennui cold-pressed scenester meh before they sold
+                      out typewriter direct trade kombucha."]'
+                    image:
+                      url: "/images/festival/image/1/festival.png"
+                      wide:
+                        url: "/images/festival/image/1/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/1/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/1/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/1/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/1/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/1/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+                - id: '2'
+                  type: festival
+                  attributes:
+                    overview_text: '["Qui impedit aliquid. Enim eaque quos. Voluptatibus
+                      nobis officiis.", "Sit et id. Omnis et et. Praesentium perferendis
+                      porro.", "Sed consectetur optio. Autem voluptas alias. Non culpa
+                      est.", "Ad nisi et. Blanditiis dolore maiores. Et eveniet minima."]'
+                    name: Primeira Liga
+                    website: http://pixelache.ac/marco_beier
+                    start_at: '2018-11-07'
+                    end_at: '2018-11-14'
+                    slug: primeira-liga
+                    subtitle: '["Drinking keytar park schlitz +1 trust fund brunch
+                      semiotics."]'
+                    image:
+                      url: "/images/festival/image/2/festival.png"
+                      wide:
+                        url: "/images/festival/image/2/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/2/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/2/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/2/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/2/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/2/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+  "/v1/festivals/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve one festival
+      description: Returns one festival record by ID or slug
+      tags:
+      - Festivals
+      responses:
+        '200':
+          description: Festival retrieved
+          content:
+            application/json:
+              example:
+                data:
+                  id: '4'
+                  type: festival
+                  attributes:
+                    overview_text: '["Voluptatem ut recusandae. Et quia quae. Consequatur
+                      excepturi dolorem.", "Et quis nostrum. Quae mollitia est. Minus
+                      ullam nulla.", "Tenetur mollitia dolores. Sint hic et. Ut et
+                      et.", "Ad sed ex. Animi ipsam nemo. Praesentium ut explicabo."]'
+                    name: Major League Soccer
+                    website: http://pixelache.ac/lonny
+                    start_at: '2015-04-04'
+                    end_at: '2015-04-11'
+                    slug: major-league-soccer
+                    subtitle: '["Butcher vice wes anderson green juice."]'
+                    image:
+                      url: "/images/festival/image/4/festival.png"
+                      wide:
+                        url: "/images/festival/image/4/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/4/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/4/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/4/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/4/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/4/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: ActiveRecord::RecordNotFound
+                  title: 404 Not found
+                  status: 404
+  "/v1/opencalls/{id}/opencallsubmissions":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: opencallsubmission
+      in: body
+      required: true
+      schema: {}
+    post:
+      summary: Submit an open call
+      description: Submit one open call submission
+      tags:
+      - Open Calls
+      responses:
+        '201':
+          description: Open call submission successfully submitted
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: opencallsubmission
+                  attributes:
+                    name: Johanne Ernser Cremin
+                    phone: 796.642.1414 x45965
+                    email: jamel.jones@yahoo.com
+                    address: 93575 Rowe Roads, Wittingmouth, FL 56913-4786
+                    opencall_id: 1
+                  relationships:
+                    opencallanswers:
+                      data:
+                      - id: '1'
+                        type: opencallanswer
+                      - id: '2'
+                        type: opencallanswer
+                      - id: '3'
+                        type: opencallanswer
+                included:
+                - id: '1'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 1
+                    answer: Doloremque quisquam illum voluptatem.
+                    attachment_url: 
+                - id: '2'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 2
+                    answer: Commodi natus ipsa saepe.
+                    attachment_url: 
+                - id: '3'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 3
+                    answer: 
+                    attachment_url: https://pixelache.s3.eu-west-1.amazonaws.com/attachments/opencallanswer/attachment/3/attachment.jpeg
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: ActiveRecord::RecordNotFound
+                  title: 404 Not found
+                  status: 404
+        '422':
+          description: Unprocessible form
+          content:
+            application/json:
+              example:
+                errors:
+                - title: Opencallanswers attachment You must include an attachment
+                    for this question.
+                  status: 422
+  "/v1/opencalls/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve one open call
+      description: Returns one open call by ID
+      tags:
+      - Open Calls
+      responses:
+        '200':
+          description: Open call retrieved
+          content:
+            application/json:
+              example:
+                data:
+                  id: '4'
+                  type: opencall
+                  attributes:
+                    subsite_id: 5
+                    published: true
+                    description: '["Libero est adipisci. Aut ut fuga. Et cumque a.",
+                      "Eligendi esse mollitia. Nam voluptas qui. Et maiores consequatur.",
+                      "Illo dolorem vel. Ut recusandae facere. Rerum sapiente sunt."]'
+                    is_open: true
+                    closing_date: '2020-06-13T00:00:00.000Z'
+                    slug: fire-emblem-awakening
+                    name: Fire Emblem Awakening
+                    submitted_text: '["Aut praesentium est. Consequatur in deleniti.
+                      Dolore at voluptatem."]'
+                    opencallquestions: []
+                  relationships:
+                    opencallquestions:
+                      data: []
+                included: []
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: ActiveRecord::RecordNotFound
+                  title: 404 Not found
+                  status: 404
+  "/v1/posts":
+    post:
+      summary: Create a new post
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new post
+      tags:
+      - Posts
+      responses:
+        '201':
+          description: Post has been created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: post
+                  attributes:
+                    slug: blithe-spirit
+                    published: true
+                    published_at: '2020-05-12T08:08:43.756Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Blithe Spirit
+                    body: Dolores officiis et. Et optio animi.
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Tad Corkery
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/post"
+    get:
+      summary: Retrieve all posts
+      description: Returns all posts of a sub-site (paginated)
+      tags:
+      - Posts
+      responses:
+        '200':
+          description: Posts returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '10'
+                  type: post
+                  attributes:
+                    slug: ring-of-bright-water
+                    published: true
+                    published_at: '2020-03-25T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Ring of Bright Water
+                    body: '["Ipsum tempore eos. Veniam eum nam. Beatae et maiores.",
+                      "Occaecati voluptas perspiciatis. Rem expedita iusto. Rerum
+                      dignissimos consequatur.", "Quae repellat voluptatem. Ipsam
+                      voluptatum sint. Ullam sequi possimus."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Chung Durgan
+                - id: '6'
+                  type: post
+                  attributes:
+                    slug: brandy-of-the-damned
+                    published: true
+                    published_at: '2019-03-13T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Brandy of the Damned
+                    body: '["Aut voluptatum eveniet. Inventore eaque minus. Maxime
+                      iure ab.", "Temporibus neque eaque. Fugit corrupti dolorum.
+                      Mollitia veniam ut.", "Unde accusantium distinctio. Harum labore
+                      recusandae. Ex aut voluptas."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Corie Corkery
+                - id: '2'
+                  type: post
+                  attributes:
+                    slug: the-wealth-of-nations
+                    published: true
+                    published_at: '2017-12-28T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The Wealth of Nations
+                    body: '["Architecto molestiae ipsam. Blanditiis id sapiente. Tenetur
+                      recusandae expedita.", "Eum laudantium quam. Laudantium ad qui.
+                      Aut nihil voluptas.", "Ipsam corporis rem. Adipisci quasi facere.
+                      Enim sunt dolor."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Elsa Durgan
+                - id: '12'
+                  type: post
+                  attributes:
+                    slug: the-world-the-flesh-and-the-devil
+                    published: true
+                    published_at: '2016-05-18T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The World, the Flesh and the Devil
+                    body: '["Cum repellat qui. Modi ut molestiae. Inventore est voluptatem.",
+                      "Omnis aut officia. Nulla aliquam dolores. Quasi odio omnis.",
+                      "Nobis vero sapiente. Sunt rerum ducimus. Ut voluptas temporibus."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Hayden Ryan
+                - id: '9'
+                  type: post
+                  attributes:
+                    slug: tiger-tiger
+                    published: true
+                    published_at: '2016-03-29T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Tiger! Tiger!
+                    body: '["Voluptatem quasi sequi. Similique repellat dignissimos.
+                      Et aut quia.", "Impedit quidem quis. Est illo voluptas. Dolores
+                      adipisci voluptas.", "Dolorum quasi vitae. Adipisci autem natus.
+                      Aut molestias voluptatem."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Jimmie Nader
+                - id: '16'
+                  type: post
+                  attributes:
+                    slug: taming-a-sea-horse-06eedfa0-cccb-482d-b16f-5bdf4f99ef1b
+                    published: true
+                    published_at: '2015-12-18T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Taming a Sea Horse
+                    body: '["Adipisci id est. Quia omnis doloremque. Quia quos voluptatem.",
+                      "Eos sed est. Dicta et molestias. Ex odit sit.", "Placeat consequatur
+                      voluptas. Molestiae suscipit odio. Eos numquam magnam."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Zackary Bogisich
+                - id: '3'
+                  type: post
+                  attributes:
+                    slug: time-to-murder-and-create
+                    published: true
+                    published_at: '2015-08-01T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Time To Murder And Create
+                    body: '["Numquam ut quod. Officia vero ex. Maxime iste harum.",
+                      "Dolore sint et. Qui vero ut. Sed molestias nam.", "Veniam nobis
+                      maxime. Hic officia est. Ut saepe molestiae."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Coralie Hirthe
+                - id: '14'
+                  type: post
+                  attributes:
+                    slug: the-doors-of-perception
+                    published: true
+                    published_at: '2015-04-09T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The Doors of Perception
+                    body: '["Voluptas saepe aliquid. Earum et temporibus. Ut laudantium
+                      natus.", "Architecto rerum est. Rerum asperiores quaerat. Ut
+                      id id.", "Aut dolor provident. Nesciunt ea officia. Fugiat id
+                      reprehenderit."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Ellsworth Gusikowski
+                - id: '11'
+                  type: post
+                  attributes:
+                    slug: the-curious-incident-of-the-dog-in-the-night-time-acdd14da-7979-46a3-b747-ddbd77be3691
+                    published: true
+                    published_at: '2015-02-06T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The Curious Incident of the Dog in the Night-Time
+                    body: '["Laborum vero molestiae. Possimus suscipit corporis. Voluptas
+                      eligendi occaecati.", "Animi provident placeat. Facilis odio
+                      doloremque. Ut qui ducimus.", "Vel alias qui. Ullam eligendi
+                      pariatur. Nisi consectetur debitis."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Kimiko Koepp
+                - id: '4'
+                  type: post
+                  attributes:
+                    slug: the-curious-incident-of-the-dog-in-the-night-time
+                    published: true
+                    published_at: '2014-07-21T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: The Curious Incident of the Dog in the Night-Time
+                    body: '["Molestiae error id. Eos hic aliquam. Quia tempora deleniti.",
+                      "In dolorum sint. Optio eius deserunt. Aut eos magni.", "Pariatur
+                      libero et. Fuga vel iste. Saepe quis laudantium."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Alessandra Paucek
+                - id: '5'
+                  type: post
+                  attributes:
+                    slug: mother-night
+                    published: true
+                    published_at: '2014-02-23T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Mother Night
+                    body: '["Et reiciendis ex. Quia et et. Id repellat blanditiis.",
+                      "Enim impedit rerum. Deleniti rem vero. Qui consequatur mollitia.",
+                      "Saepe est quidem. Ab at aut. Omnis libero quas."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Thad Dooley
+                - id: '7'
+                  type: post
+                  attributes:
+                    slug: taming-a-sea-horse
+                    published: true
+                    published_at: '2013-12-02T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Taming a Sea Horse
+                    body: '["Cumque accusantium ad. Praesentium cum eos. Occaecati
+                      tempore asperiores.", "Est vel ut. Consequatur modi qui. Iure
+                      fuga eaque.", "Quo esse sed. Aut quia dignissimos. Nihil expedita
+                      in."]'
+                    next_post_by_festival: 
+                    previous_post_by_festival: 
+                    image_url: 
+                    creator: Alexander Collier
   "/v1/festivals/{festival_id}/posts":
     parameters:
     - name: festival_id
@@ -24,64 +963,65 @@ paths:
             application/json:
               example:
                 data:
-                - id: '5'
+                - id: '21'
                   type: post
                   attributes:
-                    slug: to-your-scattered-bodies-go
+                    slug: butter-in-a-lordly-dish
                     published: true
-                    published_at: '2018-05-23T00:00:00.000Z'
+                    published_at: '2018-09-06T00:00:00.000Z'
                     image:
-                      url: "/assets/transparent.gif"
+                      url: 
                       wide:
-                        url: "/assets/transparent.gif"
+                        url: 
                       twelvehundred:
-                        url: "/assets/transparent.gif"
+                        url: 
                       standard:
-                        url: "/assets/transparent.gif"
+                        url: 
                       logo:
-                        url: "/assets/transparent.gif"
+                        url: 
                       box:
-                        url: "/assets/transparent.gif"
+                        url: 
                       thumb:
-                        url: "/assets/transparent.gif"
+                        url: 
                     excerpt: 
                     image_width: 
                     image_height: 
                     registration_required: 
-                    title: To Your Scattered Bodies Go
-                    body: '["Incidunt nulla culpa. Ad magni expedita. Optio est et.",
-                      "Voluptatem non et. Facere et delectus. Quae illum molestiae.",
-                      "Nihil reprehenderit fugiat. Et libero et. Nemo soluta ullam."]'
+                    title: Butter In a Lordly Dish
+                    body: '["Voluptas unde eum. Laborum ipsum enim. Eum omnis similique.",
+                      "Voluptatum eius voluptatem. Non est ipsam. Quia laborum aut.",
+                      "Eaque ab atque. Laboriosam voluptatem culpa. Earum voluptatem
+                      molestiae."]'
                     next_post_by_festival: 
                     previous_post_by_festival:
-                      id: 1
-                      slug: after-many-a-summer-dies-the-swan
+                      id: 19
+                      slug: the-waste-land
                       subsite_id: 1
                       published: true
-                      creator_id: 1
+                      creator_id: 22
                       last_modified_id: 
-                      published_at: '2016-08-07T00:00:00.000Z'
+                      published_at: '2014-01-26T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:01.928Z'
-                      updated_at: '2020-05-07T09:12:01.928Z'
+                      created_at: '2020-05-12T08:08:49.803Z'
+                      updated_at: '2020-05-12T08:08:49.803Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -98,200 +1038,72 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: After Many a Summer Dies the Swan
-                      body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
-                        "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
-                        "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                      title: The Waste Land
+                      body: '["Laboriosam sapiente quidem. Ea cupiditate tempora.
+                        Laborum velit a.", "Non dolor illum. Odit dignissimos exercitationem.
+                        Consequatur minus ut.", "Est voluptates aut. Minima in omnis.
+                        Nihil et modi."]'
                       excerpt: 
-                    creator: Joel Cassin
-                - id: '1'
+                    image_url: 
+                    creator: Ned Von
+                - id: '19'
                   type: post
                   attributes:
-                    slug: after-many-a-summer-dies-the-swan
+                    slug: the-waste-land
                     published: true
-                    published_at: '2016-08-07T00:00:00.000Z'
+                    published_at: '2014-01-26T00:00:00.000Z'
                     image:
-                      url: "/assets/transparent.gif"
+                      url: 
                       wide:
-                        url: "/assets/transparent.gif"
+                        url: 
                       twelvehundred:
-                        url: "/assets/transparent.gif"
+                        url: 
                       standard:
-                        url: "/assets/transparent.gif"
+                        url: 
                       logo:
-                        url: "/assets/transparent.gif"
+                        url: 
                       box:
-                        url: "/assets/transparent.gif"
+                        url: 
                       thumb:
-                        url: "/assets/transparent.gif"
+                        url: 
                     excerpt: 
                     image_width: 
                     image_height: 
                     registration_required: 
-                    title: After Many a Summer Dies the Swan
-                    body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
-                      "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
-                      "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                    title: The Waste Land
+                    body: '["Laboriosam sapiente quidem. Ea cupiditate tempora. Laborum
+                      velit a.", "Non dolor illum. Odit dignissimos exercitationem.
+                      Consequatur minus ut.", "Est voluptates aut. Minima in omnis.
+                      Nihil et modi."]'
                     next_post_by_festival:
-                      id: 5
-                      slug: to-your-scattered-bodies-go
-                      subsite_id: 5
-                      published: true
-                      creator_id: 5
-                      last_modified_id: 
-                      published_at: '2018-05-23T00:00:00.000Z'
-                      wordpress_id: 
-                      image:
-                        url: "/assets/transparent.gif"
-                        wide:
-                          url: "/assets/transparent.gif"
-                        twelvehundred:
-                          url: "/assets/transparent.gif"
-                        standard:
-                          url: "/assets/transparent.gif"
-                        logo:
-                          url: "/assets/transparent.gif"
-                        box:
-                          url: "/assets/transparent.gif"
-                        thumb:
-                          url: "/assets/transparent.gif"
-                      image_width: 
-                      image_height: 
-                      image_content_type: 
-                      image_size: 
-                      created_at: '2020-05-07T09:12:02.557Z'
-                      updated_at: '2020-05-07T09:12:02.557Z'
-                      wordpress_author: 
-                      wordpress_scope: 
-                      event_id: 
-                      project_id: 
-                      festival_id: 1
-                      external: false
-                      eventr_id: 
-                      residency_id: 
-                      registration_required: 
-                      email_registrations_to: 
-                      question_description: 
-                      question_creators: 
-                      question_motivation: 
-                      email_template: 
-                      max_attendees: 
-                      tag_list: []
-                      title: To Your Scattered Bodies Go
-                      body: '["Incidunt nulla culpa. Ad magni expedita. Optio est
-                        et.", "Voluptatem non et. Facere et delectus. Quae illum molestiae.",
-                        "Nihil reprehenderit fugiat. Et libero et. Nemo soluta ullam."]'
-                      excerpt: 
-                    previous_post_by_festival:
-                      id: 3
-                      slug: the-moving-toyshop
-                      subsite_id: 3
-                      published: true
-                      creator_id: 3
-                      last_modified_id: 
-                      published_at: '2014-03-10T00:00:00.000Z'
-                      wordpress_id: 
-                      image:
-                        url: "/assets/transparent.gif"
-                        wide:
-                          url: "/assets/transparent.gif"
-                        twelvehundred:
-                          url: "/assets/transparent.gif"
-                        standard:
-                          url: "/assets/transparent.gif"
-                        logo:
-                          url: "/assets/transparent.gif"
-                        box:
-                          url: "/assets/transparent.gif"
-                        thumb:
-                          url: "/assets/transparent.gif"
-                      image_width: 
-                      image_height: 
-                      image_content_type: 
-                      image_size: 
-                      created_at: '2020-05-07T09:12:02.230Z'
-                      updated_at: '2020-05-07T09:12:02.230Z'
-                      wordpress_author: 
-                      wordpress_scope: 
-                      event_id: 
-                      project_id: 
-                      festival_id: 1
-                      external: false
-                      eventr_id: 
-                      residency_id: 
-                      registration_required: 
-                      email_registrations_to: 
-                      question_description: 
-                      question_creators: 
-                      question_motivation: 
-                      email_template: 
-                      max_attendees: 
-                      tag_list: []
-                      title: The Moving Toyshop
-                      body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
-                        at eum.", "Expedita aut error. Consequatur voluptatibus hic.
-                        Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
-                        Rerum ut consectetur."]'
-                      excerpt: 
-                    creator: Wilfred Prohaska
-                - id: '3'
-                  type: post
-                  attributes:
-                    slug: the-moving-toyshop
-                    published: true
-                    published_at: '2014-03-10T00:00:00.000Z'
-                    image:
-                      url: "/assets/transparent.gif"
-                      wide:
-                        url: "/assets/transparent.gif"
-                      twelvehundred:
-                        url: "/assets/transparent.gif"
-                      standard:
-                        url: "/assets/transparent.gif"
-                      logo:
-                        url: "/assets/transparent.gif"
-                      box:
-                        url: "/assets/transparent.gif"
-                      thumb:
-                        url: "/assets/transparent.gif"
-                    excerpt: 
-                    image_width: 
-                    image_height: 
-                    registration_required: 
-                    title: The Moving Toyshop
-                    body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
-                      at eum.", "Expedita aut error. Consequatur voluptatibus hic.
-                      Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
-                      Rerum ut consectetur."]'
-                    next_post_by_festival:
-                      id: 1
-                      slug: after-many-a-summer-dies-the-swan
+                      id: 21
+                      slug: butter-in-a-lordly-dish
                       subsite_id: 1
                       published: true
-                      creator_id: 1
+                      creator_id: 24
                       last_modified_id: 
-                      published_at: '2016-08-07T00:00:00.000Z'
+                      published_at: '2018-09-06T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:01.928Z'
-                      updated_at: '2020-05-07T09:12:01.928Z'
+                      created_at: '2020-05-12T08:08:50.074Z'
+                      updated_at: '2020-05-12T08:08:50.074Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -308,40 +1120,41 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: After Many a Summer Dies the Swan
-                      body: '["Dolorem neque rerum. Tenetur quia illo. Et quos praesentium.",
-                        "Nihil vel saepe. Quaerat sed magnam. Et dicta architecto.",
-                        "Neque blanditiis vitae. Tempore id facere. Quisquam ut aut."]'
+                      title: Butter In a Lordly Dish
+                      body: '["Voluptas unde eum. Laborum ipsum enim. Eum omnis similique.",
+                        "Voluptatum eius voluptatem. Non est ipsam. Quia laborum aut.",
+                        "Eaque ab atque. Laboriosam voluptatem culpa. Earum voluptatem
+                        molestiae."]'
                       excerpt: 
                     previous_post_by_festival:
-                      id: 4
-                      slug: by-grand-central-station-i-sat-down-and-wept
-                      subsite_id: 4
+                      id: 20
+                      slug: the-wealth-of-nations
+                      subsite_id: 1
                       published: true
-                      creator_id: 4
+                      creator_id: 23
                       last_modified_id: 
-                      published_at: '2012-01-16T00:00:00.000Z'
+                      published_at: '2014-01-07T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:02.388Z'
-                      updated_at: '2020-05-07T09:12:02.388Z'
+                      created_at: '2020-05-12T08:08:49.940Z'
+                      updated_at: '2020-05-12T08:08:49.940Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -358,71 +1171,72 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: By Grand Central Station I Sat Down and Wept
-                      body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
-                        ex officia.", "Quibusdam enim adipisci. Voluptatum facilis
-                        tenetur. Minima ipsam enim.", "Non amet nostrum. Qui magni
-                        reiciendis. Excepturi voluptas quia."]'
+                      title: The Wealth of Nations
+                      body: '["Quisquam aut veritatis. Ut perferendis consequatur.
+                        Aut asperiores ut.", "Voluptatem odio recusandae. Officia
+                        dolor veritatis. Non tenetur et.", "Itaque autem sed. Fuga
+                        saepe et. Occaecati quaerat sit."]'
                       excerpt: 
-                    creator: Milford Marquardt
-                - id: '4'
+                    image_url: 
+                    creator: Geraldo Hirthe
+                - id: '20'
                   type: post
                   attributes:
-                    slug: by-grand-central-station-i-sat-down-and-wept
+                    slug: the-wealth-of-nations
                     published: true
-                    published_at: '2012-01-16T00:00:00.000Z'
+                    published_at: '2014-01-07T00:00:00.000Z'
                     image:
-                      url: "/assets/transparent.gif"
+                      url: 
                       wide:
-                        url: "/assets/transparent.gif"
+                        url: 
                       twelvehundred:
-                        url: "/assets/transparent.gif"
+                        url: 
                       standard:
-                        url: "/assets/transparent.gif"
+                        url: 
                       logo:
-                        url: "/assets/transparent.gif"
+                        url: 
                       box:
-                        url: "/assets/transparent.gif"
+                        url: 
                       thumb:
-                        url: "/assets/transparent.gif"
+                        url: 
                     excerpt: 
                     image_width: 
                     image_height: 
                     registration_required: 
-                    title: By Grand Central Station I Sat Down and Wept
-                    body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
-                      ex officia.", "Quibusdam enim adipisci. Voluptatum facilis tenetur.
-                      Minima ipsam enim.", "Non amet nostrum. Qui magni reiciendis.
-                      Excepturi voluptas quia."]'
+                    title: The Wealth of Nations
+                    body: '["Quisquam aut veritatis. Ut perferendis consequatur. Aut
+                      asperiores ut.", "Voluptatem odio recusandae. Officia dolor
+                      veritatis. Non tenetur et.", "Itaque autem sed. Fuga saepe et.
+                      Occaecati quaerat sit."]'
                     next_post_by_festival:
-                      id: 3
-                      slug: the-moving-toyshop
-                      subsite_id: 3
+                      id: 19
+                      slug: the-waste-land
+                      subsite_id: 1
                       published: true
-                      creator_id: 3
+                      creator_id: 22
                       last_modified_id: 
-                      published_at: '2014-03-10T00:00:00.000Z'
+                      published_at: '2014-01-26T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:02.230Z'
-                      updated_at: '2020-05-07T09:12:02.230Z'
+                      created_at: '2020-05-12T08:08:49.803Z'
+                      updated_at: '2020-05-12T08:08:49.803Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -439,41 +1253,41 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: The Moving Toyshop
-                      body: '["Perspiciatis blanditiis eveniet. Ipsa nisi optio. Autem
-                        at eum.", "Expedita aut error. Consequatur voluptatibus hic.
-                        Repellendus vitae atque.", "Ut in in. Aperiam ea distinctio.
-                        Rerum ut consectetur."]'
+                      title: The Waste Land
+                      body: '["Laboriosam sapiente quidem. Ea cupiditate tempora.
+                        Laborum velit a.", "Non dolor illum. Odit dignissimos exercitationem.
+                        Consequatur minus ut.", "Est voluptates aut. Minima in omnis.
+                        Nihil et modi."]'
                       excerpt: 
                     previous_post_by_festival:
-                      id: 2
-                      slug: mr-standfast
-                      subsite_id: 2
+                      id: 17
+                      slug: nectar-in-a-sieve
+                      subsite_id: 1
                       published: true
-                      creator_id: 2
+                      creator_id: 20
                       last_modified_id: 
-                      published_at: '2010-06-23T00:00:00.000Z'
+                      published_at: '2011-05-27T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:02.092Z'
-                      updated_at: '2020-05-07T09:12:02.092Z'
+                      created_at: '2020-05-12T08:08:49.524Z'
+                      updated_at: '2020-05-12T08:08:49.524Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -490,71 +1304,72 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: Mr Standfast
-                      body: '["Aliquid et non. Maiores et corrupti. Ullam nostrum
-                        eius.", "Enim praesentium vero. Dolorem architecto voluptatibus.
-                        Aut earum alias.", "Cupiditate laboriosam tempora. Ex odio
-                        tenetur. Atque tempora dolor."]'
+                      title: Nectar in a Sieve
+                      body: '["Sed eaque vel. Quia consequuntur aspernatur. Eaque
+                        exercitationem et.", "Non quo deserunt. Voluptatibus ad asperiores.
+                        Ut qui aliquam.", "Facilis ex tenetur. Quas ut aut. Vero asperiores
+                        esse."]'
                       excerpt: 
-                    creator: Riley Trantow
-                - id: '2'
+                    image_url: 
+                    creator: Amos Steuber
+                - id: '17'
                   type: post
                   attributes:
-                    slug: mr-standfast
+                    slug: nectar-in-a-sieve
                     published: true
-                    published_at: '2010-06-23T00:00:00.000Z'
+                    published_at: '2011-05-27T00:00:00.000Z'
                     image:
-                      url: "/assets/transparent.gif"
+                      url: 
                       wide:
-                        url: "/assets/transparent.gif"
+                        url: 
                       twelvehundred:
-                        url: "/assets/transparent.gif"
+                        url: 
                       standard:
-                        url: "/assets/transparent.gif"
+                        url: 
                       logo:
-                        url: "/assets/transparent.gif"
+                        url: 
                       box:
-                        url: "/assets/transparent.gif"
+                        url: 
                       thumb:
-                        url: "/assets/transparent.gif"
+                        url: 
                     excerpt: 
                     image_width: 
                     image_height: 
                     registration_required: 
-                    title: Mr Standfast
-                    body: '["Aliquid et non. Maiores et corrupti. Ullam nostrum eius.",
-                      "Enim praesentium vero. Dolorem architecto voluptatibus. Aut
-                      earum alias.", "Cupiditate laboriosam tempora. Ex odio tenetur.
-                      Atque tempora dolor."]'
+                    title: Nectar in a Sieve
+                    body: '["Sed eaque vel. Quia consequuntur aspernatur. Eaque exercitationem
+                      et.", "Non quo deserunt. Voluptatibus ad asperiores. Ut qui
+                      aliquam.", "Facilis ex tenetur. Quas ut aut. Vero asperiores
+                      esse."]'
                     next_post_by_festival:
-                      id: 4
-                      slug: by-grand-central-station-i-sat-down-and-wept
-                      subsite_id: 4
+                      id: 20
+                      slug: the-wealth-of-nations
+                      subsite_id: 1
                       published: true
-                      creator_id: 4
+                      creator_id: 23
                       last_modified_id: 
-                      published_at: '2012-01-16T00:00:00.000Z'
+                      published_at: '2014-01-07T00:00:00.000Z'
                       wordpress_id: 
                       image:
-                        url: "/assets/transparent.gif"
+                        url: 
                         wide:
-                          url: "/assets/transparent.gif"
+                          url: 
                         twelvehundred:
-                          url: "/assets/transparent.gif"
+                          url: 
                         standard:
-                          url: "/assets/transparent.gif"
+                          url: 
                         logo:
-                          url: "/assets/transparent.gif"
+                          url: 
                         box:
-                          url: "/assets/transparent.gif"
+                          url: 
                         thumb:
-                          url: "/assets/transparent.gif"
+                          url: 
                       image_width: 
                       image_height: 
                       image_content_type: 
                       image_size: 
-                      created_at: '2020-05-07T09:12:02.388Z'
-                      updated_at: '2020-05-07T09:12:02.388Z'
+                      created_at: '2020-05-12T08:08:49.940Z'
+                      updated_at: '2020-05-12T08:08:49.940Z'
                       wordpress_author: 
                       wordpress_scope: 
                       event_id: 
@@ -571,14 +1386,148 @@ paths:
                       email_template: 
                       max_attendees: 
                       tag_list: []
-                      title: By Grand Central Station I Sat Down and Wept
-                      body: '["Aut dolor eligendi. Temporibus delectus rerum. Voluptatem
-                        ex officia.", "Quibusdam enim adipisci. Voluptatum facilis
-                        tenetur. Minima ipsam enim.", "Non amet nostrum. Qui magni
-                        reiciendis. Excepturi voluptas quia."]'
+                      title: The Wealth of Nations
+                      body: '["Quisquam aut veritatis. Ut perferendis consequatur.
+                        Aut asperiores ut.", "Voluptatem odio recusandae. Officia
+                        dolor veritatis. Non tenetur et.", "Itaque autem sed. Fuga
+                        saepe et. Occaecati quaerat sit."]'
+                      excerpt: 
+                    previous_post_by_festival:
+                      id: 18
+                      slug: precious-bane
+                      subsite_id: 1
+                      published: true
+                      creator_id: 21
+                      last_modified_id: 
+                      published_at: '2009-11-27T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: 
+                        wide:
+                          url: 
+                        twelvehundred:
+                          url: 
+                        standard:
+                          url: 
+                        logo:
+                          url: 
+                        box:
+                          url: 
+                        thumb:
+                          url: 
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-12T08:08:49.666Z'
+                      updated_at: '2020-05-12T08:08:49.666Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: Precious Bane
+                      body: '["Quae molestias voluptas. Nemo vel nulla. Est modi iste.",
+                        "Nihil et id. Tenetur blanditiis animi. Autem harum iste.",
+                        "Consequatur exercitationem ducimus. Suscipit omnis magni.
+                        Doloremque vero ad."]'
+                      excerpt: 
+                    image_url: 
+                    creator: Zane Dicki
+                - id: '18'
+                  type: post
+                  attributes:
+                    slug: precious-bane
+                    published: true
+                    published_at: '2009-11-27T00:00:00.000Z'
+                    image:
+                      url: 
+                      wide:
+                        url: 
+                      twelvehundred:
+                        url: 
+                      standard:
+                        url: 
+                      logo:
+                        url: 
+                      box:
+                        url: 
+                      thumb:
+                        url: 
+                    excerpt: 
+                    image_width: 
+                    image_height: 
+                    registration_required: 
+                    title: Precious Bane
+                    body: '["Quae molestias voluptas. Nemo vel nulla. Est modi iste.",
+                      "Nihil et id. Tenetur blanditiis animi. Autem harum iste.",
+                      "Consequatur exercitationem ducimus. Suscipit omnis magni. Doloremque
+                      vero ad."]'
+                    next_post_by_festival:
+                      id: 17
+                      slug: nectar-in-a-sieve
+                      subsite_id: 1
+                      published: true
+                      creator_id: 20
+                      last_modified_id: 
+                      published_at: '2011-05-27T00:00:00.000Z'
+                      wordpress_id: 
+                      image:
+                        url: 
+                        wide:
+                          url: 
+                        twelvehundred:
+                          url: 
+                        standard:
+                          url: 
+                        logo:
+                          url: 
+                        box:
+                          url: 
+                        thumb:
+                          url: 
+                      image_width: 
+                      image_height: 
+                      image_content_type: 
+                      image_size: 
+                      created_at: '2020-05-12T08:08:49.524Z'
+                      updated_at: '2020-05-12T08:08:49.524Z'
+                      wordpress_author: 
+                      wordpress_scope: 
+                      event_id: 
+                      project_id: 
+                      festival_id: 1
+                      external: false
+                      eventr_id: 
+                      residency_id: 
+                      registration_required: 
+                      email_registrations_to: 
+                      question_description: 
+                      question_creators: 
+                      question_motivation: 
+                      email_template: 
+                      max_attendees: 
+                      tag_list: []
+                      title: Nectar in a Sieve
+                      body: '["Sed eaque vel. Quia consequuntur aspernatur. Eaque
+                        exercitationem et.", "Non quo deserunt. Voluptatibus ad asperiores.
+                        Ut qui aliquam.", "Facilis ex tenetur. Quas ut aut. Vero asperiores
+                        esse."]'
                       excerpt: 
                     previous_post_by_festival: 
-                    creator: Daniell Friesen
+                    image_url: 
+                    creator: Magdalene Senger
         '404':
           description: Not found
           content:
@@ -588,6 +1537,158 @@ paths:
                 - detail: Couldn't find Festival with 'id'=324
                   title: 404 Not found
                   status: 404
+  "/v1/projects":
+    post:
+      summary: Create a project
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new project.
+      tags:
+      - Projects
+      responses:
+        '201':
+          description: Project has been created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: project
+                  attributes:
+                    name: Eltdown Shards
+                    slug: eltdown-shards
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:54.827Z'
+                    updated_at: '2020-05-12T08:08:54.827Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: "#26d5e6"
+                    project_text_colour: "#931d92"
+                    active: true
+                    redirect_to: 
+                    project_link_colour: "#f3f501"
+                    background_url: 
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+    get:
+      summary: Retrieve all projects
+      description: Returns an array of all projects in the database
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: Projects returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '2'
+                  type: project
+                  attributes:
+                    name: Max Payne 3
+                    slug: max-payne-3
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:55.551Z'
+                    updated_at: '2020-05-12T08:08:55.551Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to: 
+                    project_link_colour: '008cba'
+                    background_url: 
+                - id: '3'
+                  type: project
+                  attributes:
+                    name: Animal Crossing
+                    slug: animal-crossing
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:55.568Z'
+                    updated_at: '2020-05-12T08:08:55.568Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to: 
+                    project_link_colour: '008cba'
+                    background_url: 
+                - id: '4'
+                  type: project
+                  attributes:
+                    name: Counter-Strike
+                    slug: counter-strike
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:55.585Z'
+                    updated_at: '2020-05-12T08:08:55.585Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to: 
+                    project_link_colour: '008cba'
+                    background_url: 
+                - id: '5'
+                  type: project
+                  attributes:
+                    name: 'Batman: Arkham City'
+                    slug: batman-arkham-city
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:55.603Z'
+                    updated_at: '2020-05-12T08:08:55.603Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to: 
+                    project_link_colour: '008cba'
+                    background_url: 
+                - id: '6'
+                  type: project
+                  attributes:
+                    name: The Witcher
+                    slug: the-witcher
+                    website: 
+                    parent_id: 
+                    created_at: '2020-05-12T08:08:55.620Z'
+                    updated_at: '2020-05-12T08:08:55.620Z'
+                    evolvedfrom_id: 
+                    evolution_year: 
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to: 
+                    project_link_colour: '008cba'
+                    background_url: 
 servers:
 - url: https://{defaultHost}
   variables:

@@ -8,6 +8,7 @@ FactoryBot.define do
     username { Faker::Internet.username(specifier: 5..18) }
     website { Faker::Internet.url }
     bio { Faker::Quote.most_interesting_man_in_the_world }
+
     trait :twitter do
       twitter_name { Faker::Internet.username(specifier: 5..8) }
     end

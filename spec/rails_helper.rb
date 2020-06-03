@@ -42,10 +42,12 @@ RSpec.configure do |config|
     # pp 'before suite'
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
   end
   config.after(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
   end
 
   # config.disable_monkey_patching!

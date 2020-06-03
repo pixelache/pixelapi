@@ -18,6 +18,10 @@
           create_list(:festival, 1, published: false)
         end
 
+        after do |example|
+          example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+        end
+        
         response 200, 'Festivals returned' do
           run_test! do |response|
             expect(json['data'].size).to eq 2
@@ -37,6 +41,10 @@
         produces 'application/json'
         consumes 'application/json'
 
+        after do |example|
+          example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+        end
+        
         response 200, 'Festival retrieved' do
           run_test! 
         end

@@ -36,6 +36,157 @@ RSpec.configure do |config|
         title: 'Pixelache API V1',
         version: 'v1'
       },
+      components: {
+        securitySchemes: {
+          client:         {
+            in:   :header,
+            name: :client,
+            type: :apiKey
+          },
+          uid:            {
+            in:   :header,
+            type: :apiKey,
+            name: :uid
+          },
+          "Access-Token": {
+            in:   :header,
+            type: :apiKey,
+            name: 'Access-Token'
+          }
+        },
+        schemas:  {
+          errors_object: {
+            type: 'object',
+            properties: {
+              errors: { '$ref' => '#/components/schemas/errors_map' }
+            }
+          },
+          errors_map: {
+            type: 'object',
+            additionalProperties: {
+              type: :array,
+              items: { type: :string }
+            }
+          },
+          attachments_attributes: { 
+            type: :array,
+            items: { 
+              type: :object,
+              properties: { 
+                id: { type: :integer },
+                documenttype_id: { type: :integer },
+                attachedfile: { type: :string, format: :byte },
+                _destroy: { type: :boolean },
+                year_of_publication: { type: :integer },
+                title: { type: :string },
+                description: { type: :string },
+                public: { type: :boolean }
+              }
+            }
+          },
+          photos_attributes: { 
+            type: :array,
+            items: { 
+              type: :object,
+              properties: { 
+                id: { type: :integer },
+                filename: { type: :string, format: :byte },
+                title: { type: :string },
+                credit: { type: :string },
+                _destroy: { type: :boolean }
+              }
+            }
+          },
+          videos_attributes: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                id: { type: :integer },
+                in_url: { type: :string },
+                _destroy: { type: :boolean }
+              }
+            }
+          },
+          project: { 
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              name: { type: :string },
+              parent_id: { type: :integer },
+              website: { type: :string },
+              evolvedfrom_id: { type: :integer },
+              hidden: { type: :boolean },
+              project_bg_colour: { type: :string },
+              project_text_colour: { type: :string },
+              project_link_colour: { type: :string },
+              redirect_to: { type: :string },
+              background: { type: :string, format: :byte },
+              evolution_year: { type: :string },
+              active: { type: :boolean },
+              remove_background: { type: :boolean },
+              translations_attributes: { 
+                type: :array,
+                items: { 
+                  type: :object,
+                  properties: {
+                    id: { type: :integer },
+                    description: { type: :string },
+                    short_description: { type: :string },
+                    locale: { type: :string, required: true }
+                  }
+                }
+              },
+              photos_attributes: {
+                '$ref' => '#/components/schemas/photos_attributes'
+              },
+              attachments_attributes: {
+                '$ref' => '#/components/schemas/attachments_attributes'
+              },
+              videos_attributes: {
+                '$ref' => '#/components/schemas/videos_attributes'
+              }
+            }
+          },
+          post: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              published: { type: :boolean },
+              published_at: { type: :string },
+              subsite_id: { type: :integer },
+              project_id: { type: :integer },
+              festival_id: { type: :integer },
+              event_id: { type: :integer },
+              residency_id: { type: :integer },
+              post_category_ids: { 
+                type: :array,
+                items: { type: :integer }
+              },
+              image: { type: :string, format: :byte },
+              translations_attributes: {
+                type: :array,
+                items: { 
+                  type: :object,
+                  properties: {
+                    id: { type: :integer },
+                    locale: { type: :string, length: 2, required: true },
+                    title: { type: :string, required: true },
+                    body: { type: :string, required: true },
+                    excerpt: { type: :string }
+                  }
+                }
+              },
+              photos_attributes: {
+                '$ref' => '#/components/schemas/photos_attributes'
+              },
+              attachments_attributes: {
+                '$ref' => '#/components/schemas/attachments_attributes'
+              }
+            }
+          }
+        }
+      },
       paths: {},
       servers: [
         {
