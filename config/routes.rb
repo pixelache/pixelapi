@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :projects do
         resources :posts
       end
+      resources :residencies
     end
   end
   root to: 'api/v1/api#home'

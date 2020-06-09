@@ -108,6 +108,21 @@ RSpec.configure do |config|
               }
             }
           },
+          residency: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              name: { type: :string },
+              country: { type: :string, length: 2 },
+              start_at: { type: :string },
+              end_at:  { type: :string },
+              is_micro: { type: :boolean },
+              photo: { type: :string, format: :byte },
+              project_id: { type: :string },
+              user_id: { type: :string },
+              country_override: { type: :string }
+            }
+          },
           project: { 
             type: :object,
             properties: {

@@ -27,6 +27,7 @@ class Ability
       can :manage, Opencall
       can :manage, Opencallquestion
       can :manage, Document
+      can :manage, Residency
     elsif user.has_role? :advisor
       can :read, Opencallsubmission
       can :manage, Comment
