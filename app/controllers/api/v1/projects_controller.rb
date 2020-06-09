@@ -24,6 +24,19 @@ module Api::V1
       render json: ProjectSerializer.new(@projects).serialized_json, status: 200 
     end
 
+    def update
+      @project = Project.friendly.find(params[:id])
+      if can? :update, @project
+        if @project.update(project_params)
+          render json: ProjectSerializer.new(@project).serialized_json, status: 200
+        else 
+          respond_with_errors @project
+        end
+      else
+        render_403(:update, @project)
+      end
+    end
+    
     protected
 
     def project_params

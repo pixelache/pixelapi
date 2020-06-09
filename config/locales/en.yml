@@ -34,6 +34,9 @@ en:
     errors:
       error_403: 'You are not authorised to do this'
       error_404: '404 Not found'
+      residency:
+        missing_country: 'You must either choose a country or specify text in the "country_override" field.'
+
       opencall:
         deadline_passed: 'This open call deadline has passed.'
         answer:

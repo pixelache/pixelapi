@@ -1,7 +1,65 @@
 require 'swagger_helper'
 
-RSpec.describe 'api/v1/projects', type: :request do
+RSpec.describe 'Projects API', type: :request do
 
+  path '/v1/projects/{id}' do
+    put 'Update a project' do
+      security [client: [], 'Access-Token': [], uid: []]
+      parameter name: :id, in: :path, type: :string, required: true
+      parameter name: :project, in: :body, schema: { '$ref': '#/components/schemas/project'}
+      description 'Updates a project definition.'
+      tags 'Projects'
+      produces 'application/json'
+      consumes 'application/json'
+
+      let(:id) { FactoryBot.create(:project).id }
+      let(:project) { { project: { name: 'Updated project name' }  } }
+      let(:client) { @auth_headers['client'] }
+      let('Access-Token') { @auth_headers['access-token'] }
+      let(:uid) { @auth_headers['uid'] }
+
+      before do
+        @user = FactoryBot.create(:user, :member)
+        @auth_headers = @user.create_new_auth_token
+      end
+
+      after do |example|
+        example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+      end
+
+      response 200, 'Project successfully updated.' do
+        run_test! do |response|
+          expect(json['data']['attributes']['name']).to eq 'Updated project name'
+        end
+      end
+
+      response 401, 'Not authenticated' do
+        let(:uid) { '' }
+        run_test!
+      end
+
+      response 403, 'Not authorized' do
+        before do
+          user2 = FactoryBot.create(:user, :confirmed)
+          @auth_headers = user2.create_new_auth_token
+        end
+        run_test!
+      end
+
+      response 404, 'Not found' do
+        let(:id) { 23423423 }
+        run_test!
+      end
+
+      response 422, 'Invalid/unprocessible data' do
+        before do
+          other = FactoryBot.create(:project, name: 'Updated project name')
+        end
+        run_test!
+      end
+    end
+  end
+  
   path '/v1/projects' do
     post 'Create a project' do
       security [client: [], 'Access-Token': [], uid: []]

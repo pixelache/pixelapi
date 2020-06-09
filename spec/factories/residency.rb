@@ -5,11 +5,11 @@ FactoryBot.define do
     name { Faker::Name.name  }
     start_at { Faker::Date.backward(days: 4000) }
     country { Faker::Address.country_name_to_code }
-    latitude { Faker::Address.latitude }
+
     description_en { Faker::Lorem.paragraphs(number: 2) }
     is_micro { [false, false, false, false, false, false, true, true].sample }
     photo { File.new(File.join(::Rails.root.to_s, 'spec/fixtures/images/artist.jpg')) }
-    longitude { Faker::Address.longitude}
+
     trait :with_project do
       association :with_project
     end
