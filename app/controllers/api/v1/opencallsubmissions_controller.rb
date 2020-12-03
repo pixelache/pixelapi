@@ -12,6 +12,7 @@ module Api::V1
         # head :no_content
         render json: OpencallsubmissionSerializer.new(@opencallsubmission, include: [:opencallanswers]).serialized_json, status: 201
       else
+        Rails.logger.error @opencallsubmission.errors.inspect
         respond_with_errors(@opencallsubmission)
       end
     end
