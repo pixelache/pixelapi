@@ -1,9 +1,9 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.14.0"
+lock "~> 3.16.0"
 
 set :application, "pixelapi"
 set :repo_url, "git://github.com/pixelache/pixelapi.git"
-set :rvm_ruby_version, '2.7.1'
+set :rvm_ruby_version, '2.7.3'
 set :keep_releases, 3
 set :linked_files, %w{config/database.yml }
 set :linked_dirs, %w{public/system tmp config/credentials public/uploads public/images public/assets log}
