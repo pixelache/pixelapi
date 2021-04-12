@@ -11,7 +11,10 @@ RSpec.describe Festival, type: :model do
     it { is_expected.to validate_presence_of(:name) }
   end
 
-  it 'should have a valid factory' do
-    expect(FactoryBot.build(:festival).save).to be true
+  context 'other tests' do
+
+    it 'should have a valid factory' do
+      expect(FactoryBot.build(:festival).save).to be true
+    end
   end
 end

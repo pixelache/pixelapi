@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '2.7.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.3.1' #github: 'rails/rails', branch: '6-0-stable'
+gem 'rails', '6.1.3.1' #github: 'rails/rails', branch: '6-0-stable'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma'
@@ -26,7 +26,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails'#, '~> 3.8'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
   gem 'faker'
