@@ -6,6 +6,7 @@ class Festivaltheme < ActiveRecord::Base
   has_many :events, through: :festivaltheme_relations, source_type: 'Event', source: :relation, foreign_key: :relation_id
   has_many :pages, through: :festivaltheme_relations, source_type: 'Page', source: :relation  
   has_many :posts, through: :festivaltheme_relations, source_type: 'Post', source: :relation, foreign_key: :relation_id
+  has_many :contributors, through: :festivaltheme_relations, source_type: 'Contributor', source: :relation, foreign_key: :relation_id
   
   mount_uploader :image, ImageUploader
   before_save :update_image_attributes

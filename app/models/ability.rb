@@ -9,6 +9,7 @@ class Ability
     elsif user.has_role? :member
       can :read, Subsite, :name => 'pixelache'
       can :manage, Event
+      can :manage, Contributor
       can :manage, Page, :subsite => {:name => 'pixelache' }
       can :manage, Post, :subsite => {:name => 'pixelache' }
       can :manage, Festival
@@ -54,6 +55,7 @@ class Ability
     else
      cannot :manage, Document
      cannot :manage, Post
+     cannot :manage, Contributor
      cannot :manage, Page 
     end
     

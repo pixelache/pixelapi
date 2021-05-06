@@ -1,0 +1,31 @@
+class Contributor < ApplicationRecord
+  has_closure_tree
+  mount_uploader :image, ImageUploader
+  extend FriendlyId
+  friendly_id :name, :use => [ :slugged, :finders ] # :history]
+
+  belongs_to :user, optional: true
+  has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id
+  has_many :festivalthemes,  through: :festivaltheme_relations
+  has_many :contributor_relations
+  has_many :events, through: :contributor_relations, source_type: 'Event', source: :relation, foreign_key: :relation_id
+  has_many :festivals, through: :contributor_relations, source_type: 'Festival', source: :relation, foreign_key: :relation_id
+  has_many :residencies, through: :contributor_relations, source_type: 'Residency', source: :relation, foreign_key: :relation_id
+
+  
+  validates :name, presence: true
+  validates :alphabetical_name, presence: true
+
+  before_save :update_image_attributes
+
+
+  def update_image_attributes
+    if image.present? && image_changed?
+      if image.file.exists?
+        self.image_content_type = image.file.content_type
+        self.image_file_size = image.file.size
+        self.image_width, self.image_height = `identify -format "%wx%h" #{image.file.path}`.split(/x/)
+      end
+    end
+  end
+end
