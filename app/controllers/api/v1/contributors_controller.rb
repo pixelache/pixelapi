@@ -59,7 +59,7 @@ module Api::V1
     protected
 
     def contributor_params
-      params.require(:contributor).permit(:name, :slug, :parent_id, :image, :alphabetical_name, :bio, :website, project_ids: [], event_ids: [], festival_ids: [], festivaltheme_ids: [], residency_ids: [])
+      params.require(:contributor).permit(:name, :slug, :parent_id, :image, :alphabetical_name, :bio, :website, :is_member, :user_id, project_ids: [], event_ids: [], festival_ids: [], festivaltheme_ids: [], residency_ids: [])
     end
     
   end
