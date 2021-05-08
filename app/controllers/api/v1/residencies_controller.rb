@@ -10,7 +10,7 @@ module Api::V1
       @residency = Residency.new(residency_params)
       if can? :create, @residency
         if @residency.save
-          render json: ResidencySerializer.new(@residency).serialized_json, status: 201
+          render json: ResidencySerializer.new(@residency).serializable_hash.to_json, status: 201
         else
           respond_with_errors(@residency)
         end
@@ -21,14 +21,14 @@ module Api::V1
 
     def index
       @residencies = Residency.all.order(:start_at)
-      render json: ResidencySerializer.new(@residencies).serialized_json, status: 200 
+      render json: ResidencySerializer.new(@residencies).serializable_hash.to_json, status: 200 
     end
 
     def update
       @residency = Residency.friendly.find(params[:id])
       if can? :update, @residency
         if @residency.update(residency_params)
-          render json: ResidencySerializer.new(@residency).serialized_json, status: 200
+          render json: ResidencySerializer.new(@residency).serializable_hash.to_json, status: 200
         else 
           respond_with_errors @residency
         end

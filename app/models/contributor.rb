@@ -1,19 +1,25 @@
 class Contributor < ApplicationRecord
+  JSON_RELATIONS = [:festivalthemes, :contributor_relations]
   has_closure_tree
-  mount_uploader :image, ImageUploader
+  mount_base64_uploader :image, ImageUploader
   extend FriendlyId
   friendly_id :name, :use => [ :slugged, :finders ] # :history]
 
   belongs_to :user, optional: true
-  has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id
+  has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id, dependent: :destroy
   has_many :festivalthemes,  through: :festivaltheme_relations
-  has_many :contributor_relations
-  has_many :events, through: :contributor_relations, source_type: 'Event', source: :relation, foreign_key: :relation_id
-  has_many :festivals, through: :contributor_relations, source_type: 'Festival', source: :relation, foreign_key: :relation_id
-  has_many :residencies, through: :contributor_relations, source_type: 'Residency', source: :relation, foreign_key: :relation_id
+  has_many :contributor_relations, dependent: :destroy
+  has_many :events, through: :contributor_relations, source_type: 'Event', source: :relation#, foreign_key: :relation_id
+  has_many :festivals, through: :contributor_relations, source_type: 'Festival', source: :relation#, foreign_key: :relation_id
+  has_many :residencies, through: :contributor_relations, source_type: 'Residency', source: :relation#, foreign_key: :relation_id
+  has_many :projects, through: :contributor_relations, source: :relation, source_type: 'Project'
+  accepts_nested_attributes_for :projects,  allow_destroy: true
+  accepts_nested_attributes_for :festivals,  allow_destroy: true
+  accepts_nested_attributes_for :residencies,  allow_destroy: true
+  accepts_nested_attributes_for :events,  allow_destroy: true
+  accepts_nested_attributes_for :festivalthemes,  allow_destroy: true
 
-  
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :alphabetical_name, presence: true
 
   before_save :update_image_attributes

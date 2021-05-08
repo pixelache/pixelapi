@@ -11,6 +11,8 @@ class Residency < ActiveRecord::Base
   belongs_to :user, optional: true
   has_many :posts
   has_many :events
+  has_many :contributor_relations, as: :relation, foreign_key: :relation_id
+  has_many :contributors,  through: :contributor_relations
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['description'].blank? }
 
   # validations + callbacks

@@ -10,7 +10,7 @@ module Api::V1
       @opencallsubmission = Opencallsubmission.new(opencallsubmission_params.merge(opencall: @opencall))
       if @opencallsubmission.save
         # head :no_content
-        render json: OpencallsubmissionSerializer.new(@opencallsubmission, include: [:opencallanswers]).serialized_json, status: 201
+        render json: OpencallsubmissionSerializer.new(@opencallsubmission, include: [:opencallanswers]).serializable_hash.to_json, status: 201
       else
         Rails.logger.error @opencallsubmission.errors.inspect
         respond_with_errors(@opencallsubmission)

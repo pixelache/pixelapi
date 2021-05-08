@@ -10,7 +10,7 @@ module Api::V1
       @project = Project.new(project_params)
       if can? :create, @project
         if @project.save
-          render json: ProjectSerializer.new(@project).serialized_json, status: 201
+          render json: ProjectSerializer.new(@project).serializable_hash.to_json, status: 201
         else
           respond_with_errors(@project)
         end
@@ -21,14 +21,14 @@ module Api::V1
 
     def index
       @projects = Project.visible
-      render json: ProjectSerializer.new(@projects).serialized_json, status: 200 
+      render json: ProjectSerializer.new(@projects).serializable_hash.to_json, status: 200 
     end
 
     def update
       @project = Project.friendly.find(params[:id])
       if can? :update, @project
         if @project.update(project_params)
-          render json: ProjectSerializer.new(@project).serialized_json, status: 200
+          render json: ProjectSerializer.new(@project).serializable_hash.to_json, status: 200
         else 
           respond_with_errors @project
         end

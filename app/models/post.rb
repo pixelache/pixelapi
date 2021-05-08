@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   acts_as_taggable
   translates :title, :body, :excerpt, :fallbacks_for_empty_translations => true
-  globalize_accessors :locales => [:en, :fi], :attributes => [:title, :body]
+  globalize_accessors :locales => [:en, :fi, :ru, :sv], :attributes => [:title, :body]
   belongs_to :subsite
   belongs_to :residency, optional: true
   belongs_to :event, optional: true

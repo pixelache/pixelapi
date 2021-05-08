@@ -8,7 +8,7 @@ module Api::V1
     
     def show
       @opencall = Opencall.friendly.find(params[:id])
-      render json: OpencallSerializer.new(@opencall, include: [:opencallquestions]).serialized_json, status: 200
+      render json: OpencallSerializer.new(@opencall, include: [:opencallquestions]).serializable_hash.to_json, status: 200
     end
   end
 end

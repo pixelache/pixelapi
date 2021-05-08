@@ -1,21 +1,34 @@
 class Festivaltheme < ActiveRecord::Base
-  belongs_to :festival
+  extend FriendlyId
+  friendly_id :name_en, use: [:slugged, :finders, :scoped], :scope => :festival
   translates :name, :description, :short_description, fallbacks_for_empty_translations: true
-  accepts_nested_attributes_for :translations, reject_if: proc {|x| x['name'].blank? }
+  globalize_accessors :locales => [:en, :fi], :attributes => [:name, :description, :short_description]
+  mount_base64_uploader :image, ImageUploader
+
+  belongs_to :festival  
   has_many :festivaltheme_relations
   has_many :events, through: :festivaltheme_relations, source_type: 'Event', source: :relation, foreign_key: :relation_id
   has_many :pages, through: :festivaltheme_relations, source_type: 'Page', source: :relation  
   has_many :posts, through: :festivaltheme_relations, source_type: 'Post', source: :relation, foreign_key: :relation_id
   has_many :contributors, through: :festivaltheme_relations, source_type: 'Contributor', source: :relation, foreign_key: :relation_id
-  
-  mount_uploader :image, ImageUploader
-  before_save :update_image_attributes
-  validates_presence_of :festival_id
   has_many :experiences
-  
-  extend FriendlyId
-  friendly_id :name_en, use: [:slugged, :finders, :scoped], :scope => :festival
-  
+  accepts_nested_attributes_for :translations, reject_if: proc {|x| x['name'].blank? }
+
+  validates :festival, presence: true
+  validate :name_present_in_at_least_one_locale
+
+  before_save :update_image_attributes
+
+  class Translation
+    validates :name, presence: true, uniqueness: { scope: :festivaltheme_id }
+  end
+
+  def name_present_in_at_least_one_locale
+    if I18n.available_locales.map { |locale| translation_for(locale).name }.compact.empty?
+      errors.add(:base, "You must specify a theme name in at least one available language.")
+    end
+  end
+
   def name_and_festival
     [name, festival.name].join(' / ')
   end

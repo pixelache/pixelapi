@@ -22,6 +22,8 @@ class Project < ActiveRecord::Base
   has_one :evolvedto, :class_name  => 'Project', :foreign_key => "evolvedfrom_id"
   has_many :subscriptions, as: :item
   has_one :projectproposal, foreign_key: 'offspring_id'
+  has_many :contributor_relations, as: :relation, foreign_key: :relation_id
+  has_many :contributors,  through: :contributor_relations
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['description'].blank? && x['short_description'].blank? }
   accepts_nested_attributes_for :photos, :reject_if => proc {|x| x['filename'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :attachments, :reject_if => proc {|x| x['attachedfile'].blank? }, :allow_destroy => true

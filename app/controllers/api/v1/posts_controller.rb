@@ -12,7 +12,7 @@ module Api::V1
       if can? :create, @post
         @post.creator = current_user
         if @post.save
-          render json: PostSerializer.new(@post).serialized_json, status: 201
+          render json: PostSerializer.new(@post).serializable_hash.to_json, status: 201
         else
           respond_with_errors(@post)
         end
@@ -25,7 +25,7 @@ module Api::V1
       if params[:festival_id]
         @festival = Festival.friendly.find(params[:festival_id])
         @posts = Post.by_festival(@festival).published.order('published_at DESC').page(params[:page]).per(12)
-        render json: PostSerializer.new(@posts).serialized_json, status: 200 
+        render json: PostSerializer.new(@posts).serializable_hash.to_json, status: 200 
       else
         if params[:archive_id]
           @year = params[:archive_id]
@@ -50,7 +50,7 @@ module Api::V1
             end
           end
         end
-        render json: PostSerializer.new(@posts).serialized_json, status: 200 
+        render json: PostSerializer.new(@posts).serializable_hash.to_json, status: 200 
       end
     end
 
@@ -59,7 +59,7 @@ module Api::V1
         if params[:festival_id]
           @festival = Festival.friendly.find(params[:festival_id])
           @post = @festival.posts.friendly.find(params[:id])
-          render json: PostSerializer.new(@post).serialized_json, status: 200 
+          render json: PostSerializer.new(@post).serializable_hash.to_json, status: 200 
         end
       rescue ActiveRecord::RecordNotFound
         @post = Post.friendly.find(params[:id])

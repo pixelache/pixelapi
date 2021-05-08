@@ -1,5 +1,5 @@
 class PageSerializer
-  include FastJsonapi::ObjectSerializer
+  include JSONAPI::Serializer
   attributes :name, :body, :published, :sort_order, :slug, :photos
 
   attributes :image  do |obj|

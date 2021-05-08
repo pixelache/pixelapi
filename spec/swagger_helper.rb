@@ -9,25 +9,33 @@ RSpec.configure do |config|
   config.swagger_root = Rails.root.to_s + '/swagger'
   config.include RequestSpecHelper
   config.include RswagExampleHelpers
-  # Define one or more Swagger documents and provide global metadata for each one
-  # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
-  # be generated at the provided relative path under swagger_root
-  # By default, the operations defined in spec files are added to the first
-  # document below. You can override this behavior by adding a swagger_doc tag to the
-  # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
+  config.swagger_format = :yaml
+  config.after do |example|
+    if example.metadata[:save_response] == true && !response.nil?
+      example.metadata[:response][:content] = { 'application/json' => { 'example' => JSON.parse(response.body, symbolize_names: true) } }
+    end
 
-
-
-    # if there's no response metadata, we can assume we're not in RSwag territory
-    # unless example.metadata[:response].nil?
-    #   example.metadata[:response][:content] = {
-    #     example.metadata[:operation][:produces].first => {
-    #       schema: example.metadata[:response][:schema]
-    #     }
-    #   }
-    # end
-  # end
-
+    if example.metadata[:type] == :request && !example.metadata[:response].nil?
+      # if response.body.length > 1
+      #   example.metadata[:response][:examples] = { "application/json" => JSON.parse(response.body, symbolize_names: true) }
+      # end
+      request_example_name = example.metadata[:save_request_example]
+      if request_example_name && respond_to?(request_example_name)
+        # pp JSON.pretty_generate(example.metadata)
+        param = example.metadata[:operation][:parameters].find {|p| p[:name] == request_example_name }
+        # example.metadata[:requestBody] = Hash.new{|h,k| h[k] = h.dup.clear }
+        # pp JSON.pretty_generate(example.metadata[:operation][:parameters][0].inspect)
+        example.metadata[:operation][:parameters][0][:requestExample] = send(request_example_name)
+        # pp JSON.pretty_generate(example.metadata[:operation][:parameters][0].inspect)
+      end
+    end
+    # request_example_name = example.metadata[:save_request_example]
+    # # if request_example_name && respond_to?(request_example_name)
+    # #   param = example.metadata[:operation][:parameters].detect { |p| p[:name] == request_example_name }
+    # #   param[:schema][:example] = send(request_example_name)
+    # # end
+  end
+    
   config.swagger_docs = {
     'v1/swagger.yaml' => {
       # swagger: '2.0',
@@ -122,6 +130,18 @@ RSpec.configure do |config|
               user_id: { type: :string },
               country_override: { type: :string }
             }
+          },
+          contributor: {
+            type: :object,
+            properties: { 
+              id: { type: :number, description: 'The ID# of the contributor, if a PUT/update request. For a POST/create request do not include',example: 14},
+              name: { type: :string, example: 'Jackson Pollock', description: 'The name of the contributor.' },
+              alphabetical_name: { type: :string, example: 'Pollock, Jackson', description: 'The name by which the contributor should be alphabeticised.'},
+              bio: {type: :string, example: 'Jackson Pollock (January 28, 1912 - August 11, 1956), was an influential American painter and a major figure in the abstract expressionist movement. During his lifetime, Pollock enjoyed considerable fame and notoriety. He was regarded as a mostly reclusive artist.', description: 'A short biography of the contributor.'},
+              website: { type: :string, example: 'https://www.jackson-pollock.org/', description: 'The website URL of the contributor.'},
+              image: { type: :string, format: :byte, description: 'An image of the contributor. Can be sent as binary using form-data, or as a base64-encoded string.' }
+            },
+            required: %w[name alphabetical_name]
           },
           project: { 
             type: :object,

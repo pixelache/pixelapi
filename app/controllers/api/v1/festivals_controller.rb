@@ -29,19 +29,19 @@ module Api::V1
         # redirect_to action: action_name, id: @festival.friendly_id, page: @page.friendly_id, status: 301
         redirect_to festival_page_festival_url(@festival.slug, @page.friendly_id, subdomain: @festival.subsite.subdomain) and return
       else
-        render json: PageSerializer.new(@page).serialized_json, status: 200
+        render json: PageSerializer.new(@page).serializable_hash.to_json, status: 200
       end
     end
 
     def index
       @festivals = Festival.published
-      render json: FestivalSerializer.new(@festivals).serialized_json, status: 200 
+      render json: FestivalSerializer.new(@festivals).serializable_hash.to_json, status: 200 
     end
     
 
     def show
       @festival = Festival.friendly.find(params[:id])
-      render json: FestivalSerializer.new(@festival).serialized_json, status: 200 
+      render json: FestivalSerializer.new(@festival).serializable_hash.to_json, status: 200 
     end
   end
 end

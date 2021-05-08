@@ -1,41 +1,47 @@
 class Event < ActiveRecord::Base
+  include Feedable
   acts_as_taggable_on :tags, :technologies
   translates :name, :description, :notes, :fallbacks_for_empty_translations => true
-  belongs_to :festival
-  belongs_to :project
+  globalize_accessors locales: [:en, :fi], attributes: [:name, :description, :notes]
+  extend FriendlyId
+  friendly_id :name_en , :use => [ :slugged, :finders ] # :history]
+  has_paper_trail
+  mount_base64_uploader :image, ImageUploader
+  resourcify
+
+  belongs_to :festival, optional: true
+  belongs_to :project, optional: true
   belongs_to :place
+  belongs_to :residency, optional: true
   belongs_to :subsite
-  belongs_to :step
-  belongs_to :user
+  belongs_to :step, optional: true
+  belongs_to :user, optional: true
   has_many :posts
   has_many :flickrsets
-  #belongs_to :festivaltheme
   has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id
   has_many :festivalthemes,  through: :festivaltheme_relations
-  
+  has_many :contributor_relations, as: :relation, foreign_key: :relation_id
+  has_many :contributors,  through: :contributor_relations
   has_many :frontitems, as: :item, :dependent => :destroy
-  belongs_to :residency
   has_many :photos, as: :item
   has_many :attendees, as: :item, dependent: :destroy
   has_many :archivalimages
   has_many :videos
-  extend FriendlyId
-  friendly_id :name_en , :use => [ :slugged, :finders ] # :history]
-  has_paper_trail
-  mount_uploader :image, ImageUploader
-  resourcify
-  # has_event_calendar
-  include Feedable
+  has_many :feeds, :as => :item, :dependent => :delete_all
+
   accepts_nested_attributes_for :translations, :reject_if => proc {|x| x['name'].blank? && x['description'].blank? }
   accepts_nested_attributes_for :photos, :reject_if => proc {|x| x['filename'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :videos , reject_if: proc {|x| x['in_url'].blank? }, :allow_destroy => true
+  
   attr_accessor  :place_name, :add_to_newsfeed
-  before_save :update_image_attributes
+  
   validates_presence_of :subsite_id, :place_id, :start_at
-  #validate :name_present_in_at_least_one_locale
-  before_save :check_for_feed
+  
+  before_save :update_image_attributes
   before_save :check_published
-  has_many :feeds, :as => :item, :dependent => :delete_all
+  
+  #validate :name_present_in_at_least_one_locale
+  # before_save :check_for_feed
   
   scope :published, -> () { where(published: true) }
   scope :by_site, -> (x) { includes(:subsite).where(:subsite_id => x) }

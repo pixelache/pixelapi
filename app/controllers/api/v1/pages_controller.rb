@@ -70,7 +70,7 @@ end
 #         end
 #       end
 #       # redirect_to action: action_name, id: @page.friendly_id, status: 301 unless @page.friendly_id == params[:id]
-#       render json: PageSerializer.new(@page).serialized_json, status: 200
+#       render json: PageSerializer.new(@page).serializable_hash.to_json, status: 200
       
 #     end
 #   end

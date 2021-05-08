@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :event do
     name_en { Faker::Game.title }
-    association :subsite
-    association :place
+    subsite { association(:subsite) }
+    place { association(:place) }
     start_at { Faker::Time.backward(days: 4000, period: :evening) }
     description_en { Faker::Lorem.paragraphs(number: 1) }
     notes_en { Faker::Lorem.paragraphs(number: 4) }
