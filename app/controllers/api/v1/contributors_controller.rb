@@ -33,12 +33,21 @@ module Api::V1
     end
       
     def index
-      @contributors = Contributor.all.order(:alphabetical_name)
-      render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200 
+      if params[:festival_id]
+        @festival = Festival.friendly.find(params[:festival_id])
+        if params[:festivaltheme_id]
+          @festivaltheme = @festival.festivalthemes.includes(:contributors).friendly.find(params[:festivaltheme_id])
+          @contributors = @festivaltheme.contributors.order(:alphabetical_name)
+          render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200
+        end
+      else
+        @contributors = Contributor.all.order(:alphabetical_name)
+        render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200 
+      end
     end
 
     def show
-      @contributor = Contributor.find(params[:id])
+      @contributor = Contributor.friendly.find(params[:id])
       render json: ContributorSerializer.new(@contributor, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200 
       
     end

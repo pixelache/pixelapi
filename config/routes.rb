@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contributors
       resources :festivals do
+        resources :festivalthemes do
+          resources :contributors
+        end
         resources :posts
         member do
           get '/*page', action: :page, as: :festival_page
