@@ -50,6 +50,7 @@ group :test do
 end
 
 gem 'acts-as-taggable-on'
+gem 'bcrypt_pbkdf'
 gem 'cancancan'
 gem 'capistrano'
 gem 'capistrano-rails'
