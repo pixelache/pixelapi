@@ -193,6 +193,7 @@ GEM
     docile (1.3.5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
+    ed25519 (1.2.4)
     equalizer (0.0.11)
     erubi (1.10.0)
     etherpad-lite (0.3.0)
@@ -562,6 +563,7 @@ DEPENDENCIES
   database_cleaner
   devise!
   devise_token_auth!
+  ed25519
   etherpad-lite
   factory_bot_rails
   faker
