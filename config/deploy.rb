@@ -29,6 +29,9 @@ set :ssh_options, compression: false, keepalive: true
 
 namespace :deploy do
 
+
+
+
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
@@ -54,7 +57,7 @@ namespace :deploy do
   #     invoke 'puma:start'
   #   end
   # end
-  
+
   before :starting,     :check_revision
   after  :finishing,    :cleanup
   after  :finishing,    :restart

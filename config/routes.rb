@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contributors
       resources :festivals do
+        resources :events
         resources :festivalthemes do
           resources :contributors
         end

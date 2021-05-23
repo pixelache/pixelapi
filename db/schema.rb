@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_08_125243) do
+ActiveRecord::Schema.define(version: 2021_05_21_113717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_125243) do
     t.boolean "show_guests_to_public"
     t.boolean "location_tbd"
     t.string "external_registration"
+    t.string "stream_url"
     t.index ["place_id"], name: "index_events_on_place_id"
     t.index ["subsite_id"], name: "index_events_on_subsite_id"
   end
