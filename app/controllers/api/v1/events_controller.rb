@@ -5,6 +5,7 @@ module Api::V1
     class EventsController < ApiController
       before_action :authenticate_user!, only: %i[create update destroy]
       respond_to :json
+      has_scope :by_date
   
       def create
         @event = Event.new(event_params)
@@ -22,22 +23,22 @@ module Api::V1
       def index
         if params[:festival_id]
           @festival = Festival.friendly.find(params[:festival_id])
-          @events = @festival.events.published
+          @events = apply_scopes(@festival.events).order(:start_at, :slug, :end_at) #.published
         else
-          @events = Event.published
+          @events = apply_scopes(Event).published
         end
-        render json: EventSerializer.new(@events).serializable_hash.to_json, status: 200 
+        render json: EventSerializer.new(@events, include: Event::JSON_RELATIONS).serializable_hash.to_json, status: 200 
       end
   
   
       def show
         if params[:festival_id]
           @festival = Festival.friendly.find(params[:festival_id])
-          @event = @festival.events.published.friendly.includes(:place).find(params[:id])
+          @event = @festival.events.friendly.includes(:place).find(params[:id])
         else
           @event = Event.published.friendly.find(params[:id])
         end
-        render json: EventSerializer.new(@event, include: [:place]).serializable_hash.to_json, status: 200 
+        render json: EventSerializer.new(@event, include: Event::JSON_RELATIONS).serializable_hash.to_json, status: 200 
       end
 
       def update

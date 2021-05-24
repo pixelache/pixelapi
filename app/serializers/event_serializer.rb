@@ -5,5 +5,5 @@ class EventSerializer
     obj.is_full?.to_s
   end
   belongs_to :place, serializer: PlaceSerializer
-
+  has_many :contributors
 end

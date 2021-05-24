@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  JSON_RELATIONS = [:place, :contributors]
   include Feedable
   acts_as_taggable_on :tags, :technologies
   translates :name, :description, :notes, :fallbacks_for_empty_translations => true
@@ -44,6 +45,7 @@ class Event < ActiveRecord::Base
   # before_save :check_for_feed
   
   scope :published, -> () { where(published: true) }
+  scope :by_date, -> (day, timezone = 'UTC') { where(["(date_trunc('day', start_at at time zone ?)::date = ? OR date_trunc('day', end_at at time zone ?)::date = ?) OR (date_trunc('day', start_at at time zone ?)::date = ? OR date_trunc('day', end_at at time zone ?)::date = ?) OR (date_trunc('day', start_at at time zone ?)::date < ? AND date_trunc('day', end_at at time zone ?)::date > ? AND date_trunc('day', end_at at time zone ?)::date <= ?) OR (date_trunc('day', start_at at time zone ?)::date >= ? AND date_trunc('day', start_at at time zone ?)::date <= ? AND date_trunc('day', end_at at time zone ?)::date >= ?) OR (date_trunc('day', start_at at time zone ?)::date >= ? AND date_trunc('day', start_at at time zone ?)::date < ? AND date_trunc('day', end_at at time zone ?)::date < ? ) ", timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day, timezone, day]) } 
   scope :by_site, -> (x) { includes(:subsite).where(:subsite_id => x) }
   scope :by_festival, -> festival { where(festival_id: festival) }
   scope :by_subsite, -> subsite { where(subsite_id: subsite ) }
@@ -112,6 +114,7 @@ class Event < ActiveRecord::Base
     end
   end
     
+
   def event_with_date
     self.name + " (#{self.start_at.strftime("%d.%m.%Y")})"
   end
@@ -125,7 +128,7 @@ class Event < ActiveRecord::Base
     if registration_required
       if future?
         if !max_attendees.blank?
-          if max_attendees - self.attendees.to_a.delete_if{|x| x.waiting_list == true}.size.to_i <= 0
+          if max_attendees - self.attendees.to_a.delete_if{|x| x.waiting_list == true}.count <= 0
             return true
           else
             return false

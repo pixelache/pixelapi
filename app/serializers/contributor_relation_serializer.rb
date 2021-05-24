@@ -10,5 +10,23 @@ class ContributorRelationSerializer
   attribute :relation_image do |cr|
     cr.relation.respond_to?(:image) ? cr.relation.image_url : nil
   end
+  attribute :festival_id do |cr|
+    cr.relation.respond_to?(:festival) ? cr.relation.festival.try(:slug) : nil
+  end
+  attribute :relation_start do |cr|
+    if cr.relation_type == 'Event'
+      cr.relation.start_at
+    else 
+      nil
+    end
+  end
+  attribute :relation_end do |cr|
+    if cr.relation_type == 'Event'
+      cr.relation.end_at
+    else 
+      nil
+    end
+  end  
+
 
 end
