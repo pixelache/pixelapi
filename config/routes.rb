@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   scope module: 'api' do
     namespace :v1 do
       resources :contributors
+      resources :events do
+        resources :attendees
+      end
       resources :festivals do
         resources :events
         resources :festivalthemes do

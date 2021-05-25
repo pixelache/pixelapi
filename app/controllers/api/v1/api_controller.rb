@@ -10,6 +10,7 @@ module Api::V1
     # load_and_authorize_resource except: :home
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::StatementInvalid, with: :respond_with_errors
+    rescue_from ActiveRecord::RecordInvalid, with: :respond_with_errors
     rescue_from CanCan::AccessDenied, with: :render_not_authorized_response
 
     def home

@@ -10,6 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
+  config.hosts << "test.burn.com"
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
