@@ -11,8 +11,18 @@ class EventSerializer
   end
   
   attribute :is_full do |obj|
-    obj.is_full?.to_s
+    obj.is_full?
   end
+  attribute :free_places do |obj|
+    if obj.max_attendees 
+      obj.max_attendees - obj.attendees.not_waiting.count
+    else
+      nil
+    end
+  end
+
   belongs_to :place, serializer: PlaceSerializer
   has_many :contributors
+  has_many :contributor_relations
+  has_many :festivalthemes
 end

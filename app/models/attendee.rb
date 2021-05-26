@@ -1,7 +1,8 @@
 class Attendee < ActiveRecord::Base
   belongs_to :user, optional: true
   belongs_to :item, polymorphic: true
-  validates :email, presence: true, uniqueness: { scope: :item_id }
+  validates_presence_of :email
+  validates_uniqueness_of :email, scope: :item_id, message: 'This email address is already registered for this event.'
   validates :name, presence: true
   validates :phone, presence: true
 
