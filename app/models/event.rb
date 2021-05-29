@@ -19,9 +19,9 @@ class Event < ActiveRecord::Base
   belongs_to :user, optional: true
   has_many :posts
   has_many :flickrsets
-  has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id
+  has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id, dependent: :destroy
   has_many :festivalthemes,  through: :festivaltheme_relations
-  has_many :contributor_relations, as: :relation, foreign_key: :relation_id
+  has_many :contributor_relations, as: :relation, foreign_key: :relation_id, dependent: :destroy
   has_many :contributors,  through: :contributor_relations
   has_many :frontitems, as: :item, :dependent => :destroy
   has_many :photos, as: :item
