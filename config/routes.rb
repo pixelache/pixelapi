@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         resources :posts
         member do
           get '/*page', action: :page, as: :festival_page
+          post :search, to: "search#create"
         end
       end
       resources :opencalls do
