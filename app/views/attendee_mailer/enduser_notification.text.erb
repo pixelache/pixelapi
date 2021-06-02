@@ -10,7 +10,7 @@ Event information:
 
 <%= @event.name %>
 <%= @event.place.address %>
-<%= @event.start_at %> –– <%=  @event.end_at %>
+<%= @event.start_at.localtime.strftime('%d %b %Y %H:%M') %> –– <%=  @event.end_at.localtime.strftime('%d %b %Y %H:%M') %>
 
 
 Your info:
