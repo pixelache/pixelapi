@@ -6,7 +6,8 @@ module Api::V1
       before_action :authenticate_user!, only: %i[create update destroy]
       respond_to :json
       has_scope :by_date
-  
+      has_scope :streaming, type: :boolean
+
       def create
         @event = Event.new(event_params)
         if can? :create, @event
