@@ -1,5 +1,5 @@
 class Contributor < ApplicationRecord
-  JSON_RELATIONS = [:festivalthemes, :contributor_relations]
+  JSON_RELATIONS = [:festivalthemes, :contributor_relations, :attachments]
   has_closure_tree
   mount_base64_uploader :image, ImageUploader
   extend FriendlyId
@@ -13,6 +13,8 @@ class Contributor < ApplicationRecord
   has_many :festivals, through: :contributor_relations, source_type: 'Festival', source: :relation#, foreign_key: :relation_id
   has_many :residencies, through: :contributor_relations, source_type: 'Residency', source: :relation#, foreign_key: :relation_id
   has_many :projects, through: :contributor_relations, source: :relation, source_type: 'Project'
+  has_many :attachments, as: :item
+  accepts_nested_attributes_for :attachments, :reject_if => proc {|x| x['attachedfile'].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :projects,  allow_destroy: true
   accepts_nested_attributes_for :festivals,  allow_destroy: true
   accepts_nested_attributes_for :residencies,  allow_destroy: true

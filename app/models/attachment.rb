@@ -1,5 +1,6 @@
 class Attachment < ActiveRecord::Base
   belongs_to :item, polymorphic: true
+  belongs_to :event, optional: true
   mount_uploader :attachedfile, AttachmentUploader
   validates_presence_of :attachedfile
   before_save :get_metadata

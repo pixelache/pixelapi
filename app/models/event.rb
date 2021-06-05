@@ -17,6 +17,7 @@ class Event < ActiveRecord::Base
   belongs_to :subsite
   belongs_to :step, optional: true
   belongs_to :user, optional: true
+  has_many :attachments, dependent: :destroy
   has_many :posts
   has_many :flickrsets
   has_many :festivaltheme_relations, as: :relation, foreign_key: :relation_id, dependent: :destroy

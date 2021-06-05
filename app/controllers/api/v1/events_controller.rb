@@ -23,7 +23,7 @@ module Api::V1
       def index
         if params[:festival_id]
           @festival = Festival.friendly.includes(:festivalthemes).find(params[:festival_id])
-          @events = apply_scopes(@festival.events.includes([:festivalthemes, contributor_relations: :contributor], :festivalthemes)).order(:start_at, :slug, :end_at) #.published
+          @events = apply_scopes(@festival.events.includes([:festivalthemes, contributor_relations: :contributor], :festivalthemes)).order(:start_at, :slug, :end_at).published
         else
           @events = apply_scopes(Event).published
         end
@@ -59,7 +59,7 @@ module Api::V1
       def event_params
         params.require(:event).permit(:name, :slug, :parent_id, :evolvedfrom_id, :hidden, :event_bg_colour,
          :event_text_colour, :event_link_colour, :redirect_to, :background, :remove_background,
-          :evolution_year, :has_listserv, :listservname, :website, :active, 
+          :evolution_year, :has_listserv, :listservname, :website, :active,  :archive_by_contributor,
           translations_attributes: [:description, :short_description, :id, :locale], 
           photos_attributes: [:id, :filename, :_destroy], 
           videos_attributes: [:id, :in_url, :_destroy], 
