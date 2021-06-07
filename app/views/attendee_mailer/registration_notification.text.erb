@@ -21,4 +21,4 @@ Phone: <%= @attendee.phone %>
 <% end %>
 
 
--- registered at <%= @attendee.created_at.strftime('%d %b %Y %H:%M') %>
+-- registered at <%= @attendee.created_at.in_time_zone('Europe/Helsinki').strftime('%d %b %Y %H:%M') %>

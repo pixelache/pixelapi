@@ -10,7 +10,7 @@ Event information:
 
 <%= @event.name %>
 <%= @event.place.address %>
-<%= @event.start_at.localtime.strftime('%d %b %Y %H:%M') %> –– <%=  @event.end_at.localtime.strftime('%d %b %Y %H:%M') %>
+<%= @event.start_at.in_time_zone('Europe/Helsinki').strftime('%d %b %Y %H:%M') %> –– <%=  @event.end_at.in_time_zone('Europe/Helsinki').strftime('%d %b %Y %H:%M') %>
 
 
 Your info:
@@ -31,7 +31,7 @@ Phone: <%= @attendee.phone %>
  <%= @event.question_description %>: <%= @attendee.project_description %> 
 <% end %>
 
--- registered at <%= @attendee.created_at.strftime('%d %b %Y %H:%M') %>
+-- registered at <%= @attendee.created_at.in_time_zone('Europe/Helsinki').strftime('%d %b %Y %H:%M') %>
 
 If you are unable to attend, please contact office@pixelache.ac as soon as possible.
 
