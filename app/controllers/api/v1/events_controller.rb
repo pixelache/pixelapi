@@ -24,7 +24,7 @@ module Api::V1
       def index
         if params[:festival_id]
           @festival = Festival.friendly.includes(:festivalthemes).find(params[:festival_id])
-          @events = apply_scopes(@festival.events.includes([:festivalthemes, contributor_relations: :contributor], :festivalthemes)).order(:start_at, :slug, :end_at).published
+          @events = apply_scopes(@festival.events.includes([:translations, :contributors, :festival, place: [:translations], festivalthemes: [:translations], contributor_relations: [:relation, :contributor]])).order(:start_at, :slug, :end_at).published
         else
           @events = apply_scopes(Event).published
         end

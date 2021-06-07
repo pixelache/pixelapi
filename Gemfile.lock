@@ -149,6 +149,9 @@ GEM
       msgpack (~> 1.0)
     buftok (0.2.0)
     builder (3.2.4)
+    bullet (6.1.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.1.3)
     cancancan (3.2.1)
     capistrano (3.16.0)
@@ -529,6 +532,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (2.0.0)
+    uniform_notifier (1.14.2)
     vimeo (1.5.4)
       httparty (>= 0.4.5)
       httpclient (>= 2.1.5.2)
@@ -553,6 +557,7 @@ DEPENDENCIES
   acts-as-taggable-on
   bcrypt_pbkdf
   bootsnap (>= 1.4.2)
+  bullet
   byebug
   cancancan
   capistrano
