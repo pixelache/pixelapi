@@ -1,6 +1,9 @@
 class AttachmentSerializer
   include JSONAPI::Serializer
   attributes :event_id, :attachedfile_url, :item_id, :item_type, :attachedfile_content_type
+  attribute :attachment_filename do |obj|
+    obj.attachedfile.file.filename
+  end
   attribute :attachment_event_name do |obj|
     if obj.event
       obj.event.name
