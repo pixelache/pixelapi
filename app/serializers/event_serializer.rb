@@ -32,4 +32,7 @@ class EventSerializer
   has_many :contributors
   has_many :contributor_relations
   has_many :festivalthemes
+  has_many :attachments
+  has_many :videos
+  has_many :photos
 end

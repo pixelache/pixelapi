@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  JSON_RELATIONS = [:place, :contributor_relations,  :contributors, :festivalthemes]
+  JSON_RELATIONS = [:place, :contributor_relations,  :contributors, :festivalthemes, :videos, :attachments, :photos]
   include Feedable
   acts_as_taggable_on :tags, :technologies
   translates :name, :description, :notes, :fallbacks_for_empty_translations => true
