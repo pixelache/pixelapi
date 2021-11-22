@@ -4,6 +4,7 @@ module Api::V1
   # This is the parent API controller which the individual APIs inherit things from
   class ApiController < ApplicationController
     include DeviseTokenAuth::Concerns::SetUserByToken
+    include Pagy::Backend
     before_action :get_locale
     before_action :get_site
 

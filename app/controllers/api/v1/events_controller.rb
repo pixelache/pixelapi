@@ -3,10 +3,15 @@
 module Api::V1
 
     class EventsController < ApiController
+      include Paginable
       before_action :authenticate_user!, only: %i[create update destroy]
       respond_to :json
       has_scope :by_date
       has_scope :streaming, type: :boolean
+
+      def serializer
+        EventSerializer
+      end
 
       def create
         @event = Event.new(event_params)
@@ -25,13 +30,13 @@ module Api::V1
         if params[:festival_id]
           @festival = Festival.friendly.includes(:festivalthemes).find(params[:festival_id])
           @events = apply_scopes(@festival.events.includes([:translations, :contributors, :festival, place: [:translations], festivalthemes: [:translations], contributor_relations: [:relation, :contributor]])).order(:start_at, :slug, :end_at).published
+          render json: EventSerializer.new(@events, include: Event::JSON_RELATIONS).serializable_hash.to_json, status: 200 
         else
-          @events = apply_scopes(Event).published
+          paginated = paginate(apply_scopes(Event.published))
+          render_collection(paginated)
         end
-        render json: EventSerializer.new(@events, include: Event::JSON_RELATIONS).serializable_hash.to_json, status: 200 
       end
-  
-  
+
       def show
         if params[:festival_id]
           @festival = Festival.friendly.find(params[:festival_id])

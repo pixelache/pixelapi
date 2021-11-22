@@ -13,7 +13,6 @@ RSpec.describe 'Open Calls API' do
     let(:questions) { FactoryBot.create_list(:opencallquestion, 2, opencall: opencall, question_type: 2, is_required: true) }
     let(:file_question) { FactoryBot.create(:opencallquestion, opencall: opencall, question_type: 3) }
     let(:id) { opencall.slug }
-    
     let(:opencallsubmission) { { opencallsubmission: { email: Faker::Internet.free_email, name: Faker::Name.name_with_middle, phone: Faker::PhoneNumber.phone_number, address: Faker::Address.full_address, opencallanswers_attributes: questions.map{|q| { opencallquestion_id: q.id, answer: Faker::Lorem.sentence }}.push({opencallquestion_id: file_question.id, attachment: "data:image/jpeg;base64,#{Base64.encode64(File.open(File.join(Rails.root, "/spec/fixtures/images/gaddis.jpg"), &:read))}" })}}}
 
     post 'Submit an open call' do
@@ -21,24 +20,21 @@ RSpec.describe 'Open Calls API' do
       tags 'Open Calls'
       produces 'application/json'
       consumes 'application/json'
-      
-      after do |example|
-        example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-      end
 
-      response 201, 'Open call submission successfully submitted' do
+
+      response 201, 'Open call submission successfully submitted', save_response: true do
         run_test! do |response|
           expect(json['data']['attributes']['opencall_id']).to eq opencall.id
           expect(json['included'].size).to eq 3
         end
       end
 
-      response 404, 'Not found' do
+      response 404, 'Not found', save_response: true do
         let(:id) { opencall.slug + 'ffsfs' }
         run_test!
       end
 
-      response 422, 'Unprocessible form' do
+      response 422, 'Unprocessible form', save_response: true do
         let(:opencallsubmission) { { opencallsubmission: { email: Faker::Internet.free_email, name: Faker::Name.name_with_middle, phone: Faker::PhoneNumber.phone_number, address: Faker::Address.full_address, opencallanswers_attributes:[{opencallquestion_id: file_question.id, answer: 'should have attachment here'}]}}}
         run_test!
       end
@@ -56,15 +52,12 @@ RSpec.describe 'Open Calls API' do
       produces 'application/json'
       consumes 'application/json'
       
-      after do |example|
-        example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-      end
-
-      response 200, 'Open call retrieved' do
+  
+      response 200, 'Open call retrieved', save_response: true do
         run_test! 
       end
       
-      response 404, 'Not found' do
+      response 404, 'Not found', save_response: true do
         let(:id) { opencall.slug + '322' }
         run_test!
       end

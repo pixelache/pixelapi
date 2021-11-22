@@ -239,7 +239,2719 @@ components:
           "$ref": "#/components/schemas/photos_attributes"
         attachments_attributes:
           "$ref": "#/components/schemas/attachments_attributes"
-paths: {}
+paths:
+  "/v1/contributors/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: number
+    get:
+      summary: Retrieve a single contributor
+      description: Retrieves a single contributor from the datbase.
+      tags:
+      - Contributors
+      responses:
+        '200':
+          description: Contributor successfully retrieved.
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: contributor
+                  attributes:
+                    name: Lonnie Barton
+                    alphabetical_name: Haywood Senger
+                    slug: lonnie-barton
+                    bio: A quia esse. Hic et libero. Et voluptatem sequi.Minima reprehenderit
+                      odit. Sit itaque aliquid. Dolor dolores eligendi.
+                    image_url: "/images/contributor/image/1/artist.jpg"
+                    website: http://oreilly.biz/juliet.damore
+                    image_box_url: "/images/contributor/image/1/box_artist.jpg"
+                  relationships:
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                included: []
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Contributor with 'id'=23423423
+                  title: 404 Not found
+                  status: 404
+    put:
+      summary: Update a contributor
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        requestExample:
+          contributor:
+            name: David Atlee Phillips
+            alphabetical_name: Phillips, David Atlee
+            project_ids:
+            - 1
+            residency_ids:
+            - 1
+            event_ids:
+            - 1
+            festivaltheme_ids:
+            - 1
+            - 2
+            festival_ids:
+            - 1
+        schema:
+          type: string
+      description: Updates a contributor description.
+      tags:
+      - Contributors
+      responses:
+        '200':
+          description: Contributor successfully updated.
+          content:
+            application/json:
+              example:
+                data:
+                  id: '2'
+                  type: contributor
+                  attributes:
+                    name: David Atlee Phillips
+                    alphabetical_name: Phillips, David Atlee
+                    slug: fr-shannon-stroman
+                    bio: Dolore asperiores quod. Et quis omnis. Pariatur officiis
+                      veniam.Eveniet explicabo beatae. Ea veniam qui. Aut omnis deserunt.
+                    image_url: "/images/contributor/image/2/artist.jpg"
+                    website: http://schmidt.net/silva_crooks
+                    image_box_url: "/images/contributor/image/2/box_artist.jpg"
+                  relationships:
+                    contributor_relations:
+                      data:
+                      - id: '1'
+                        type: contributor_relation
+                      - id: '2'
+                        type: contributor_relation
+                      - id: '3'
+                        type: contributor_relation
+                      - id: '4'
+                        type: contributor_relation
+                    festivalthemes:
+                      data:
+                      - id: '1'
+                        type: festivaltheme
+                      - id: '2'
+                        type: festivaltheme
+                    attachments:
+                      data: []
+                included:
+                - id: '1'
+                  type: festivaltheme
+                  attributes:
+                    slug: mario-kart-ds
+                    name: Mario Kart DS
+                    description:
+                    short_description:
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    created_at: '2021-11-22T18:37:22.241Z'
+                    updated_at: '2021-11-22T18:37:22.241Z'
+                    image_width:
+                    image_height:
+                    image_file_size:
+                    image_content_type:
+                    image_url:
+                - id: '2'
+                  type: festivaltheme
+                  attributes:
+                    slug: pokemon-black
+                    name: Pokémon Black
+                    description:
+                    short_description:
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    created_at: '2021-11-22T18:37:22.251Z'
+                    updated_at: '2021-11-22T18:37:22.251Z'
+                    image_width:
+                    image_height:
+                    image_file_size:
+                    image_content_type:
+                    image_url:
+                - id: '1'
+                  type: contributor_relation
+                  attributes:
+                    relation_type: Project
+                    relation_id: 1
+                    relation_name: 'Half-Life: Blue Shift'
+                    relation_slug: half-life-blue-shift
+                    relation_image:
+                    festival_id:
+                    relation_start:
+                    relation_end:
+                - id: '2'
+                  type: contributor_relation
+                  attributes:
+                    relation_type: Event
+                    relation_id: 1
+                    relation_name: Bayonetta
+                    relation_slug: bayonetta
+                    relation_image: "/images/event/image/1/event.jpg"
+                    festival_id:
+                    relation_start: '2019-08-05T15:40:15.000Z'
+                    relation_end: '2019-08-05T18:40:15.000Z'
+                - id: '3'
+                  type: contributor_relation
+                  attributes:
+                    relation_type: Festival
+                    relation_id: 1
+                    relation_name: Serie A
+                    relation_slug: serie-a
+                    relation_image: "/images/festival/image/1/festival.png"
+                    festival_id:
+                    relation_start:
+                    relation_end:
+                - id: '4'
+                  type: contributor_relation
+                  attributes:
+                    relation_type: Residency
+                    relation_id: 1
+                    relation_name: Amb. Robert Oberbrunner
+                    relation_slug: amb-robert-oberbrunner
+                    relation_image:
+                    festival_id:
+                    relation_start:
+                    relation_end:
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Contributor with 'id'=23423423
+                  title: 404 Not found
+                  status: 404
+        '422':
+          description: Invalid/unprocessible data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/contributor"
+  "/v1/contributors":
+    post:
+      summary: Create a contributor
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new contributor.
+      tags:
+      - Contributors
+      responses:
+        '201':
+          description: Contributor has been created
+          examples:
+            application/json:
+              data:
+                id: '7'
+                type: contributor
+                attributes:
+                  name: Aurelia Wuckert
+                  alphabetical_name: Annika Reichel VM
+                  slug: aurelia-wuckert
+                  bio: Ut deserunt consequatur. Quo ut voluptatem. Cumque deleniti
+                    non. Ut facere qui.
+                  image_url: "/images/contributor/image/7/image.jpeg"
+                  website:
+                  image_box_url: "/images/contributor/image/7/box_image.jpeg"
+                relationships:
+                  contributor_relations:
+                    data: []
+                  festivalthemes:
+                    data: []
+                  attachments:
+                    data: []
+              included: []
+        '401':
+          description: Not authenticated
+          examples:
+            application/json:
+              errors:
+              - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          examples:
+            application/json:
+              errors:
+              - title: You are not authorised to do this
+                status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/contributor"
+    get:
+      summary: Retrieve all contributors
+      description: Returns an array of all contributors in the database
+      tags:
+      - Contributors
+      responses:
+        '200':
+          description: Contributors returned
+          examples:
+            application/json:
+              data:
+              - id: '8'
+                type: contributor
+                attributes:
+                  name: Dominque Effertz
+                  alphabetical_name: Fannie Feeney
+                  slug: dominque-effertz
+                  bio: Deleniti vero a. Accusamus incidunt commodi. Fuga eligendi
+                    quia.Aut qui nihil. Ut nisi corporis. Repellat sit similique.
+                  image_url: "/images/contributor/image/8/artist.jpg"
+                  website: http://cormier.io/julio.schumm
+                  image_box_url: "/images/contributor/image/8/box_artist.jpg"
+                relationships:
+                  contributor_relations:
+                    data: []
+                  festivalthemes:
+                    data: []
+                  attachments:
+                    data: []
+              - id: '9'
+                type: contributor
+                attributes:
+                  name: Jed Brown DO
+                  alphabetical_name: Hyon Runte
+                  slug: jed-brown-do
+                  bio: Quibusdam voluptas quasi. Deserunt dignissimos et. A iste voluptas.A
+                    maiores ipsa. Quae consequuntur in. Ad esse corporis.
+                  image_url: "/images/contributor/image/9/artist.jpg"
+                  website: http://tillman-pfeffer.info/barbie
+                  image_box_url: "/images/contributor/image/9/box_artist.jpg"
+                relationships:
+                  contributor_relations:
+                    data: []
+                  festivalthemes:
+                    data: []
+                  attachments:
+                    data: []
+              - id: '10'
+                type: contributor
+                attributes:
+                  name: Faustina Farrell DO
+                  alphabetical_name: Miguel Lueilwitz
+                  slug: faustina-farrell-do
+                  bio: Beatae consequuntur reiciendis. Laborum et sapiente. Voluptate
+                    aut ipsam.Officiis sed ratione. Quas sint minus. Nihil ab porro.
+                  image_url: "/images/contributor/image/10/artist.jpg"
+                  website: http://lang.co/garland
+                  image_box_url: "/images/contributor/image/10/box_artist.jpg"
+                relationships:
+                  contributor_relations:
+                    data: []
+                  festivalthemes:
+                    data: []
+                  attachments:
+                    data: []
+              included: []
+  "/v1/events/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: The database ID of the event you wish to retrieve data for
+      required: true
+      schema:
+        type: number
+    get:
+      summary: Retrieve a single event
+      description: Returns the full record of a single event containing all possible
+        associated data.
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Event returned
+          examples:
+            application/json:
+              data:
+                id: '1'
+                type: event
+                attributes:
+                  name: Crysis 2
+                  description: Alias aut laudantium. Quia ad ut. Repellat quasi ea.
+                  notes: Sit eum illo. Nisi vero accusantium. Quidem sequi et.Assumenda
+                    eum molestiae. Magnam porro et. Molestiae omnis nihil.Et facere
+                    perspiciatis. Assumenda ab quis. Modi molestias reprehenderit.Autem
+                    porro quo. Ut nihil aut. Vel est modi.
+                  subsite_id: 2
+                  place_id: 1
+                  start_at: '2019-03-20T17:29:12.000Z'
+                  end_at: '2019-03-20T20:29:12.000Z'
+                  published: true
+                  image_url: "/images/event/image/1/event.jpg"
+                  image_width: 480
+                  image_height: 360
+                  image_content_type: image/jpeg
+                  image_size: 50595
+                  facebook_link: http://facebook.com/sebastian
+                  cost:
+                  cost_alternate:
+                  cost_alternate_reason:
+                  created_at: '2021-11-22T18:37:36.336Z'
+                  updated_at: '2021-11-22T18:37:36.336Z'
+                  slug: crysis-2
+                  facilitator_name:
+                  facilitator_url:
+                  facilitator_organisation:
+                  facilitator_organisation_url:
+                  project_id:
+                  festival_id:
+                  user_id: 0
+                  max_attendees:
+                  eventr_id:
+                  residency_id:
+                  festivaltheme_id:
+                  registration_required:
+                  question_description:
+                  question_creators:
+                  question_motivation:
+                  require_approval:
+                  hide_registrants:
+                  show_guests_to_public:
+                  location_tbd:
+                  external_registration:
+                  stream_url:
+                  image_box_url: "/images/event/image/1/box_event.jpg"
+                  image_thumb_url: "/images/event/image/1/thumb_event.jpg"
+                  is_full: false
+                  free_places:
+                relationships:
+                  place:
+                    data:
+                      id: '1'
+                      type: place
+                  contributors:
+                    data: []
+                  contributor_relations:
+                    data: []
+                  festivalthemes:
+                    data: []
+                  attachments:
+                    data: []
+                  videos:
+                    data: []
+                  photos:
+                    data: []
+              included:
+              - id: '1'
+                type: place
+                attributes:
+                  name: Northern South Carolina University
+                  address1: 21684 Hansen Forks
+                  address2:
+                  city: Candidatown
+                  country: US
+                  postcode: 22852-9349
+                  latitude: '22.364167'
+                  longitude: "-160.111433"
+                  created_at: '2021-11-22T18:37:35.888Z'
+                  updated_at: '2021-11-22T18:37:35.888Z'
+                  slug: northern-south-carolina-university
+                  address_no_country: 21684 Hansen Forks, Candidatown
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: event
+                  attributes:
+                    name: Crysis 2
+                    description: Alias aut laudantium. Quia ad ut. Repellat quasi
+                      ea.
+                    notes: Sit eum illo. Nisi vero accusantium. Quidem sequi et.Assumenda
+                      eum molestiae. Magnam porro et. Molestiae omnis nihil.Et facere
+                      perspiciatis. Assumenda ab quis. Modi molestias reprehenderit.Autem
+                      porro quo. Ut nihil aut. Vel est modi.
+                    subsite_id: 2
+                    place_id: 1
+                    start_at: '2019-03-20T17:29:12.000Z'
+                    end_at: '2019-03-20T20:29:12.000Z'
+                    published: true
+                    image_url: "/images/event/image/1/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/sebastian
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:36.336Z'
+                    updated_at: '2021-11-22T18:37:36.336Z'
+                    slug: crysis-2
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/1/box_event.jpg"
+                    image_thumb_url: "/images/event/image/1/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '1'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                included:
+                - id: '1'
+                  type: place
+                  attributes:
+                    name: Northern South Carolina University
+                    address1: 21684 Hansen Forks
+                    address2:
+                    city: Candidatown
+                    country: US
+                    postcode: 22852-9349
+                    latitude: '22.364167'
+                    longitude: "-160.111433"
+                    created_at: '2021-11-22T18:37:35.888Z'
+                    updated_at: '2021-11-22T18:37:35.888Z'
+                    slug: northern-south-carolina-university
+                    address_no_country: 21684 Hansen Forks, Candidatown
+  "/v1/events":
+    get:
+      summary: Retrieve a list of events
+      parameters:
+      - name: page[number]
+        description: The page of results to return.
+        default: 1
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: page[size]
+        description: The number of events per page to return. Defaults to 10.
+        default: 10
+        required: false
+        in: query
+        schema:
+          type: number
+      description: Returns a paginated array of all events, paginated. Not specific
+        to a project/festival/residency.
+      tags:
+      - Events
+      responses:
+        '200':
+          description: Events returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '12'
+                  type: event
+                  attributes:
+                    name: F.E.A.R.
+                    description: Qui atque sapiente. Enim numquam pariatur. Vero itaque
+                      repudiandae.
+                    notes: Ducimus ea minus. Dolores rerum sed. Quam et eaque.Minus
+                      soluta ex. Nihil qui quibusdam. Eligendi voluptate laborum.Velit
+                      quam dolor. Dolor molestiae enim. Earum in modi.Consequuntur
+                      modi omnis. Culpa iure qui. Vel iste soluta.
+                    subsite_id: 13
+                    place_id: 12
+                    start_at: '2019-09-16T14:19:28.000Z'
+                    end_at: '2019-09-16T17:19:28.000Z'
+                    published: true
+                    image_url: "/images/event/image/12/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/chet_hermiston
+                    cost: 3.0
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:42.892Z'
+                    updated_at: '2021-11-22T18:37:42.892Z'
+                    slug: f-e-a-r
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/12/box_event.jpg"
+                    image_thumb_url: "/images/event/image/12/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '12'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '13'
+                  type: event
+                  attributes:
+                    name: Hearthstone
+                    description: Explicabo eum beatae. Inventore molestiae magni.
+                      Vel voluptatem nulla.
+                    notes: Velit atque accusamus. Laboriosam et aut. Et ducimus ea.Nam
+                      dolores impedit. Expedita nisi blanditiis. Odio reprehenderit
+                      molestiae.Delectus soluta voluptas. Iusto unde voluptate. Et
+                      ut tempore.Sit quae placeat. Dicta dolor est. Debitis quidem
+                      quo.
+                    subsite_id: 14
+                    place_id: 13
+                    start_at: '2021-04-11T17:49:35.000Z'
+                    end_at: '2021-04-11T20:49:35.000Z'
+                    published: true
+                    image_url: "/images/event/image/13/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/rossana
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:43.478Z'
+                    updated_at: '2021-11-22T18:37:43.478Z'
+                    slug: hearthstone
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/13/box_event.jpg"
+                    image_thumb_url: "/images/event/image/13/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '13'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '14'
+                  type: event
+                  attributes:
+                    name: Pokémon White
+                    description: Repellat beatae mollitia. Accusamus architecto eum.
+                      Eligendi et ex.
+                    notes: Accusamus nemo dolorem. Et est ratione. Culpa sint vero.Aperiam
+                      recusandae omnis. Distinctio praesentium ad. Sapiente suscipit
+                      incidunt.Tempore ut quia. Sunt illo quidem. Nihil earum rem.Est
+                      praesentium sapiente. Aliquam esse aut. Aut doloremque in.
+                    subsite_id: 15
+                    place_id: 14
+                    start_at: '2011-11-21T18:46:40.000Z'
+                    end_at: '2011-11-21T21:46:40.000Z'
+                    published: true
+                    image_url: "/images/event/image/14/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/francisco
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:44.079Z'
+                    updated_at: '2021-11-22T18:37:44.079Z'
+                    slug: pokemon-white
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/14/box_event.jpg"
+                    image_thumb_url: "/images/event/image/14/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '14'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '15'
+                  type: event
+                  attributes:
+                    name: 'WarioWare: Smooth Moves'
+                    description: Excepturi ipsa debitis. Nam quia voluptate. Porro
+                      similique hic.
+                    notes: Ut atque voluptas. Magnam deserunt quia. Beatae numquam
+                      doloribus.Ullam et reiciendis. Fuga laboriosam voluptatem. Minima
+                      sequi ullam.Dolor nisi non. Non esse ut. Molestiae minus dolorem.Qui
+                      suscipit vitae. Similique libero aut. Sed deleniti laborum.
+                    subsite_id: 16
+                    place_id: 15
+                    start_at: '2014-03-08T16:03:29.000Z'
+                    end_at: '2014-03-08T19:03:29.000Z'
+                    published: true
+                    image_url: "/images/event/image/15/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/jermaine
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:44.683Z'
+                    updated_at: '2021-11-22T18:37:44.683Z'
+                    slug: warioware-smooth-moves
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/15/box_event.jpg"
+                    image_thumb_url: "/images/event/image/15/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '15'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '16'
+                  type: event
+                  attributes:
+                    name: Grim Fandango
+                    description: Consequatur sed beatae. Repellat dolor illum. Dolorem
+                      ut odio.
+                    notes: Qui et dolorum. Aut odio laborum. Soluta quae quia.Quia
+                      voluptas natus. Rerum eos et. Ex consectetur libero.Qui mollitia
+                      corrupti. Animi iusto sint. Ratione illum rerum.Accusantium
+                      et porro. Et veniam aut. Corrupti illo error.
+                    subsite_id: 17
+                    place_id: 16
+                    start_at: '2012-12-07T17:18:47.000Z'
+                    end_at: '2012-12-07T20:18:47.000Z'
+                    published: true
+                    image_url: "/images/event/image/16/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/lorrine_krajcik
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:45.301Z'
+                    updated_at: '2021-11-22T18:37:45.301Z'
+                    slug: grim-fandango-7e20a658-3b0b-4648-97fb-208a938e4048
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/16/box_event.jpg"
+                    image_thumb_url: "/images/event/image/16/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '16'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '17'
+                  type: event
+                  attributes:
+                    name: Luigi's Mansion
+                    description: Mollitia quaerat omnis. At sunt saepe. Voluptatem
+                      et exercitationem.
+                    notes: Veritatis eaque aut. Et deleniti at. Quasi iste et.Nihil
+                      aspernatur quis. Rem maiores neque. Autem sed consequatur.Est
+                      totam ea. Aut quas dolor. Voluptatum itaque et.Quos est et.
+                      Quasi ipsa accusantium. Nemo harum velit.
+                    subsite_id: 18
+                    place_id: 17
+                    start_at: '2020-12-11T18:00:26.000Z'
+                    end_at: '2020-12-11T21:00:26.000Z'
+                    published: true
+                    image_url: "/images/event/image/17/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/kira.collins
+                    cost:
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:45.887Z'
+                    updated_at: '2021-11-22T18:37:45.887Z'
+                    slug: luigi-s-mansion
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/17/box_event.jpg"
+                    image_thumb_url: "/images/event/image/17/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '17'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                - id: '18'
+                  type: event
+                  attributes:
+                    name: The Wonderful 101
+                    description: Ad occaecati expedita. Corrupti eaque veritatis.
+                      Necessitatibus quis ea.
+                    notes: Quidem fugiat ut. Nisi hic consectetur. Ea minima facilis.Eligendi
+                      commodi qui. Consequuntur accusantium similique. Eligendi veritatis
+                      voluptatem.Est et labore. Cumque suscipit id. Explicabo et facilis.Nostrum
+                      consequatur ea. Facilis illo nesciunt. Et blanditiis ut.
+                    subsite_id: 19
+                    place_id: 18
+                    start_at: '2020-09-11T15:58:02.000Z'
+                    end_at: '2020-09-11T18:58:02.000Z'
+                    published: true
+                    image_url: "/images/event/image/18/event.jpg"
+                    image_width: 480
+                    image_height: 360
+                    image_content_type: image/jpeg
+                    image_size: 50595
+                    facebook_link: http://facebook.com/dwayne_hermiston
+                    cost: 5.0
+                    cost_alternate:
+                    cost_alternate_reason:
+                    created_at: '2021-11-22T18:37:46.470Z'
+                    updated_at: '2021-11-22T18:37:46.470Z'
+                    slug: the-wonderful-101
+                    facilitator_name:
+                    facilitator_url:
+                    facilitator_organisation:
+                    facilitator_organisation_url:
+                    project_id:
+                    festival_id:
+                    user_id: 0
+                    max_attendees:
+                    eventr_id:
+                    residency_id:
+                    festivaltheme_id:
+                    registration_required:
+                    question_description:
+                    question_creators:
+                    question_motivation:
+                    require_approval:
+                    hide_registrants:
+                    show_guests_to_public:
+                    location_tbd:
+                    external_registration:
+                    stream_url:
+                    image_box_url: "/images/event/image/18/box_event.jpg"
+                    image_thumb_url: "/images/event/image/18/thumb_event.jpg"
+                    is_full: false
+                    free_places:
+                  relationships:
+                    place:
+                      data:
+                        id: '18'
+                        type: place
+                    contributors:
+                      data: []
+                    contributor_relations:
+                      data: []
+                    festivalthemes:
+                      data: []
+                    attachments:
+                      data: []
+                    videos:
+                      data: []
+                    photos:
+                      data: []
+                meta:
+                  total: 17
+                  pages: 2
+                links:
+                  first: http://www.example.com/v1/events
+                  prev: http://www.example.com/v1/events
+                  self: http://www.example.com/v1/events?page[number]=2
+  "/v1/festivals":
+    get:
+      summary: Retrieve all published festivals
+      description: Returns a paginated array of all published festivals in the database
+      tags:
+      - Festivals
+      parameters:
+      - name: page[number]
+        description: The page of results to return.
+        default: 1
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: page[size]
+        description: The number of festivals per page to return. Defaults to 10.
+        default: 10
+        required: false
+        in: query
+        schema:
+          type: number
+      responses:
+        '200':
+          description: Festivals returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '1'
+                  type: festival
+                  attributes:
+                    overview_text: Sint consequatur quia. Eius temporibus eligendi.
+                      Qui non voluptatem.Et porro quis. Modi eos repellendus. Magnam
+                      aut aut.Labore autem est. Quas sit et. Omnis temporibus asperiores.Doloremque
+                      pariatur rerum. Natus dolor necessitatibus. Ullam harum alias.
+                    name: Barclays Premier League
+                    website: http://pixelache.ac/klara.hansen
+                    start_at: '2017-10-09'
+                    end_at: '2017-10-16'
+                    slug: barclays-premier-league
+                    subtitle: Photo booth pitchfork 90's five dollar toast.
+                    image:
+                      url: "/images/festival/image/1/festival.png"
+                      wide:
+                        url: "/images/festival/image/1/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/1/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/1/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/1/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/1/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/1/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+                - id: '2'
+                  type: festival
+                  attributes:
+                    overview_text: Omnis quisquam quod. Neque molestiae reiciendis.
+                      Maiores praesentium nisi.Architecto soluta quis. Quaerat architecto
+                      pariatur. Magnam quisquam illum.Veritatis facilis ut. Corporis
+                      labore aut. Eaque vero laudantium.Sint eos similique. Dolores
+                      nihil veritatis. Nisi et nobis.
+                    name: DFB Pokal
+                    website: http://pixelache.ac/yolando
+                    start_at: '2017-04-08'
+                    end_at: '2017-04-15'
+                    slug: dfb-pokal
+                    subtitle: Mlkshk microdosing crucifix literally blue bottle tacos
+                      scenester.
+                    image:
+                      url: "/images/festival/image/2/festival.png"
+                      wide:
+                        url: "/images/festival/image/2/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/2/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/2/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/2/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/2/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/2/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+                meta:
+                  total: 2
+                  pages: 1
+                links:
+                  self: http://www.example.com/v1/festivals
+  "/v1/festivals/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve one festival
+      description: Returns one festival record by ID or slug
+      tags:
+      - Festivals
+      responses:
+        '200':
+          description: Festival retrieved
+          content:
+            application/json:
+              example:
+                data:
+                  id: '4'
+                  type: festival
+                  attributes:
+                    overview_text: Quam quod praesentium. Ea debitis culpa. Aut eligendi
+                      sit.Unde consequatur fugiat. Quis nobis asperiores. Recusandae
+                      ex doloribus.Totam magni inventore. Porro debitis ex. Sequi
+                      ipsum facere.Voluptatem hic suscipit. Et qui minima. Qui dicta
+                      commodi.
+                    name: Copa America
+                    website: http://pixelache.ac/marquis
+                    start_at: '2018-12-20'
+                    end_at: '2018-12-27'
+                    slug: copa-america
+                    subtitle: Cred stumptown synth lo-fi deep v.
+                    image:
+                      url: "/images/festival/image/4/festival.png"
+                      wide:
+                        url: "/images/festival/image/4/wide_festival.png"
+                      twelvehundred:
+                        url: "/images/festival/image/4/twelvehundred_festival.png"
+                      standard:
+                        url: "/images/festival/image/4/standard_festival.png"
+                      logo:
+                        url: "/images/festival/image/4/logo_festival.png"
+                      box:
+                        url: "/images/festival/image/4/box_festival.png"
+                      thumb:
+                        url: "/images/festival/image/4/thumb_festival.png"
+                    image_height: 400
+                    image_width: 400
+                    published: true
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: 'can''t find record with friendly id: "dfb-pokal322"'
+                  title: 404 Not found
+                  status: 404
+  "/v1/opencalls/{id}/opencallsubmissions":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: opencallsubmission
+      in: body
+      required: true
+      schema: {}
+    post:
+      summary: Submit an open call
+      description: Submit one open call submission
+      tags:
+      - Open Calls
+      responses:
+        '201':
+          description: Open call submission successfully submitted
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: opencallsubmission
+                  attributes:
+                    name: Pres. Mack Cremin Beahan
+                    phone: "(586) 370-5797 x2893"
+                    email: theda.rice@hotmail.com
+                    address: 62032 Abbott Street, Lavonaburgh, RI 94084
+                    opencall_id: 1
+                  relationships:
+                    opencallanswers:
+                      data:
+                      - id: '1'
+                        type: opencallanswer
+                      - id: '2'
+                        type: opencallanswer
+                      - id: '3'
+                        type: opencallanswer
+                included:
+                - id: '1'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 1
+                    answer: Voluptatem nostrum aut necessitatibus.
+                    attachment_url:
+                - id: '2'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 2
+                    answer: Et in eos nesciunt.
+                    attachment_url:
+                - id: '3'
+                  type: opencallanswer
+                  attributes:
+                    opencallquestion_id: 3
+                    answer:
+                    attachment_url: https://pixelache.s3.eu-west-1.amazonaws.com/attachments/opencallanswer/attachment/3/attachment.jpeg
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: 'can''t find record with friendly id: "fortniteffsfs"'
+                  title: 404 Not found
+                  status: 404
+        '422':
+          description: Unprocessible form
+          content:
+            application/json:
+              example:
+                errors:
+                - title: Opencallanswers attachment You must include an attachment
+                    for this question.
+                  status: 422
+  "/v1/opencalls/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve one open call
+      description: Returns one open call by ID
+      tags:
+      - Open Calls
+      responses:
+        '200':
+          description: Open call retrieved
+          content:
+            application/json:
+              example:
+                data:
+                  id: '4'
+                  type: opencall
+                  attributes:
+                    subsite_id: 5
+                    published: true
+                    description: Aut a laboriosam. Eveniet ex voluptatum. Fugiat reprehenderit
+                      sint.Fugiat quos nemo. Sint aspernatur quo. Nihil qui tempore.Sed
+                      rerum expedita. Exercitationem et ea. Assumenda vero modi.
+                    is_open: true
+                    closing_date: '2021-11-25T00:00:00.000Z'
+                    slug: kirby-s-dream-land
+                    name: Kirby's Dream Land
+                    submitted_text: Ratione vel est. Praesentium et at. Et sint sint.
+                    opencallquestions: []
+                  relationships:
+                    opencallquestions:
+                      data: []
+                included: []
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: 'can''t find record with friendly id: "animal-crossing-new-leaf322"'
+                  title: 404 Not found
+                  status: 404
+  "/v1/posts":
+    post:
+      summary: Create a new post
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new post
+      tags:
+      - Posts
+      responses:
+        '201':
+          description: Post has been created
+          examples:
+            application/json:
+              data:
+                id: '1'
+                type: post
+                attributes:
+                  slug: bury-my-heart-at-wounded-knee
+                  published: true
+                  published_at: '2021-11-22T18:37:54.105Z'
+                  image:
+                    url:
+                    wide:
+                      url:
+                    twelvehundred:
+                      url:
+                    standard:
+                      url:
+                    logo:
+                      url:
+                    box:
+                      url:
+                    thumb:
+                      url:
+                  excerpt:
+                  image_width:
+                  image_height:
+                  registration_required:
+                  title: Bury My Heart at Wounded Knee
+                  body: Excepturi quidem et. Aut voluptatibus ad.
+                  next_post_by_festival:
+                  previous_post_by_festival:
+                  image_url:
+                  creator: Traci Cassin
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: post
+                  attributes:
+                    slug: bury-my-heart-at-wounded-knee
+                    published: true
+                    published_at: '2021-11-22T18:37:54.105Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: Bury My Heart at Wounded Knee
+                    body: Excepturi quidem et. Aut voluptatibus ad.
+                    next_post_by_festival:
+                    previous_post_by_festival:
+                    image_url:
+                    creator: Traci Cassin
+        '401':
+          description: Not authenticated
+          examples:
+            application/json:
+              errors:
+              - You need to sign in or sign up before continuing.
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          examples:
+            application/json:
+              errors:
+              - title: You are not authorised to do this
+                status: 403
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/post"
+    get:
+      summary: Retrieve all posts
+      description: Returns all posts of a sub-site (paginated)
+      parameters:
+      - name: page[number]
+        description: The page of results to return.
+        default: 1
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: page[size]
+        description: The number of events per page to return. Defaults to 10.
+        default: 10
+        required: false
+        in: query
+        schema:
+          type: number
+      tags:
+      - Posts
+      responses:
+        '200':
+          description: Posts returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '5'
+                  type: post
+                  attributes:
+                    slug: number-the-stars
+                    published: true
+                    published_at: '2013-09-19T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: Number the Stars
+                    body: Assumenda qui cumque. Excepturi vel itaque. Consequatur
+                      dolor asperiores.Vitae praesentium iure. Rerum et nesciunt.
+                      Labore quaerat qui.Recusandae optio nam. Voluptatibus et pariatur.
+                      Ea accusantium tenetur.
+                    next_post_by_festival:
+                    previous_post_by_festival:
+                    image_url:
+                    creator: Morgan Collier
+                - id: '10'
+                  type: post
+                  attributes:
+                    slug: oh-to-be-in-england
+                    published: true
+                    published_at: '2012-05-12T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: Oh! To be in England
+                    body: Molestiae qui laudantium. Consequatur aut cupiditate. Totam
+                      non magni.Et amet molestias. Fugiat architecto aliquam. Et et
+                      possimus.Aliquid nisi voluptatum. Voluptas illum animi. Corporis
+                      ipsam iusto.
+                    next_post_by_festival:
+                    previous_post_by_festival:
+                    image_url:
+                    creator: Annabel McDermott
+                - id: '11'
+                  type: post
+                  attributes:
+                    slug: waiting-for-the-barbarians
+                    published: true
+                    published_at: '2012-02-18T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: Waiting for the Barbarians
+                    body: Veritatis quibusdam magnam. Et quo quia. Corporis quidem
+                      ex.Laudantium quia veniam. Voluptatibus atque ut. Fugit maxime
+                      neque.Modi non facere. Voluptatem dicta qui. Dolor deserunt
+                      id.
+                    next_post_by_festival:
+                    previous_post_by_festival:
+                    image_url:
+                    creator: Jerrell Thompson
+                meta:
+                  total: 13
+                  pages: 2
+                links:
+                  first: http://www.example.com/v1/posts
+                  prev: http://www.example.com/v1/posts
+                  self: http://www.example.com/v1/posts?page[number]=2
+  "/v1/festivals/{festival_id}/posts":
+    parameters:
+    - name: festival_id
+      in: path
+      required: true
+      schema:
+        type: number
+    - name: page[number]
+      description: The page of results to return.
+      default: 1
+      required: false
+      in: query
+      schema:
+        type: number
+    - name: page[size]
+      description: The number of events per page to return. Defaults to 10.
+      default: 10
+      required: false
+      in: query
+      schema:
+        type: number
+    get:
+      summary: Retrieve all posts for a festival
+      description: Returns all published posts belonging to a festival.
+      tags:
+      - Posts
+      - Festivals
+      responses:
+        '200':
+          description: Festival posts retrieved
+          content:
+            application/json:
+              example:
+                data:
+                - id: '15'
+                  type: post
+                  attributes:
+                    slug: a-darkling-plain
+                    published: true
+                    published_at: '2020-12-24T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: A Darkling Plain
+                    body: Temporibus provident et. Dolorem libero beatae. Harum quia
+                      consequatur.Corrupti in sed. Et iure vero. Modi aut ut.Quis
+                      architecto totam. Vitae dolores sit. Voluptatum commodi tempora.
+                    next_post_by_festival:
+                    previous_post_by_festival:
+                      id: 17
+                      slug: no-highway
+                      subsite_id: 1
+                      published: true
+                      creator_id: 20
+                      last_modified_id:
+                      published_at: '2020-11-02T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.661Z'
+                      updated_at: '2021-11-22T18:37:59.661Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: No Highway
+                      body: Sequi id maiores. Id facilis similique. Quam nulla eligendi.Consequatur
+                        nemo qui. Qui et amet. Repellendus numquam aut.Quidem debitis
+                        rerum. Vel molestiae ut. Sed suscipit incidunt.
+                      excerpt:
+                    image_url:
+                    creator: Stefany Wiegand
+                - id: '17'
+                  type: post
+                  attributes:
+                    slug: no-highway
+                    published: true
+                    published_at: '2020-11-02T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: No Highway
+                    body: Sequi id maiores. Id facilis similique. Quam nulla eligendi.Consequatur
+                      nemo qui. Qui et amet. Repellendus numquam aut.Quidem debitis
+                      rerum. Vel molestiae ut. Sed suscipit incidunt.
+                    next_post_by_festival:
+                      id: 15
+                      slug: a-darkling-plain
+                      subsite_id: 1
+                      published: true
+                      creator_id: 18
+                      last_modified_id:
+                      published_at: '2020-12-24T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.244Z'
+                      updated_at: '2021-11-22T18:37:59.244Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: A Darkling Plain
+                      body: Temporibus provident et. Dolorem libero beatae. Harum
+                        quia consequatur.Corrupti in sed. Et iure vero. Modi aut ut.Quis
+                        architecto totam. Vitae dolores sit. Voluptatum commodi tempora.
+                      excerpt:
+                    previous_post_by_festival:
+                      id: 18
+                      slug: a-darkling-plain-c5627484-251d-4945-bc98-b34f80f2478e
+                      subsite_id: 1
+                      published: true
+                      creator_id: 21
+                      last_modified_id:
+                      published_at: '2020-05-14T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.869Z'
+                      updated_at: '2021-11-22T18:37:59.869Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: A Darkling Plain
+                      body: Molestiae deserunt aut. Explicabo ratione quae. Accusamus
+                        et consequatur.Fugit facere iste. Officia quas dolorum. Eveniet
+                        quam et.Accusantium velit in. Odit corrupti animi. Mollitia
+                        ratione at.
+                      excerpt:
+                    image_url:
+                    creator: Roxie Leuschke
+                - id: '18'
+                  type: post
+                  attributes:
+                    slug: a-darkling-plain-c5627484-251d-4945-bc98-b34f80f2478e
+                    published: true
+                    published_at: '2020-05-14T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: A Darkling Plain
+                    body: Molestiae deserunt aut. Explicabo ratione quae. Accusamus
+                      et consequatur.Fugit facere iste. Officia quas dolorum. Eveniet
+                      quam et.Accusantium velit in. Odit corrupti animi. Mollitia
+                      ratione at.
+                    next_post_by_festival:
+                      id: 17
+                      slug: no-highway
+                      subsite_id: 1
+                      published: true
+                      creator_id: 20
+                      last_modified_id:
+                      published_at: '2020-11-02T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.661Z'
+                      updated_at: '2021-11-22T18:37:59.661Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: No Highway
+                      body: Sequi id maiores. Id facilis similique. Quam nulla eligendi.Consequatur
+                        nemo qui. Qui et amet. Repellendus numquam aut.Quidem debitis
+                        rerum. Vel molestiae ut. Sed suscipit incidunt.
+                      excerpt:
+                    previous_post_by_festival:
+                      id: 16
+                      slug: those-barren-leaves-thrones-dominations
+                      subsite_id: 1
+                      published: true
+                      creator_id: 19
+                      last_modified_id:
+                      published_at: '2013-12-31T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.453Z'
+                      updated_at: '2021-11-22T18:37:59.453Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: Those Barren Leaves, Thrones, Dominations
+                      body: Cumque sapiente officia. Qui non omnis. Velit quibusdam
+                        sit.Aperiam vel sunt. Optio non quia. Ex rerum aut.Commodi
+                        deserunt qui. Itaque dolore atque. Ut consequatur facilis.
+                      excerpt:
+                    image_url:
+                    creator: Emmett Predovic
+                - id: '16'
+                  type: post
+                  attributes:
+                    slug: those-barren-leaves-thrones-dominations
+                    published: true
+                    published_at: '2013-12-31T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: Those Barren Leaves, Thrones, Dominations
+                    body: Cumque sapiente officia. Qui non omnis. Velit quibusdam
+                      sit.Aperiam vel sunt. Optio non quia. Ex rerum aut.Commodi deserunt
+                      qui. Itaque dolore atque. Ut consequatur facilis.
+                    next_post_by_festival:
+                      id: 18
+                      slug: a-darkling-plain-c5627484-251d-4945-bc98-b34f80f2478e
+                      subsite_id: 1
+                      published: true
+                      creator_id: 21
+                      last_modified_id:
+                      published_at: '2020-05-14T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.869Z'
+                      updated_at: '2021-11-22T18:37:59.869Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: A Darkling Plain
+                      body: Molestiae deserunt aut. Explicabo ratione quae. Accusamus
+                        et consequatur.Fugit facere iste. Officia quas dolorum. Eveniet
+                        quam et.Accusantium velit in. Odit corrupti animi. Mollitia
+                        ratione at.
+                      excerpt:
+                    previous_post_by_festival:
+                      id: 19
+                      slug: a-summer-bird-cage
+                      subsite_id: 1
+                      published: true
+                      creator_id: 22
+                      last_modified_id:
+                      published_at: '2011-08-21T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:38:00.095Z'
+                      updated_at: '2021-11-22T18:38:00.095Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: A Summer Bird-Cage
+                      body: Unde dolorum deleniti. Est ipsam ducimus. Aperiam facere
+                        deleniti.Porro aut et. Nesciunt iusto illum. Id aut ut.Similique
+                        aliquid rem. Voluptatem non nobis. Est reprehenderit vel.
+                      excerpt:
+                    image_url:
+                    creator: Denny Mills
+                - id: '19'
+                  type: post
+                  attributes:
+                    slug: a-summer-bird-cage
+                    published: true
+                    published_at: '2011-08-21T00:00:00.000Z'
+                    image:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    excerpt:
+                    image_width:
+                    image_height:
+                    registration_required:
+                    title: A Summer Bird-Cage
+                    body: Unde dolorum deleniti. Est ipsam ducimus. Aperiam facere
+                      deleniti.Porro aut et. Nesciunt iusto illum. Id aut ut.Similique
+                      aliquid rem. Voluptatem non nobis. Est reprehenderit vel.
+                    next_post_by_festival:
+                      id: 16
+                      slug: those-barren-leaves-thrones-dominations
+                      subsite_id: 1
+                      published: true
+                      creator_id: 19
+                      last_modified_id:
+                      published_at: '2013-12-31T00:00:00.000Z'
+                      wordpress_id:
+                      image:
+                        url:
+                        wide:
+                          url:
+                        twelvehundred:
+                          url:
+                        standard:
+                          url:
+                        logo:
+                          url:
+                        box:
+                          url:
+                        thumb:
+                          url:
+                      image_width:
+                      image_height:
+                      image_content_type:
+                      image_size:
+                      created_at: '2021-11-22T18:37:59.453Z'
+                      updated_at: '2021-11-22T18:37:59.453Z'
+                      wordpress_author:
+                      wordpress_scope:
+                      event_id:
+                      project_id:
+                      festival_id: 1
+                      external: false
+                      eventr_id:
+                      residency_id:
+                      registration_required:
+                      email_registrations_to:
+                      question_description:
+                      question_creators:
+                      question_motivation:
+                      email_template:
+                      max_attendees:
+                      tag_list: []
+                      title: Those Barren Leaves, Thrones, Dominations
+                      body: Cumque sapiente officia. Qui non omnis. Velit quibusdam
+                        sit.Aperiam vel sunt. Optio non quia. Ex rerum aut.Commodi
+                        deserunt qui. Itaque dolore atque. Ut consequatur facilis.
+                      excerpt:
+                    previous_post_by_festival:
+                    image_url:
+                    creator: Gordon Aufderhar
+                meta:
+                  total: 5
+                  pages: 1
+                links:
+                  self: http://www.example.com/v1/festivals/1/posts
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Festival with 'id'=324
+                  title: 404 Not found
+                  status: 404
+  "/v1/projects/{id}":
+    put:
+      summary: Update a project
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      description: Updates a project definition.
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: Project successfully updated.
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: project
+                  attributes:
+                    name: Updated project name
+                    slug: day-of-defeat
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:03.749Z'
+                    updated_at: '2021-11-22T18:38:03.846Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Project with 'id'=23423423
+                  title: 404 Not found
+                  status: 404
+        '422':
+          description: Invalid/unprocessible data
+          content:
+            application/json:
+              example:
+                errors:
+                - title: Name has already been taken
+                  status: 422
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+  "/v1/projects":
+    post:
+      summary: Create a project
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new project.
+      tags:
+      - Projects
+      responses:
+        '201':
+          description: Project has been created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '6'
+                  type: project
+                  attributes:
+                    name: Necronomicon
+                    slug: necronomicon
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:05.797Z'
+                    updated_at: '2021-11-22T18:38:05.797Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: "#f4ca5c"
+                    project_text_colour: "#4eaba4"
+                    active: true
+                    redirect_to:
+                    project_link_colour: "#1f406b"
+                    background_url:
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+    get:
+      summary: Retrieve all projects
+      description: Returns a paginated array of all projects in the database
+      parameters:
+      - name: page[number]
+        description: The page of results to return.
+        default: 1
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: page[size]
+        description: The number of events per page to return. Defaults to 10.
+        default: 10
+        required: false
+        in: query
+        schema:
+          type: number
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: Projects returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '7'
+                  type: project
+                  attributes:
+                    name: Day of the Tentacle
+                    slug: day-of-the-tentacle
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:06.694Z'
+                    updated_at: '2021-11-22T18:38:06.694Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+                - id: '8'
+                  type: project
+                  attributes:
+                    name: Grim Fandango
+                    slug: grim-fandango
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:06.705Z'
+                    updated_at: '2021-11-22T18:38:06.705Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+                - id: '9'
+                  type: project
+                  attributes:
+                    name: 'Mario Kart: Double Dash'
+                    slug: mario-kart-double-dash
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:06.716Z'
+                    updated_at: '2021-11-22T18:38:06.716Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+                - id: '10'
+                  type: project
+                  attributes:
+                    name: Highway Blossoms
+                    slug: highway-blossoms
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:06.743Z'
+                    updated_at: '2021-11-22T18:38:06.743Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+                - id: '11'
+                  type: project
+                  attributes:
+                    name: Super Mario World
+                    slug: super-mario-world
+                    website:
+                    parent_id:
+                    created_at: '2021-11-22T18:38:06.752Z'
+                    updated_at: '2021-11-22T18:38:06.752Z'
+                    evolvedfrom_id:
+                    evolution_year:
+                    project_bg_colour: f9ec31
+                    project_text_colour: '333'
+                    active: false
+                    redirect_to:
+                    project_link_colour: '008cba'
+                    background_url:
+                meta:
+                  total: 5
+                  pages: 1
+                links:
+                  self: http://www.example.com/v1/projects
+  "/v1/residencies/{id}":
+    put:
+      summary: Update a residency
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      description: Updates a residency.
+      tags:
+      - Residencies
+      responses:
+        '200':
+          description: Residency successfully updated.
+          content:
+            application/json:
+              example:
+                data:
+                  id: '1'
+                  type: residency
+                  attributes:
+                    name: Firstname Surname
+                    country: US
+                    start_at: '2020-12-01'
+                    end_at: '2020-12-15'
+                    is_micro: false
+                    photo:
+                      url: "/images/residency/photo/1/artist.jpg"
+                      wide:
+                        url: "/images/residency/photo/1/wide_artist.jpg"
+                      twelvehundred:
+                        url: "/images/residency/photo/1/twelvehundred_artist.jpg"
+                      standard:
+                        url: "/images/residency/photo/1/standard_artist.jpg"
+                      logo:
+                        url: "/images/residency/photo/1/logo_artist.jpg"
+                      box:
+                        url: "/images/residency/photo/1/box_artist.jpg"
+                      thumb:
+                        url: "/images/residency/photo/1/thumb_artist.jpg"
+                    project_id:
+                    user_id:
+                    country_override:
+                    photo_url: "/images/residency/photo/1/artist.jpg"
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+        '404':
+          description: Not found
+          content:
+            application/json:
+              example:
+                errors:
+                - detail: Couldn't find Residency with 'id'=23423423
+                  title: 404 Not found
+                  status: 404
+        '422':
+          description: Invalid/unprocessible data
+          content:
+            application/json:
+              example:
+                errors:
+                - title: Country You must either choose a country or specify text
+                    in the "country_override" field.
+                  status: 422
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/residency"
+  "/v1/residencies":
+    post:
+      summary: Create a residency
+      security:
+      - client: []
+        Access-Token: []
+        uid: []
+      parameters: []
+      description: Create a new residency.
+      tags:
+      - Residencies
+      responses:
+        '201':
+          description: Residency has been created
+          content:
+            application/json:
+              example:
+                data:
+                  id: '5'
+                  type: residency
+                  attributes:
+                    name: De Vermis Mysteriis
+                    country: ES
+                    start_at: '2019-01-21'
+                    end_at: '2021-12-09'
+                    is_micro: false
+                    photo:
+                      url:
+                      wide:
+                        url:
+                      twelvehundred:
+                        url:
+                      standard:
+                        url:
+                      logo:
+                        url:
+                      box:
+                        url:
+                      thumb:
+                        url:
+                    project_id:
+                    user_id:
+                    country_override:
+                    photo_url:
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              example:
+                errors:
+                - You need to sign in or sign up before continuing.
+        '403':
+          description: Not authorized
+          content:
+            application/json:
+              example:
+                errors:
+                - title: You are not authorised to do this
+                  status: 403
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/residency"
+    get:
+      summary: Retrieve all residencies
+      description: Returns a paginated array of all residencies in the database
+      parameters:
+      - name: page[number]
+        description: The page of results to return.
+        default: 1
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: page[size]
+        description: The number of events per page to return. Defaults to 10.
+        default: 10
+        required: false
+        in: query
+        schema:
+          type: number
+      tags:
+      - Residencies
+      responses:
+        '200':
+          description: Residencies returned
+          content:
+            application/json:
+              example:
+                data:
+                - id: '6'
+                  type: residency
+                  attributes:
+                    name: Leticia Vandervort
+                    country: US
+                    start_at: '2012-10-04'
+                    end_at: '2012-10-18'
+                    is_micro: true
+                    photo:
+                      url: "/images/residency/photo/6/artist.jpg"
+                      wide:
+                        url: "/images/residency/photo/6/wide_artist.jpg"
+                      twelvehundred:
+                        url: "/images/residency/photo/6/twelvehundred_artist.jpg"
+                      standard:
+                        url: "/images/residency/photo/6/standard_artist.jpg"
+                      logo:
+                        url: "/images/residency/photo/6/logo_artist.jpg"
+                      box:
+                        url: "/images/residency/photo/6/box_artist.jpg"
+                      thumb:
+                        url: "/images/residency/photo/6/thumb_artist.jpg"
+                    project_id:
+                    user_id:
+                    country_override:
+                    photo_url: "/images/residency/photo/6/artist.jpg"
+                - id: '7'
+                  type: residency
+                  attributes:
+                    name: Roscoe Ondricka
+                    country: US
+                    start_at: '2013-01-11'
+                    end_at: '2013-01-25'
+                    is_micro: true
+                    photo:
+                      url: "/images/residency/photo/7/artist.jpg"
+                      wide:
+                        url: "/images/residency/photo/7/wide_artist.jpg"
+                      twelvehundred:
+                        url: "/images/residency/photo/7/twelvehundred_artist.jpg"
+                      standard:
+                        url: "/images/residency/photo/7/standard_artist.jpg"
+                      logo:
+                        url: "/images/residency/photo/7/logo_artist.jpg"
+                      box:
+                        url: "/images/residency/photo/7/box_artist.jpg"
+                      thumb:
+                        url: "/images/residency/photo/7/thumb_artist.jpg"
+                    project_id:
+                    user_id:
+                    country_override:
+                    photo_url: "/images/residency/photo/7/artist.jpg"
+                - id: '8'
+                  type: residency
+                  attributes:
+                    name: Duncan Gorczany
+                    country: US
+                    start_at: '2020-12-25'
+                    end_at: '2021-01-08'
+                    is_micro: false
+                    photo:
+                      url: "/images/residency/photo/8/artist.jpg"
+                      wide:
+                        url: "/images/residency/photo/8/wide_artist.jpg"
+                      twelvehundred:
+                        url: "/images/residency/photo/8/twelvehundred_artist.jpg"
+                      standard:
+                        url: "/images/residency/photo/8/standard_artist.jpg"
+                      logo:
+                        url: "/images/residency/photo/8/logo_artist.jpg"
+                      box:
+                        url: "/images/residency/photo/8/box_artist.jpg"
+                      thumb:
+                        url: "/images/residency/photo/8/thumb_artist.jpg"
+                    project_id:
+                    user_id:
+                    country_override:
+                    photo_url: "/images/residency/photo/8/artist.jpg"
+                meta:
+                  total: 3
+                  pages: 1
+                links:
+                  self: http://www.example.com/v1/residencies
 servers:
 - url: https://{defaultHost}
   variables:

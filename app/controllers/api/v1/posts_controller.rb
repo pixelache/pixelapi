@@ -3,6 +3,7 @@
 module Api::V1
 
   class PostsController < ApiController
+    include Paginable
     before_action :authenticate_user!, only: %i[create update destroy]
     respond_to :json
     
@@ -24,33 +25,36 @@ module Api::V1
     def index
       if params[:festival_id]
         @festival = Festival.friendly.find(params[:festival_id])
-        @posts = Post.by_festival(@festival).published.order('published_at DESC').page(params[:page]).per(12)
-        render json: PostSerializer.new(@posts).serializable_hash.to_json, status: 200 
+        paginated = paginate(Post.by_festival(@festival).published.order('published_at DESC'))
+        render_collection(paginated)
       else
         if params[:archive_id]
           @year = params[:archive_id]
-          @posts = Post.by_site(@site).by_year(@year).published.order('published_at DESC').page(params[:page]).per(12)
+          paginated = paginate(Post.by_site(@site).by_year(@year).published.order('published_at DESC'))
         elsif params[:project_id]
           @project = Project.friendly.find(params[:project_id])
-          @posts = Kaminari.paginate_array(@project.self_and_descendants.visible.map{|x| x.posts.by_site(@site).published }.flatten.sort_by(&:published_at).reverse).page(params[:page]).per(12)
+          paginated = paginate(@project.self_and_descendants.visible.map{|x| x.posts.by_site(@site).published }.flatten.sort_by(&:published_at).reverse)
         elsif params[:residency_id]
           @residency = Residency.friendly.find(params[:residency_id])
           posts = @residency.posts.published
           posts += @residency.project.posts.published if @residency.project
-          @posts = Kaminari.paginate_array(posts.flatten.uniq.sort_by{|x| x.published_at}.reverse).page(params[:page]).per(12)
+          paginated = paginate(posts.flatten.uniq.sort_by{|x| x.published_at}.reverse)
+
         elsif params[:user_id]
           @user = User.friendly.find(params[:user_id])
-          @posts = Post.by_site(@site).by_user(@user.id).published.order('published_at DESC').page(params[:page]).per(12)
+          paginated = paginate(Post.by_site(@site).by_user(@user.id).published.order('published_at DESC'))
         else
-          @posts = Post.by_site(@site).published.order('published_at DESC').page(params[:page]).per(12)
+          @posts = Post.by_site(@site).published.order('published_at DESC')
 
           if @posts.empty?
             if @site.festival
-              @posts = Post.by_festival(@site.festival).published.order(published_at: :desc).page(params[:page]).per(12)
+              paginated = paginate(Post.by_festival(@site.festival).published.order(published_at: :desc))
             end
+          else
+            paginated = paginate(@posts)
           end
         end
-        render json: PostSerializer.new(@posts).serializable_hash.to_json, status: 200 
+        render_collection(paginated)
       end
     end
 
@@ -97,6 +101,12 @@ module Api::V1
            festivaltheme_ids: [],
             attachments_attributes: [:id, :documenttype_id, :attachedfile,
               :_destroy, :year_of_publication,  :title, :description, :public])
+    end
+
+    private
+
+    def serializer
+      PostSerializer
     end
   end
 end

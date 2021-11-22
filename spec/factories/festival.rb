@@ -6,7 +6,7 @@ FactoryBot.define do
     start_at { Faker::Date.backward(days: 4000) }
     website { Faker::Internet.url(host: 'pixelache.ac') }
     association :node
-    subtitle { Faker::Hipster.sentences(number: 1) }
+    subtitle { Faker::Hipster.sentence }
     background_colour { Faker::Color.hex_color}
     primary_colour { Faker::Color.hex_color }
     image { File.new(File.join(::Rails.root.to_s, 'spec/fixtures/images/festival.png')) }
@@ -14,7 +14,7 @@ FactoryBot.define do
     festivalbackdrop { File.new(File.join(::Rails.root.to_s, 'spec/fixtures/images/background.jpg')) }
     festival_location { Faker::Address.community }
     tertiary_colour { Faker::Color.hex_color }
-    overview_text_en { Faker::Lorem.paragraphs(number: 4) }
+    overview_text_en { Faker::Lorem.paragraphs(number: 4).join }
     trait :with_project do
       association :with_project
     end

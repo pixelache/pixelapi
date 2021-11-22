@@ -7,6 +7,6 @@ FactoryBot.define do
     sort_order { 1 }
     character_limit { nil }
     is_required { false }
-    question_text_en { Faker::Lorem.sentence }
+    question_text_en { Faker::Lorem.sentence[0] }
   end
 end

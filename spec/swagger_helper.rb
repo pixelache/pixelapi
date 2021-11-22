@@ -11,10 +11,13 @@ RSpec.configure do |config|
   config.include RswagExampleHelpers
   config.swagger_format = :yaml
   config.after do |example|
-    if example.metadata[:save_response] == true && !response.nil?
-      example.metadata[:response][:content] = { 'application/json' => { 'example' => JSON.parse(response.body, symbolize_names: true) } }
+    if respond_to?(:response) && response&.body.present?
+      if response.status != 204 && example.metadata[:save_response]
+        example.metadata[:response][:content] = {
+          'application/json' => { example: JSON.parse(response.body, symbolize_names: true) }
+        }
+      end
     end
-
     if example.metadata[:type] == :request && !example.metadata[:response].nil?
       # if response.body.length > 1
       #   example.metadata[:response][:examples] = { "application/json" => JSON.parse(response.body, symbolize_names: true) }

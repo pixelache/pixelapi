@@ -4,6 +4,11 @@ class Event < ActiveRecord::Base
   acts_as_taggable_on :tags, :technologies
   translates :name, :description, :notes, :fallbacks_for_empty_translations => true
   globalize_accessors locales: [:en, :fi], attributes: [:name, :description, :notes]
+
+  class Translation
+    validates :name, presence: true
+  end
+
   extend FriendlyId
   friendly_id :name_en , :use => [ :slugged, :finders ] # :history]
   has_paper_trail
@@ -38,7 +43,7 @@ class Event < ActiveRecord::Base
   attr_accessor  :place_name, :add_to_newsfeed
   
   validates_presence_of :subsite_id, :place_id, :start_at
-  
+  translation_class.validates :name, presence: true, if: -> (trans) { trans.locale == :en }
   before_save :update_image_attributes
   before_save :check_published
   
@@ -57,6 +62,7 @@ class Event < ActiveRecord::Base
   scope :by_year, -> year { where(["start_at >= ? AND start_at <= ?", year+"-01-01", year+"-12-31"])}
   scope :by_name, -> (name) { joins(:translations).select("DISTINCT events.* ").where("event_translations.name ILIKE '%" + name + "%'")}
   scope :streaming, -> () { where("stream_url is not null AND stream_url <> ''") }
+
 
   def all_documentation
     {"images" => [photos + archivalimages].flatten.uniq {|p| p.filename_identifier } ,
@@ -229,7 +235,7 @@ class Event < ActiveRecord::Base
   end
 
   private
-  
+
   def should_generate_new_friendly_id?
     changed?
   end

@@ -3,8 +3,10 @@
 module Api::V1
 
   class FestivalsController < ApiController
+    include Paginable
     respond_to :json
 
+     
     def page
       @festival = Festival.friendly.find(params[:id])
       if params[:page] =~ /\//
@@ -34,14 +36,20 @@ module Api::V1
     end
 
     def index
-      @festivals = Festival.published
-      render json: FestivalSerializer.new(@festivals).serializable_hash.to_json, status: 200 
+      paginated = paginate(Festival.published)
+      render_collection(paginated)
     end
     
 
     def show
       @festival = Festival.friendly.find(params[:id])
-      render json: FestivalSerializer.new(@festival).serializable_hash.to_json, status: 200 
+      render json: serializer.new(@festival).serializable_hash.to_json, status: 200 
+    end
+
+    private 
+
+    def serializer
+      FestivalSerializer
     end
   end
 end

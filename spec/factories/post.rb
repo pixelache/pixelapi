@@ -6,7 +6,7 @@ FactoryBot.define do
     published { [true, true, true, true, true, true, false].sample }
     association :creator, factory: :user
     title_en { Faker::Book.title }
-    body_en { Faker::Lorem.paragraphs(number: 3) }
+    body_en { Faker::Lorem.paragraphs(number: 3).join }
     published_at { Faker::Date.backward(days: 4000) }
     trait :project do
       transient do
