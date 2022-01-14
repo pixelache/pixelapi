@@ -11,7 +11,7 @@ RSpec.describe 'Memberships API' do
       tags 'Memberships'
       produces 'application/json'
       consumes 'application/json'
-      parameter name: :year, type: :number, description: 'The year to return memberships from', required: false,
+      parameter name: :by_year, type: :number, description: 'The year to return memberships from', required: false,
                 in: :query
       parameter name: 'page[number]', type: :number, description: 'The page of results to return.', default: 1,
                 required: false, in: :query

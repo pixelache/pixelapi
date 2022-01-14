@@ -5,7 +5,7 @@ module Api::V1
   class MembershipsController < ApiController
     include Paginable
     respond_to :json
-    has_scope :year
+    has_scope :by_year
     has_scope :paid, type: :boolean
 
     def serializer
