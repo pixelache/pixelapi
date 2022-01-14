@@ -24,7 +24,6 @@ FactoryBot.define do
       after(:create) do |post, evaluator|
         post.festival = evaluator.project
       end
-    end 
-
+    end
   end
 end

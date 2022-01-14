@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resources :opencalls do
         resources :opencallsubmissions
       end
+      resources :memberships
       resources :pages
       resources :posts
       resources :projects do

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :residency do
-    name { Faker::Name.name  }
+    name { Faker::Name.name }
     start_at { Faker::Date.backward(days: 4000) }
     country { Faker::Address.country_name_to_code }
 

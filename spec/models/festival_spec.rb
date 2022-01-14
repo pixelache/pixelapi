@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Festival, type: :model do
-
   before(:all) do
     Faker::UniqueGenerator.clear
   end
@@ -12,7 +13,6 @@ RSpec.describe Festival, type: :model do
   end
 
   context 'other tests' do
-
     it 'should have a valid factory' do
       expect(FactoryBot.build(:festival).save).to be true
     end

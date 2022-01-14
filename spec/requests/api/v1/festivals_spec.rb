@@ -46,7 +46,7 @@ RSpec.describe 'Festivals API' do
       end
 
       response 404, 'Not found', save_response: true do
-        let(:id) { festival.slug + '322' }
+        let(:id) { "#{festival.slug}322" }
         run_test!
       end
     end

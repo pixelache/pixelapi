@@ -17,5 +17,4 @@ RSpec.describe User, type: :model do
     user = FactoryBot.create(:user, :avatar)
     expect(user.avatar_url).not_to be nil
   end
-
 end

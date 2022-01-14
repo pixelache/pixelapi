@@ -9,6 +9,6 @@ FactoryBot.define do
     postcode { Faker::Address.postcode }
     country { Faker::Address.country_name_to_code }
     latitude { Faker::Address.latitude }
-    longitude { Faker::Address.longitude}
+    longitude { Faker::Address.longitude }
   end
 end

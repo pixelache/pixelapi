@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Contributor, type: :model do
-  
   before(:all) do
     Faker::UniqueGenerator.clear
   end

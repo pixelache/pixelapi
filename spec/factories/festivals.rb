@@ -7,7 +7,7 @@ FactoryBot.define do
     website { Faker::Internet.url(host: 'pixelache.ac') }
     association :node
     subtitle { Faker::Hipster.sentence }
-    background_colour { Faker::Color.hex_color}
+    background_colour { Faker::Color.hex_color }
     primary_colour { Faker::Color.hex_color }
     image { File.new(File.join(::Rails.root.to_s, 'spec/fixtures/images/festival.png')) }
     published { true }

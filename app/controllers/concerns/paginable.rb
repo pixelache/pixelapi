@@ -17,13 +17,13 @@ module Paginable
     params.permit(page: [:number,  :size])[:page]
   end
 
-  def render_collection(paginated)
-    options =
-      {
+  def render_collection(paginated, options = {})
+    options.merge!({
         meta: paginated.meta.to_h,
         links: paginated.links.to_h
-      }
-      result = serializer.new(paginated.items, options)
+      })
+    Rails.logger.error options.inspect
+    result = serializer.new(paginated.items, options)
     render json: result, status: :ok
   end
 end
