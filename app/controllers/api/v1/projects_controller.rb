@@ -7,7 +7,7 @@ module Api::V1
     before_action :authenticate_user!, only: %i[create update destroy]
     respond_to :json
     has_scope :roots, type: :boolean
-    has_scope :with_parent
+    has_scope :from_parent
 
     def create
       @project = Project.new(project_params)
