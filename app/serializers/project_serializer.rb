@@ -13,4 +13,10 @@ class ProjectSerializer
   attribute :children_ids do |proj|
     proj.children.map(&:id)
   end
+  attributes :evolvedfrom_name do |proj|
+    proj.evolvedfrom_id.present? ? proj.evolvedfrom.name : nil
+  end
+  attributes :evolvedto_name do |proj|
+    proj.evolvedto_id.present? ? proj.evolvedto.name : nil
+  end
 end
