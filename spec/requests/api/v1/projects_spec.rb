@@ -4,9 +4,32 @@ require 'swagger_helper'
 
 RSpec.describe 'Projects API', type: :request do
   path '/v1/projects/{id}' do
+
+    get 'Retrieve one project' do
+      parameter name: :id, in: :path, type: :number, required: true, description: 'The ID of the project to retrieve'
+      description 'Returns a single project from the database by ID'
+      tags 'Projects'
+      produces 'application/json'
+      consumes 'application/json'
+      let(:project) { create(:project) }
+      let(:id) { project.id }
+
+      response 200, 'Project returned', save_response: true do
+        run_test! do
+          expect(json['data']).not_to be nil
+        end
+      end
+
+      response 404, 'Not found', save_response: true do
+        let(:id) { project.id + 42323 }
+        run_test!
+      end
+    end
+
+
     put 'Update a project' do
       security [client: [], 'Access-Token': [], uid: []]
-      parameter name: :id, in: :path, type: :string, required: true
+      parameter name: :id, in: :path, type: :string, required: true, description: 'The ID of the project to update'
       parameter name: :project, in: :body, schema: { '$ref': '#/components/schemas/project' }
       description 'Updates a project definition.'
       tags 'Projects'
@@ -105,6 +128,8 @@ RSpec.describe 'Projects API', type: :request do
                 required: false, in: :query
       parameter name: 'page[size]', type: :number,
                 description: 'The number of events per page to return. Defaults to 10.', default: 10, required: false, in: :query
+      parameter name: :roots, in: :query, type: :boolean, default: false, required: false, description: 'If true, only return projects that are not descended or evolved from other projects'
+      let(:roots) { false }
       tags 'Projects'
       produces 'application/json'
       consumes 'application/json'

@@ -62,6 +62,7 @@ gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'carrierwave-base64'
 gem 'closure_tree'
+gem 'counter_culture', '~> 2.0'
 gem 'devise'#, github: 'heartcombo/devise', branch: :master
 gem 'devise_token_auth'#, github: 'lynndylanhurley/devise_token_auth', branch: :master
 gem 'ed25519'

@@ -6,6 +6,7 @@ module Api::V1
     include Paginable
     before_action :authenticate_user!, only: %i[create update destroy]
     respond_to :json
+    has_scope :roots, type: :boolean
 
     def create
       @project = Project.new(project_params)
@@ -20,8 +21,13 @@ module Api::V1
       end
     end
 
+    def show
+      @project = Project.find(params[:id])
+      render json: serializer.new(@project).serializable_hash.to_json, status: 200
+    end
+
     def index
-      paginated = paginate(Project.visible)
+      paginated = paginate(apply_scopes(Project.visible))
       render_collection(paginated)
     end
 
