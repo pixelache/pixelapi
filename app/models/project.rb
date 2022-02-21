@@ -37,6 +37,7 @@ class Project < ActiveRecord::Base
   end
 
   # scopes
+  scope :from_parent, ->(id) { where(parent_id: id) }
   scope :roots, -> () { where(parent_id: nil, evolvedfrom_id: nil) }
   scope :active, -> () { where(active: true) }
   scope :inactive, -> () { where(active: false) }
