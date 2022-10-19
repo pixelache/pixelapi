@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_05_074452) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_080106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "archivalimage_translations", id: :serial, force: :cascade do |t|
     t.integer "archivalimage_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "caption", limit: 255
     t.index ["archivalimage_id"], name: "index_archivalimage_translations_on_archivalimage_id"
     t.index ["locale"], name: "index_archivalimage_translations_on_locale"
@@ -38,8 +37,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "flickr_id"
     t.integer "project_id"
     t.string "credit", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.date "image_date"
     t.boolean "cover_right", default: false, null: false
     t.index ["event_id"], name: "index_archivalimages_on_event_id"
@@ -57,8 +56,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "title", limit: 255
     t.text "description"
     t.boolean "public"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "documenttype_id"
     t.integer "year_of_publication"
     t.integer "event_id"
@@ -95,8 +94,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "event_id"
     t.integer "festival_id"
     t.string "slug", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "item_id"
     t.string "item_type", limit: 255
     t.boolean "waiting_list"
@@ -109,8 +108,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "user_id"
     t.string "provider", limit: 255
     t.string "uid", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "username", limit: 255
     t.index ["user_id", "provider", "uid"], name: "index_authentications_on_user_id_and_provider_and_uid", unique: true
     t.index ["user_id"], name: "index_authentications_on_user_id"
@@ -125,8 +124,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "type", limit: 30
     t.integer "width"
     t.integer "height"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "wordpress_url"
     t.boolean "missing", default: false, null: false
     t.index ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
@@ -146,8 +145,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "attachment", limit: 255
     t.integer "attachment_size"
     t.string "attachment_content_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["item_id", "item_type"], name: "index_comments_on_item_id_and_item_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -164,8 +163,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.bigint "contributor_id", null: false
     t.string "relation_type", null: false
     t.bigint "relation_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["contributor_id"], name: "index_contributor_relations_on_contributor_id"
     t.index ["relation_type", "relation_id"], name: "index_contributor_relations_on_relation"
   end
@@ -183,8 +182,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.bigint "user_id"
     t.integer "parent_id"
     t.string "slug"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_member", default: false, null: false
     t.index ["user_id"], name: "index_contributors_on_user_id"
   end
@@ -192,8 +191,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "document_translations", id: :serial, force: :cascade do |t|
     t.integer "document_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "title"
     t.text "description"
     t.index ["document_id"], name: "index_document_translations_on_document_id"
@@ -203,8 +202,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "documents", id: :serial, force: :cascade do |t|
     t.date "date_of_release"
     t.integer "subsite_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "documenttype_hierarchies", id: false, force: :cascade do |t|
@@ -218,8 +217,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "documenttypes", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.integer "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "dynamictaglines", id: :serial, force: :cascade do |t|
@@ -228,8 +227,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.text "electronic"
     t.text "art"
     t.text "subcultures"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["subsite_id"], name: "index_dynamictaglines_on_subsite_id"
   end
 
@@ -237,9 +236,9 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "name", limit: 255
     t.string "read_only_id", limit: 255
     t.boolean "deleted", default: false, null: false
-    t.datetime "last_edited"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "last_edited", precision: nil
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.boolean "private_pad"
     t.integer "documenttype_id"
   end
@@ -276,8 +275,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "event_translations", id: :serial, force: :cascade do |t|
     t.integer "event_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", limit: 255
     t.text "description"
     t.text "notes"
@@ -288,8 +287,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "events", id: :serial, force: :cascade do |t|
     t.integer "subsite_id"
     t.integer "place_id"
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.boolean "published"
     t.string "image", limit: 255
     t.integer "image_width"
@@ -300,8 +299,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.float "cost"
     t.float "cost_alternate"
     t.string "cost_alternate_reason", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "slug", limit: 255
     t.string "facilitator_name", limit: 255
     t.string "facilitator_url", limit: 255
@@ -346,10 +345,10 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.text "special_instructions"
     t.string "email"
     t.string "when_text"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "title"
     t.float "latitude"
     t.float "longitude"
@@ -368,8 +367,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "sourceid", null: false
     t.boolean "official", default: false, null: false
     t.boolean "hashtag", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["sourceid", "source"], name: "index_feedcaches_on_sourceid_and_source", unique: true
     t.index ["user_id"], name: "index_feedcaches_on_user_id"
   end
@@ -378,11 +377,11 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "item_type", limit: 255
     t.integer "item_id"
     t.integer "subsite_id"
-    t.datetime "fed_at"
+    t.datetime "fed_at", precision: nil
     t.string "action", limit: 255
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["item_id"], name: "index_feeds_on_item_id"
     t.index ["subsite_id"], name: "index_feeds_on_subsite_id"
     t.index ["user_id"], name: "index_feeds_on_user_id"
@@ -391,8 +390,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "festival_translations", id: :serial, force: :cascade do |t|
     t.integer "festival_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "overview_text"
     t.index ["festival_id"], name: "index_festival_translations_on_festival_id"
     t.index ["locale"], name: "index_festival_translations_on_locale"
@@ -405,8 +404,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "website", limit: 255
     t.string "slug", limit: 255
     t.integer "node_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "subtitle", limit: 255
     t.string "image", limit: 255
     t.integer "image_height"
@@ -438,8 +437,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "festivaltheme_translations", id: :serial, force: :cascade do |t|
     t.integer "festivaltheme_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", limit: 255
     t.text "description"
     t.text "short_description"
@@ -449,8 +448,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
 
   create_table "festivalthemes", id: :serial, force: :cascade do |t|
     t.integer "festival_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "slug", limit: 255
     t.string "image"
     t.bigint "image_file_size"
@@ -470,8 +469,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "event_id"
     t.integer "project_id"
     t.integer "festival_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "flickr_user", limit: 255, default: "91330886@N08", null: false
     t.index ["event_id"], name: "index_flickrsets_on_event_id"
     t.index ["festival_id"], name: "index_flickrsets_on_festival_id"
@@ -485,7 +484,7 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope", limit: 255
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -495,8 +494,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "frontitem_translations", id: :serial, force: :cascade do |t|
     t.integer "frontitem_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "custom_title"
     t.string "custom_follow_text"
     t.index ["frontitem_id"], name: "index_frontitem_translations_on_frontitem_id"
@@ -512,8 +511,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "text_colour", limit: 255, default: "FFFFFF", null: false
     t.boolean "active"
     t.integer "frontmodule_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "subsite_id"
     t.string "bigimage", limit: 255
     t.integer "bigimage_size"
@@ -534,43 +533,43 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "frontmodules", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "partial_name", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "exampleimage", limit: 255
   end
 
   create_table "meeting_translations", id: :serial, force: :cascade do |t|
     t.integer "meeting_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.index ["locale"], name: "index_meeting_translations_on_locale"
     t.index ["meeting_id"], name: "index_meeting_translations_on_meeting_id"
   end
 
   create_table "meetings", id: :serial, force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "end_at"
+    t.datetime "start_at", precision: nil
+    t.datetime "end_at", precision: nil
     t.integer "meetingtype_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["meetingtype_id"], name: "index_meetings_on_meetingtype_id"
   end
 
   create_table "meetingtype_translations", id: :serial, force: :cascade do |t|
     t.integer "meetingtype_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.index ["locale"], name: "index_meetingtype_translations_on_locale"
     t.index ["meetingtype_id"], name: "index_meetingtype_translations_on_meetingtype_id"
   end
 
   create_table "meetingtypes", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "memberships", id: :serial, force: :cascade do |t|
@@ -580,8 +579,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.boolean "hallitus"
     t.boolean "hallitus_alternate"
     t.string "notes", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["user_id", "year"], name: "index_memberships_on_user_id_and_year", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
@@ -589,8 +588,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "node_translations", id: :serial, force: :cascade do |t|
     t.integer "node_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.index ["locale"], name: "index_node_translations_on_locale"
     t.index ["node_id"], name: "index_node_translations_on_node_id"
@@ -607,8 +606,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "logo_height"
     t.integer "logo_width"
     t.bigint "logo_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "nodes_subsites", id: false, force: :cascade do |t|
@@ -619,8 +618,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "opencall_translations", force: :cascade do |t|
     t.integer "opencall_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "description"
     t.index ["locale"], name: "index_opencall_translations_on_locale"
     t.index ["opencall_id"], name: "index_opencall_translations_on_opencall_id"
@@ -633,8 +632,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "attachment_file_name"
     t.integer "attachment_file_size"
     t.string "attachment_content_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "attachment"
     t.index ["opencallquestion_id"], name: "index_opencallanswers_on_opencallquestion_id"
     t.index ["opencallsubmission_id", "opencallquestion_id"], name: "ocqs_index", unique: true
@@ -644,8 +643,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "opencallquestion_translations", id: :serial, force: :cascade do |t|
     t.integer "opencallquestion_id", null: false
     t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "question_text"
     t.index ["locale"], name: "index_opencallquestion_translations_on_locale"
     t.index ["opencallquestion_id"], name: "index_opencallquestion_translations_on_opencallquestion_id"
@@ -657,8 +656,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "sort_order"
     t.integer "character_limit"
     t.boolean "is_required", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["opencall_id"], name: "index_opencallquestions_on_opencall_id"
   end
 
@@ -669,10 +668,10 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "page_id"
     t.text "submitted_text"
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
-    t.datetime "closing_date"
+    t.datetime "closing_date", precision: nil
     t.index ["page_id"], name: "index_opencalls_on_page_id"
     t.index ["subsite_id"], name: "index_opencalls_on_subsite_id"
   end
@@ -687,8 +686,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "postcode"
     t.string "country"
     t.string "website"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "comment_count", default: 0
     t.index ["opencall_id"], name: "index_opencallsubmissions_on_opencall_id"
   end
@@ -704,8 +703,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "page_translations", id: :serial, force: :cascade do |t|
     t.integer "page_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", limit: 255
     t.text "body"
     t.index ["locale"], name: "index_page_translations_on_locale"
@@ -716,8 +715,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.text "slug"
     t.integer "subsite_id"
     t.boolean "published"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "parent_id"
     t.integer "wordpress_id"
     t.string "wordpress_author", limit: 255
@@ -726,7 +725,7 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "project_id"
     t.integer "sort_order"
     t.integer "festivaltheme_id"
-    t.datetime "child_updated_at"
+    t.datetime "child_updated_at", precision: nil
     t.integer "opencall_id"
     t.index ["festival_id"], name: "index_pages_on_festival_id"
     t.index ["project_id"], name: "index_pages_on_project_id"
@@ -739,8 +738,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "filename_content_type", limit: 255
     t.bigint "filename_size"
     t.integer "wordpress_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "item_type", limit: 255
     t.integer "item_id"
     t.string "wordpress_scope", limit: 255
@@ -753,8 +752,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "place_translations", id: :serial, force: :cascade do |t|
     t.integer "place_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "name", limit: 255
     t.index ["locale"], name: "index_place_translations_on_locale"
     t.index ["place_id"], name: "index_place_translations_on_place_id"
@@ -768,8 +767,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "postcode", limit: 255
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "slug", limit: 255
   end
 
@@ -777,15 +776,15 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "name", limit: 255
     t.integer "wordpress_id"
     t.string "slug", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "post_translations", id: :serial, force: :cascade do |t|
     t.integer "post_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "title", limit: 255
     t.text "body"
     t.text "excerpt"
@@ -799,15 +798,15 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.boolean "published"
     t.integer "creator_id"
     t.integer "last_modified_id"
-    t.datetime "published_at"
+    t.datetime "published_at", precision: nil
     t.integer "wordpress_id"
     t.string "image", limit: 255
     t.integer "image_width"
     t.integer "image_height"
     t.string "image_content_type", limit: 255
     t.bigint "image_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "wordpress_author", limit: 255
     t.string "wordpress_scope", limit: 255
     t.integer "event_id"
@@ -842,8 +841,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "project_translations", id: :serial, force: :cascade do |t|
     t.integer "project_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.string "short_description"
     t.index ["locale"], name: "index_project_translations_on_locale"
@@ -874,8 +873,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "when_will_it_end", limit: 255
     t.text "why"
     t.string "slug", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "comment_count", default: 0
     t.integer "offspring_id"
     t.boolean "archived", default: false, null: false
@@ -888,8 +887,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "name", limit: 255
     t.string "slug", limit: 255
     t.integer "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "website", limit: 255
     t.integer "evolvedfrom_id"
     t.integer "evolution_year"
@@ -922,8 +921,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "slug", limit: 255
     t.integer "project_id"
     t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "country_override", limit: 255
     t.index ["project_id"], name: "index_residencies_on_project_id"
     t.index ["user_id"], name: "index_residencies_on_user_id"
@@ -932,8 +931,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "residency_translations", id: :serial, force: :cascade do |t|
     t.integer "residency_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.index ["locale"], name: "index_residency_translations_on_locale"
     t.index ["residency_id"], name: "index_residency_translations_on_residency_id"
@@ -943,8 +942,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "name", limit: 255
     t.integer "resource_id"
     t.string "resource_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
   end
@@ -952,8 +951,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "step_translations", id: :serial, force: :cascade do |t|
     t.integer "step_id", null: false
     t.string "locale", limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.index ["locale"], name: "index_step_translations_on_locale"
     t.index ["step_id"], name: "index_step_translations_on_step_id"
@@ -969,8 +968,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "number"
     t.integer "event_id"
     t.string "slug", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.text "description"
     t.index ["event_id"], name: "index_steps_on_event_id"
     t.index ["festival_id"], name: "index_steps_on_festival_id"
@@ -983,8 +982,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "item_id"
     t.string "item_type"
     t.string "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["item_type", "item_id"], name: "index_subscriptions_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
@@ -993,8 +992,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "name", limit: 255
     t.string "description", limit: 255
     t.string "subdomain", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -1004,7 +1003,7 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "tagger_id"
     t.string "tagger_type", limit: 255
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -1025,15 +1024,15 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "email", limit: 255, default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "encrypted_password", limit: 255, default: "", null: false
     t.string "reset_password_token", limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip", limit: 255
     t.string "last_sign_in_ip", limit: 255
     t.string "username", limit: 255
@@ -1047,8 +1046,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "uid", default: "", null: false
     t.text "tokens"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -1068,14 +1067,14 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.string "event", limit: 255, null: false
     t.string "whodunnit", limit: 255
     t.text "object"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   create_table "videohosts", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "videos", id: :serial, force: :cascade do |t|
@@ -1095,8 +1094,8 @@ ActiveRecord::Schema.define(version: 2021_06_05_074452) do
     t.integer "video_height"
     t.integer "duration"
     t.boolean "published"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.integer "videohost_id", null: false
     t.index ["event_id"], name: "index_videos_on_event_id"
     t.index ["festival_id"], name: "index_videos_on_festival_id"

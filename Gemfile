@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.1.6' #github: 'rails/rails', branch: '6-0-stable'
+gem 'rails', '7.0.4' #6.1.6.1' #github: 'rails/rails', branch: '6-0-stable'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma'
@@ -35,7 +35,7 @@ end
 group :development do
   gem 'letter_opener'
   gem 'bullet'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'# , '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'rubocop-faker'
   gem 'spring'
@@ -64,7 +64,7 @@ gem 'carrierwave-base64'
 gem 'closure_tree'
 gem 'counter_culture', '~> 2.0'
 gem 'devise'#, github: 'heartcombo/devise', branch: :master
-gem 'devise_token_auth'#, github: 'lynndylanhurley/devise_token_auth', branch: :master
+gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth' #, branch: :master
 gem 'ed25519'
 gem 'etherpad-lite'
 gem 'figaro'
@@ -74,7 +74,7 @@ gem 'friendly_id', '~> 5.4.0'
 # gem 'friendly_id-globalize'
 gem 'geocoder'
 gem 'gibbon'
-gem 'globalize', github: 'globalize/globalize', branch: 'master'
+gem 'globalize', '~> 6.2.1'#, github: 'globalize/globalize', branch: 'master'
 gem 'globalize-accessors'
 gem 'has_scope'
 gem 'hcaptcha'
@@ -85,6 +85,7 @@ gem 'jsonapi-serializer'
 # gem 'kaminari'
 gem 'mail_form'
 gem 'mini_magick'
+gem 'net-smtp'
 gem 'oauth-client'
 gem 'omniauth-facebook' #, '1.4.0'
 gem 'omniauth-google-oauth2'
@@ -96,6 +97,7 @@ gem 'rack-utf8_sanitizer'
 gem 'randumb'
 gem 'redis-rails', '~> 5.0.1'
 gem 'redis'
+gem 'rexml'
 gem 'rest-client'
 gem 'rolify'
 gem 'rollbar'

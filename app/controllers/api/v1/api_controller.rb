@@ -5,6 +5,7 @@ module Api::V1
   class ApiController < ApplicationController
     include DeviseTokenAuth::Concerns::SetUserByToken
     include Pagy::Backend
+    include RackSessionFix
     before_action :get_locale
     before_action :get_site
 
