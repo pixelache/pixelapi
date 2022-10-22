@@ -20,7 +20,8 @@ set :puma_error_log,  "#{release_path}/log/puma.access.log"
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false
-
+set :puma_systemctl_user, :system
+set :puma_service_unit_name, "#{fetch(:application)}_puma_#{fetch(:stage)}"
 
 set :rails_env, 'production'
 set :migrate_env, 'production'

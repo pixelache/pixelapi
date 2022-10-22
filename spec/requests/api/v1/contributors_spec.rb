@@ -141,9 +141,9 @@ RSpec.describe 'Contributors API', type: :request do
   end
 
   path '/v1/contributors/{id}' do
-    parameter name: :id, in: :path, type: :number, required: true
+    parameter name: :id, in: :path, type: :string, required: true, description: 'The ID # or database slug of a contributor to retrieve'
     get 'Retrieve a single contributor' do
-      description 'Retrieves a single contributor from the datbase.'
+      description 'Retrieves a single contributor from the database by ID # or slug.'
       tags 'Contributors'
       produces 'application/json'
       consumes 'application/json'
