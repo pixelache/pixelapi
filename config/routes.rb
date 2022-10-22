@@ -8,8 +8,10 @@ Rails.application.routes.draw do
       resources :contributors
       resources :events do
         resources :attendees
+        resources :contributors
       end
       resources :festivals do
+        resources :contributors
         resources :events
         resources :festivalthemes do
           resources :contributors
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
       resources :pages
       resources :posts
       resources :projects do
+        resources :contributors
         resources :posts
       end
       resources :residencies

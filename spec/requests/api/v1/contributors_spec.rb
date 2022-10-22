@@ -3,6 +3,143 @@
 require 'swagger_helper'
 
 RSpec.describe 'Contributors API', type: :request do
+
+  path '/v1/projects/{project_id}/contributors' do
+    parameter name: :project_id, in: :path, type: :number, required: true
+    get 'Retrieve all contributors for a project' do
+      parameter name: 'page[number]', type: :number, description: 'The page of results to return.', default: 1, required: false, in: :query
+      parameter name: 'page[size]', type: :number, description: 'The number of contributors per page to return. Defaults to 10.', default: 10, required: false, in: :query
+      description 'Retrieves all contributors for a project. Requires the project ID and will be paginated 10 per page by default.'
+      tags 'Contributors', 'Projects'
+      produces 'application/json'
+      consumes 'application/json'
+      let(:project) { create(:project) }
+      let(:project_id) { project.id }
+      
+      before do
+        #  create > 10 contributors for the festival
+        cs = create_list(:contributor, 13)
+        cs.each do |c|
+          c.projects << project
+        end
+      end
+
+      response 200, 'Contributors successfully retrieved.', save_response: true do
+        let('page[number]') { 2 }
+        run_test! do |response|
+          expect(json['data'].count).to eq 3
+        end
+      end
+
+      response 404, 'Not found', save_response: true do
+        let(:project_id) { 23_423_423 }
+        run_test!
+      end
+    end
+  end
+
+  path '/v1/events/{event_id}/contributors' do
+    parameter name: :event_id, in: :path, type: :number, required: true
+    get 'Retrieve all contributors for an event' do
+      description 'Retrieves all contributors for an event. Not paginated.'
+      tags 'Contributors', 'Events'
+      produces 'application/json'
+      consumes 'application/json'
+      let(:event) { create(:event) }
+      let(:event_id) { event.id }
+      
+      before do
+        #  create > 10 contributors for the festival
+        cs = create_list(:contributor, 3)
+        cs.each do |c|
+          c.events << event
+        end
+      end
+
+      response 200, 'Contributors successfully retrieved.', save_response: true do
+        run_test! do |response|
+          expect(json['data'].count).to eq 3
+        end
+      end
+
+      response 404, 'Not found', save_response: true do
+        let(:event_id) { 23_423_423 }
+        run_test!
+      end
+    end
+  end
+
+  path '/v1/festivals/{festival_id}/contributors' do
+    parameter name: :festival_id, in: :path, type: :number, required: true
+    get 'Retrieve all contributors for a festival' do
+      parameter name: 'page[number]', type: :number, description: 'The page of results to return.', default: 1, required: false, in: :query
+      parameter name: 'page[size]', type: :number, description: 'The number of contributors per page to return. Defaults to 10.', default: 10, required: false, in: :query
+      description 'Retrieves all contributors for a festival (regardless of themes). Requires the festival ID and will be paginated 10 per page by default.'
+      tags 'Contributors', 'Festivals'
+      produces 'application/json'
+      consumes 'application/json'
+      let(:festival) { create(:festival) }
+      let(:festival_id) { festival.id }
+      
+      before do
+        #  create > 10 contributors for the festival
+        cs = create_list(:contributor, 13)
+        cs.each do |c|
+          c.festivals << festival
+        end
+      end
+
+      response 200, 'Contributors successfully retrieved.', save_response: true do
+        run_test! do |response|
+          expect(json['data'].count).to eq 10
+        end
+      end
+
+      response 404, 'Not found', save_response: true do
+        let(:festival_id) { 23_423_423 }
+        run_test!
+      end
+    end
+  end
+
+  path '/v1/festivals/{festival_id}/festivalthemes/{id}/contributors' do
+    parameter name: :festival_id, in: :path, type: :number, required: true
+    parameter name: :id, in: :path, type: :number, required: true
+    get 'Retrieve all contributors for a festival theme' do
+      description 'Retrieves all contributors for a festival theme. Requires the festival ID and festival theme ID in the path.'
+      tags 'Contributors', 'Festivals'
+      produces 'application/json'
+      consumes 'application/json'
+      let(:festival) { create(:festival) }
+      let(:festival_theme) { create(:festivaltheme, festival: festival) }
+      let(:festival_id) { festival.id }
+      let(:id) { festival_theme.id }
+      #  create an event for the festival
+      let(:event) { create(:event, :with_festival, festival: festival) }
+      
+      before do
+        event.festivalthemes << festival_theme
+        cs = create_list(:contributor, 3)
+        cs.each do |c|
+          c.events << event
+          c.festivalthemes << festival_theme
+        end
+      end
+
+      response 200, 'Contributors successfully retrieved.', save_response: true do
+        run_test! do |response|
+          expect(json['data'].count).to eq 3
+        end
+      end
+
+      response 404, 'Not found', save_response: true do
+        let(:id) { 23_423_423 }
+        run_test!
+      end
+    end
+
+  end
+
   path '/v1/contributors/{id}' do
     parameter name: :id, in: :path, type: :number, required: true
     get 'Retrieve a single contributor' do
@@ -139,6 +276,9 @@ RSpec.describe 'Contributors API', type: :request do
     end
 
     get 'Retrieve all contributors' do
+      parameter name: 'page[number]', type: :number, description: 'The page of results to return.', default: 1, required: false, in: :query
+      parameter name: 'page[size]', type: :number, description: 'The number of contributors per page to return. Defaults to 10.', default: 10, required: false, in: :query
+
       description 'Returns an array of all contributors in the database'
       tags 'Contributors'
       produces 'application/json'

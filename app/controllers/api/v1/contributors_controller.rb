@@ -3,6 +3,7 @@
 module Api::V1
 
   class ContributorsController < ApiController
+    include Paginable
     before_action :authenticate_user!, only: %i[create update destroy]
     respond_to :json
 
@@ -33,16 +34,28 @@ module Api::V1
     end
       
     def index
-      if params[:festival_id]
+      if params[:festival_id]   # return unpaginated contributors for festivaltheme
         @festival = Festival.friendly.find(params[:festival_id])
         if params[:festivaltheme_id]
           @festivaltheme = @festival.festivalthemes.includes(:contributors).friendly.find(params[:festivaltheme_id])
           @contributors = @festivaltheme.contributors.order(:alphabetical_name)
           render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200
+        else  # return all contributors for the festival, paginated
+          paginated = paginate(@festival.contributors.order(:alphabetical_name))
+          render_collection(paginated, { include: Contributor::JSON_RELATIONS})
         end
+      elsif params[:project_id]
+        @project = Project.friendly.find(params[:project_id])
+        paginated = paginate(@project.contributors.order(:alphabetical_name))
+        render_collection(paginated, { include: Contributor::JSON_RELATIONS})
+      elsif params[:event_id]
+        @event = Event.friendly.find(params[:event_id])
+        @contributors = @event.contributors.order(:alphabetical_name)
+          render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200
       else
-        @contributors = Contributor.all.order(:alphabetical_name)
-        render json: ContributorSerializer.new(@contributors, include: Contributor::JSON_RELATIONS).serializable_hash.to_json, status: 200 
+        paginated = paginate(Contributor.all.order(:alphabetical_name))
+        render_collection(paginated, { include: Contributor::JSON_RELATIONS})
+        # render json: ContributorSerializer.new(@contributors, ).serializable_hash.to_json, status: 200 
       end
     end
 
@@ -70,6 +83,8 @@ module Api::V1
     def contributor_params
       params.require(:contributor).permit(:name, :slug, :parent_id, :image, :alphabetical_name, :bio, :website, :is_member, :user_id, project_ids: [], event_ids: [], festival_ids: [], festivaltheme_ids: [], residency_ids: [])
     end
-    
+    def serializer
+      ContributorSerializer
+    end
   end
 end
